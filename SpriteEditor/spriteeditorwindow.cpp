@@ -1,35 +1,31 @@
 #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
-
+#include "frame.h"
+#include <QDebug>
 SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteEditorWindow)
 {
     ui->setupUi(this);
 
-    QImage image(300, 300, QImage::Format_RGB32);
-
+    Frame myFrame= Frame();
+    QImage image = myFrame.getImage();
     QRgb gold;
-
     gold = qRgb(189, 149, 39);
-
-    for (int x = 0; x < 100; x++)
+    int* points  = myFrame.getPixelOfCoordinates(10,10);
+    qDebug() << points[0];
+    qDebug() << points[1];
+    qDebug() << points[2];
+    qDebug() << points[3];
+    for (int x = points[0]; x < points[1]; x++)
     {
-        for (int y = 0; y < 100; y++)
+
+        for (int y = points[2]; y < points[3]; y++)
         {
             image.setPixel(x, y, gold);
         }
     }
 
-    QRgb green = qRgb(122, 163, 39);
-
-    for (int x = 0; x < 100; x++)
-    {
-        for (int y = 200; y < 300; y++)
-        {
-            image.setPixel(x, y, green);
-        }
-    }
 
     QGraphicsScene *graphic = new QGraphicsScene(this);
     graphic->addPixmap(QPixmap::fromImage(image));

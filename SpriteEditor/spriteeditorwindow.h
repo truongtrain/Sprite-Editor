@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class DrawArea;
+
 namespace Ui {
 class SpriteEditorWindow;
 }
@@ -17,6 +19,7 @@ public:
 
 private:
     Ui::SpriteEditorWindow *ui;
+    DrawArea *drawArea;
 };
 
 #endif // SPRITEEDITORWINDOW_H

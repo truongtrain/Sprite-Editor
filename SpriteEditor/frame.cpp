@@ -2,7 +2,7 @@
 #include <QDebug>
 Frame::Frame()
 {
-    image= QImage(350,350,QImage::Format_RGB32);
+    image= QImage(900,900,QImage::Format_RGB32);
     currentPixelSize=30;
 //    painter = QPainter(&image);
 
@@ -69,7 +69,7 @@ void Frame::drawGrid()
     painter.setPen(pen);
     for(int i = 0; i<=(image.height()/this->getCurrentPixelSize()); i++)
     {
-        painter.drawLine(0,i*this->getCurrentPixelSize(),300,i*this->getCurrentPixelSize());
+        painter.drawLine(0,i*this->getCurrentPixelSize(),900,i*this->getCurrentPixelSize());
     }
     for(int i = 0; i<=(image.width()/this->getCurrentPixelSize()); i++)
     {

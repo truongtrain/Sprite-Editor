@@ -1,18 +1,20 @@
 #ifndef FRAME_H
 #define FRAME_H
 #include <QMainWindow>
-
+#include <QPainter>
 class Frame
 {
     QImage image;
     Frame* nextFrame;
     Frame* previousFrame;
     int currentPixelSize;
+//    QPainter painter;
 
 public:
     Frame();
-
-    QImage getImage();
+    void drawGrid();
+//    QPainter getPainter();
+    QImage& getImage();
     // newSize must be one of these numbers: 1,2,3,4,6,8,9,12,18,24,36
     void setCurrentPixelSize(int newSize);
     int getCurrentPixelSize();

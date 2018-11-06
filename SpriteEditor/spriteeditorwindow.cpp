@@ -12,19 +12,17 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
     QImage image = myFrame.getImage();
     QRgb gold;
     gold = qRgb(189, 149, 39);
-    int* points  = myFrame.getPixelOfCoordinates(10,10);
+    int* points  = myFrame.getPixelOfCoordinates(100,100);
     qDebug() << points[0];
     qDebug() << points[1];
     qDebug() << points[2];
     qDebug() << points[3];
-    for (int x = points[0]; x < points[1]; x++)
-    {
 
-        for (int y = points[2]; y < points[3]; y++)
-        {
-            image.setPixel(x, y, gold);
-        }
-    }
+    QPainter painter(&image);
+    QBrush brush(gold);
+    painter.setBrush(brush);
+    painter.drawRect(points[0],points[2],32,32);
+
 
 
     QGraphicsScene *graphic = new QGraphicsScene(this);

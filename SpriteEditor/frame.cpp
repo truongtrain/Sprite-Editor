@@ -42,6 +42,20 @@ int* Frame::getPixelOfCoordinates(int x, int y)
     result[3] = yEnding;
     return result;
 }
+
+void Frame::drawPixel(int x, int y, QColor color) {
+    int* points = getPixelOfCoordinates(x,y);
+    QPainter painter(&image);
+
+    QRgb white;
+    white = qRgb(255,0,0);
+    QBrush brush(white);
+
+    painter.setBrush(brush);
+
+    painter.drawRect(points[0],points[1],points[2],points[3]);
+}
+
 void Frame::drawGrid()
 {
 
@@ -49,11 +63,10 @@ void Frame::drawGrid()
 
     QRgb white;
     white = qRgb(255,255,255);
-    QBrush brush(white);
 
-    painter.setBrush(brush);
+    QPen pen(white);
 
-    painter.drawRect(0,0,300,300);
+    painter.setPen(pen);
     for(int i = 0; i<=(image.height()/this->getCurrentPixelSize()); i++)
     {
         painter.drawLine(0,i*this->getCurrentPixelSize(),300,i*this->getCurrentPixelSize());

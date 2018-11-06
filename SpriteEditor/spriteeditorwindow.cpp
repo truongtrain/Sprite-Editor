@@ -23,7 +23,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
 //    painter.setBrush(brush);
 //    painter.drawRect(100,100,32,32);
     myFrame.drawGrid();
-
+    myFrame.drawPixel(50,50,gold);
 
 
     QGraphicsScene *graphic = new QGraphicsScene(this);

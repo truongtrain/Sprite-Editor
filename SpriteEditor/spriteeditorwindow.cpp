@@ -1,42 +1,53 @@
 #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
-
+#include "frame.h"
+#include <QDebug>
+#include <QMouseEvent>
 SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SpriteEditorWindow)
 {
     ui->setupUi(this);
 
-    QImage image(300, 300, QImage::Format_RGB32);
-
+    Frame myFrame= Frame();
+    //QImage image = myFrame.getImage();
     QRgb gold;
-
     gold = qRgb(189, 149, 39);
+    int* points  = myFrame.getPixelOfCoordinates(100,100);
+//    qDebug() << points[0];
+//    qDebug() << points[1];
+//    qDebug() << points[2];
+//    qDebug() << points[3];
 
-    for (int x = 0; x < 100; x++)
-    {
-        for (int y = 0; y < 100; y++)
-        {
-            image.setPixel(x, y, gold);
-        }
-    }
+//    QPainter painter(&image);
+//    QBrush brush(gold);
+//    painter.setBrush(brush);
+//    painter.drawRect(100,100,32,32);
+    myFrame.drawGrid();
 
-    QRgb green = qRgb(122, 163, 39);
 
-    for (int x = 0; x < 100; x++)
-    {
-        for (int y = 200; y < 300; y++)
-        {
-            image.setPixel(x, y, green);
-        }
-    }
 
     QGraphicsScene *graphic = new QGraphicsScene(this);
-    graphic->addPixmap(QPixmap::fromImage(image));
+    graphic->addPixmap(QPixmap::fromImage(myFrame.getImage()));
     ui->graphicsView->setScene(graphic);
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
 {
     delete ui;
+}
+
+void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event){
+
+}
+
+void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
+{
+    qDebug() << "x: " << event->x();
+    qDebug() << "y: " << event->y();
+}
+
+void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+
 }

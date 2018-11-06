@@ -35,3 +35,22 @@ SpriteEditorWindow::~SpriteEditorWindow()
 {
     delete ui;
 }
+
+void SpriteEditorWindow::on_chooseColorBox_clicked()
+{
+        // Opening the QColorDialog
+
+        color = QColorDialog::getColor(Qt::red,this);
+
+        // if a user select a valid color from the pallete
+
+        if(color.isValid())
+        {
+            qDebug() << "Color Choosen: " << color.name();
+
+            // changing the button background color from the selected color
+
+            QString currentColor = QString("background-color:" + color.name());
+            ui->chooseColorBox->setStyleSheet(currentColor);
+        }
+}

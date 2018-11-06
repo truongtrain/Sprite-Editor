@@ -33,7 +33,6 @@ public:
     QVBoxLayout *verticalLayout;
     QGraphicsView *graphicsView;
     QPushButton *chooseColorBox;
-    QPushButton *currentColorBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -62,9 +61,6 @@ public:
         chooseColorBox = new QPushButton(centralWidget);
         chooseColorBox->setObjectName(QStringLiteral("chooseColorBox"));
         chooseColorBox->setGeometry(QRect(960, 10, 151, 31));
-        currentColorBox = new QPushButton(centralWidget);
-        currentColorBox->setObjectName(QStringLiteral("currentColorBox"));
-        currentColorBox->setGeometry(QRect(960, 80, 151, 41));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -86,7 +82,6 @@ public:
     {
         SpriteEditorWindow->setWindowTitle(QApplication::translate("SpriteEditorWindow", "SpriteEditorWindow", Q_NULLPTR));
         chooseColorBox->setText(QApplication::translate("SpriteEditorWindow", "Choose Color", Q_NULLPTR));
-        currentColorBox->setText(QString());
     } // retranslateUi
 
 };

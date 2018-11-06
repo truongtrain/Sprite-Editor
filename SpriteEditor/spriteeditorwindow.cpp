@@ -40,7 +40,7 @@ void SpriteEditorWindow::on_chooseColorBox_clicked()
 {
         // Opening the QColorDialog
 
-        color = QColorDialog::getColor(Qt::red,this);
+        color = QColorDialog::getColor(Qt::red, this);
 
         // if a user select a valid color from the pallete
 

@@ -15,7 +15,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
     Frame myFrame= Frame();
 
     myFrame.drawGrid();
-
+    myFrame.drawPixel(100,100,nullptr);
 
     QGraphicsScene *graphic = new QGraphicsScene(this);
     graphic->addPixmap(QPixmap::fromImage(myFrame.getImage()));
@@ -29,13 +29,13 @@ SpriteEditorWindow::~SpriteEditorWindow()
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
 {
-        // Opening the QColorDialog
-        penColor = QColorDialog::getColor(penColor, this);
+    // Opening the QColorDialog
+    penColor = QColorDialog::getColor(penColor, this);
 
-        if(penColor.isValid())
-        {
-            // changing the label background color to the selected color
-            QString currentColor = QString("background-color:" + penColor.name());
-            ui->colorLabel->setStyleSheet(currentColor);
-        }
+    if(penColor.isValid())
+    {
+        // changing the label background color to the selected color
+        QString currentColor = QString("background-color:" + penColor.name());
+        ui->colorLabel->setStyleSheet(currentColor);
+    }
 }

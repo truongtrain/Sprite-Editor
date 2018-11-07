@@ -17,7 +17,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
 
     myFrame = new Frame();
 
-   //  myFrame->drawPixel(50,50,penColor);
+//     myFrame->setCurrentPixelSize(60);
    //  myFrame->drawPixel(200,200,penColor);
 
     ui->layout->setGeometry(QRect(0, 0, 960, 960));

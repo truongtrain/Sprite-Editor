@@ -60,19 +60,25 @@ void Frame::saveColor(int x, int y, QColor color)
 }
 void Frame::paintEvent(QPaintEvent *)
 {
-    qDebug() << "Paint event is being called";
-    //int* points = getPixelAtCoordinates(currentXCoord,currentYCoord);
+    int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
     QPainter painter(this);
+    QPainter imagePainter(&image);
     QBrush brush(currentColor);
 
     painter.setBrush(brush);
-
-    QRect rectangle(currentXCoord, currentYCoord, this->currentPixelSize,this->currentPixelSize);
-
+    imagePainter.setBrush(brush);
     QPen pen(Qt::white);
     painter.setPen(pen);
 
+
+
+
+    QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
+    imagePainter.setBrush(brush);
+    imagePainter.fillRect(rectangle,brush);
+
+    painter.drawImage(QPoint(),image);
     for(int row = 0; row<=(image.height()/this->getCurrentPixelSize()); row++)
     {
         painter.drawLine(0, row*this->getCurrentPixelSize(), GRID_RESOLUTION, row*this->getCurrentPixelSize());
@@ -82,28 +88,6 @@ void Frame::paintEvent(QPaintEvent *)
         painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
     }
 
-    for (int row = 0; row < 32; row++)
-    {
-        for (int column = 0; column < 32; column++)
-        {
-            QColor color = colorGrid[row][column];
-            QBrush brush(color);
-            painter.setBrush(brush);
-            QRect rectangle(row*currentPixelSize, column*currentPixelSize, this->currentPixelSize,this->currentPixelSize);
-            painter.fillRect(rectangle, brush);
-
-        }
-    }
-    qDebug()<<"row: " << 0 << " column: " << 0 << " color: " << colorGrid[0][0];
-
-
-//    for (int row = 0; row < 32; row++)
-//    {
-//        for (int column = 0; column < 32; column++)
-//        {
-
-//        }
-//    }
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {

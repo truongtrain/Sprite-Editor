@@ -24,3 +24,9 @@ void DrawArea::paintEvent(QPaintEvent *) {
     }
 
 }
+
+void DrawArea::buttonPressed()
+{
+    pixelSize = pixelSize + 10;
+    update();
+}

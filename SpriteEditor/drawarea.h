@@ -13,6 +13,8 @@ private:
 public:
     DrawArea(QWidget *parent = 0);
 
+public slots:
+    void buttonPressed();
 protected:
     // Overrides QWidget's paint event to implement our own
     void paintEvent(QPaintEvent *event) override;

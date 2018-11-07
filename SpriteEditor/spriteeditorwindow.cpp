@@ -14,6 +14,9 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
 
     // Parameters are (widgetToAdd, row, column, alignment) alignment defaults to filling whole layout.
     ui->drawLayout->addWidget(drawArea, 0, 0);
+
+    QObject::connect(ui->pushButton, &QPushButton::pressed,
+                     drawArea, &DrawArea::buttonPressed);
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()

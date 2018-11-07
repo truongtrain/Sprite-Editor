@@ -14,6 +14,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,7 @@ public:
     QWidget *centralWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *drawLayout;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -45,6 +47,9 @@ public:
         drawLayout->setContentsMargins(11, 11, 11, 11);
         drawLayout->setObjectName(QStringLiteral("drawLayout"));
         drawLayout->setContentsMargins(0, 0, 0, 0);
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(140, 220, 89, 25));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -65,6 +70,7 @@ public:
     void retranslateUi(QMainWindow *SpriteEditorWindow)
     {
         SpriteEditorWindow->setWindowTitle(QApplication::translate("SpriteEditorWindow", "SpriteEditorWindow", nullptr));
+        pushButton->setText(QApplication::translate("SpriteEditorWindow", "Shift", nullptr));
     } // retranslateUi
 
 };

@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QColorDialog>
+#include <QMouseEvent>
+#include <QDebug>
+#include "frame.h"
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -22,6 +25,15 @@ private slots:
 private:
     Ui::SpriteEditorWindow *ui;
     QColor penColor;
+    Frame* myFrame;
+    int lastXPosition;
+    int lastYPostion;
+
+protected:
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
 };
 
 #endif // SPRITEEDITORWINDOW_H

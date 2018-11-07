@@ -1,11 +1,13 @@
 #include "frame.h"
 #include <QDebug>
 #include <QRgba64>
+
+
 Frame::Frame()
 {
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
     image.fill(qRgba(160 , 160, 160, 10));
-    currentPixelSize=30;
+    currentPixelSize= 240;
 
     for (int row = 0; row < 32; row++)
     {
@@ -47,16 +49,27 @@ int* Frame::getPixelAtCoordinates(int x, int y)
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {
-    int* points = getPixelAtCoordinates(x,y);
+
+    qDebug() << x;
+    qDebug() << y;
+
+    //int* points = getPixelAtCoordinates(x,y);
+
+    int xStarting = (x/currentPixelSize)*currentPixelSize;
+    int xEnding = xStarting + currentPixelSize -1;
+    int yStarting = (y/currentPixelSize)*currentPixelSize;
+    int yEnding = yStarting + currentPixelSize -1;
+
     QPainter painter(&image);
 
-    QRgb white;
-    white = qRgb(255,0,0);
-    QBrush brush(white);
+    QBrush brush(color);
+
+   // QRect rect(xStarting,xEnding,yStarting,yEnding);
 
     painter.setBrush(brush);
 
-    painter.drawRect(points[0],points[1],points[2],points[3]);
+    painter.drawRect(xStarting,xEnding,yStarting,yEnding);
+   // painter.fillRect(rect,brush);
 }
 
 void Frame::drawGrid()

@@ -53,7 +53,8 @@ public:
         colorLabel = new QLabel(centralWidget);
         colorLabel->setObjectName(QStringLiteral("colorLabel"));
         colorLabel->setGeometry(QRect(1200, 280, 50, 50));
-        colorLabel->setStyleSheet(QStringLiteral("border-color: rgb(238, 238, 236);"));
+        colorLabel->setStyleSheet(QLatin1String("border-color: rgb(238, 238, 236);\n"
+"background-color: rgb(0, 0, 0);"));
         sizeSlider = new QSlider(centralWidget);
         sizeSlider->setObjectName(QStringLiteral("sizeSlider"));
         sizeSlider->setGeometry(QRect(1040, 390, 160, 21));
@@ -80,6 +81,7 @@ public:
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->setEnabled(true);
         graphicsView->setGeometry(QRect(10, 10, 960, 960));
+        graphicsView->setMouseTracking(false);
         graphicsView->setFrameShadow(QFrame::Sunken);
         graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

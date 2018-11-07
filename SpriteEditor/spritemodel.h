@@ -8,7 +8,7 @@ class SpriteModel
 {
 
 private:
-    std::vector<frame> frames;
+    std::vector<Frame> frames;
     int currentFrameIndex;
     int frameRate;
 

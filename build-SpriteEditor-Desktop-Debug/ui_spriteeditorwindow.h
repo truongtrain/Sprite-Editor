@@ -15,12 +15,13 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -29,10 +30,11 @@ class Ui_SpriteEditorWindow
 {
 public:
     QWidget *centralWidget;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
-    QGraphicsView *graphicsView;
     QPushButton *chooseColorBox;
+    QLabel *colorLabel;
+    QSlider *sizeSlider;
+    QLabel *resolutionLabel;
+    QGraphicsView *graphicsView;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -41,30 +43,50 @@ public:
     {
         if (SpriteEditorWindow->objectName().isEmpty())
             SpriteEditorWindow->setObjectName(QStringLiteral("SpriteEditorWindow"));
-        SpriteEditorWindow->resize(1199, 962);
+        SpriteEditorWindow->resize(1260, 1049);
         SpriteEditorWindow->setMinimumSize(QSize(300, 300));
         centralWidget = new QWidget(SpriteEditorWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayoutWidget = new QWidget(centralWidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(20, 10, 931, 921));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        graphicsView = new QGraphicsView(verticalLayoutWidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-
-        verticalLayout->addWidget(graphicsView);
-
         chooseColorBox = new QPushButton(centralWidget);
         chooseColorBox->setObjectName(QStringLiteral("chooseColorBox"));
-        chooseColorBox->setGeometry(QRect(960, 10, 151, 31));
+        chooseColorBox->setGeometry(QRect(1040, 290, 151, 31));
+        colorLabel = new QLabel(centralWidget);
+        colorLabel->setObjectName(QStringLiteral("colorLabel"));
+        colorLabel->setGeometry(QRect(1200, 280, 50, 50));
+        colorLabel->setStyleSheet(QStringLiteral("border-color: rgb(238, 238, 236);"));
+        sizeSlider = new QSlider(centralWidget);
+        sizeSlider->setObjectName(QStringLiteral("sizeSlider"));
+        sizeSlider->setGeometry(QRect(1040, 390, 160, 21));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(sizeSlider->sizePolicy().hasHeightForWidth());
+        sizeSlider->setSizePolicy(sizePolicy);
+        sizeSlider->setMaximum(3);
+        sizeSlider->setSingleStep(0);
+        sizeSlider->setPageStep(1);
+        sizeSlider->setValue(3);
+        sizeSlider->setOrientation(Qt::Horizontal);
+        sizeSlider->setTickPosition(QSlider::TicksBelow);
+        sizeSlider->setTickInterval(0);
+        resolutionLabel = new QLabel(centralWidget);
+        resolutionLabel->setObjectName(QStringLiteral("resolutionLabel"));
+        resolutionLabel->setGeometry(QRect(1060, 350, 111, 41));
+        QFont font;
+        font.setPointSize(14);
+        resolutionLabel->setFont(font);
+        resolutionLabel->setAlignment(Qt::AlignCenter);
+        graphicsView = new QGraphicsView(centralWidget);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->setEnabled(true);
+        graphicsView->setGeometry(QRect(10, 10, 960, 960));
+        graphicsView->setFrameShadow(QFrame::Sunken);
+        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1199, 22));
+        menuBar->setGeometry(QRect(0, 0, 1260, 22));
         SpriteEditorWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(SpriteEditorWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -82,6 +104,8 @@ public:
     {
         SpriteEditorWindow->setWindowTitle(QApplication::translate("SpriteEditorWindow", "SpriteEditorWindow", Q_NULLPTR));
         chooseColorBox->setText(QApplication::translate("SpriteEditorWindow", "Choose Color", Q_NULLPTR));
+        colorLabel->setText(QString());
+        resolutionLabel->setText(QApplication::translate("SpriteEditorWindow", "Resolution", Q_NULLPTR));
     } // retranslateUi
 
 };

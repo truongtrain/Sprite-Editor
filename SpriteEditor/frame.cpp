@@ -1,17 +1,20 @@
 #include "frame.h"
 #include <QDebug>
+#include <QRgba64>
 Frame::Frame()
 {
-    image= QImage(900,900,QImage::Format_RGB32);
+    image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
+    image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize=30;
-//    painter = QPainter(&image);
 
+    for (int row = 0; row < 32; row++)
+    {
+        for (int column = 0; column < 32; column++)
+        {
+            colorGrid[row][column] = Qt::transparent;
+        }
+    }
 }
-
-//QPainter Frame::getPainter()
-//{
-//    return this->painter;
-//}
 
 QImage& Frame::getImage()
 {
@@ -28,7 +31,7 @@ int Frame::getCurrentPixelSize()
     return this->currentPixelSize;
 }
 
-int* Frame::getPixelOfCoordinates(int x, int y)
+int* Frame::getPixelAtCoordinates(int x, int y)
 {
     int xStarting = (x/currentPixelSize)*currentPixelSize;
     int xEnding = xStarting + currentPixelSize -1;
@@ -44,7 +47,7 @@ int* Frame::getPixelOfCoordinates(int x, int y)
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {
-    int* points = getPixelOfCoordinates(x,y);
+    int* points = getPixelAtCoordinates(x,y);
     QPainter painter(&image);
 
     QRgb white;
@@ -61,18 +64,15 @@ void Frame::drawGrid()
 
     QPainter painter(&image);
 
-    QRgb white;
-    white = qRgb(255,255,255);
-
-    QPen pen(white);
-
+    QPen pen(Qt::white);
     painter.setPen(pen);
-    for(int i = 0; i<=(image.height()/this->getCurrentPixelSize()); i++)
+
+    for(int row = 0; row<=(image.height()/this->getCurrentPixelSize()); row++)
     {
-        painter.drawLine(0,i*this->getCurrentPixelSize(),900,i*this->getCurrentPixelSize());
+        painter.drawLine(0, row*this->getCurrentPixelSize(), GRID_RESOLUTION, row*this->getCurrentPixelSize());
     }
-    for(int i = 0; i<=(image.width()/this->getCurrentPixelSize()); i++)
+    for(int column = 0; column<=(image.width()/this->getCurrentPixelSize()); column++)
     {
-        painter.drawLine(i*this->getCurrentPixelSize(),0,i*this->getCurrentPixelSize(),image.height());
+        painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
     }
 }

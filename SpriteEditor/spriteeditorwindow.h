@@ -21,7 +21,7 @@ private slots:
 
 private:
     Ui::SpriteEditorWindow *ui;
-    QColor color;
+    QColor penColor;
 };
 
 #endif // SPRITEEDITORWINDOW_H

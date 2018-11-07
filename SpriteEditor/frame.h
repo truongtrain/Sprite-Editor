@@ -2,18 +2,22 @@
 #define FRAME_H
 #include <QMainWindow>
 #include <QPainter>
+#include <QColor>
+#include <QRgba64>
 class Frame
 {
+private:
     QImage image;
     Frame* nextFrame;
     Frame* previousFrame;
     int currentPixelSize;
-//    QPainter painter;
+    const int GRID_RESOLUTION = 960;
+    QColor colorGrid[32][32];
+  //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
 
 public:
     Frame();
     void drawGrid();
-//    QPainter getPainter();
     QImage& getImage();
     // newSize must be one of these numbers: 1,2,3,4,6,8,9,12,18,24,36
     void setCurrentPixelSize(int newSize);
@@ -27,7 +31,7 @@ public:
      * @param y -y coordinate of the mouse clicked position
      * @return an array - [xStarting, xEnding, yStarting, yEnding]
      */
-    int* getPixelOfCoordinates(int x, int y);
+    int* getPixelAtCoordinates(int x, int y);
 };
 
 #endif // FRAME_H

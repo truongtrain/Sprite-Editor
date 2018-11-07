@@ -2,6 +2,8 @@
 #include "ui_spriteeditorwindow.h"
 #include "frame.h"
 
+#include <QGridLayout>
+
 
 SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,21 +17,23 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
 
     myFrame = new Frame();
 
-    myFrame->drawGrid();
-
    //  myFrame->drawPixel(50,50,penColor);
    //  myFrame->drawPixel(200,200,penColor);
 
-    QGraphicsScene *graphic = new QGraphicsScene(this);
-    graphic->addPixmap(QPixmap::fromImage(myFrame->getImage()));
+    ui->layout->setGeometry(QRect(0, 0, 960, 960));
+    ui->layout->addWidget(myFrame, 0, 0);
 
-    ui->graphicsView->setScene(graphic);
-    ui->graphicsView->setMouseTracking(true);
+//    QGraphicsScene *graphic = new QGraphicsScene(this);
+//    graphic->addPixmap(QPixmap::fromImage(myFrame->getImage()));
+
+//    ui->graphicsView->setScene(graphic);
+//    ui->graphicsView->setMouseTracking(true);
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
 {
     delete ui;
+    delete myFrame;
 }
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
@@ -55,7 +59,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
       qDebug() << "x: " << event->x();
       qDebug() << "y: " << event->y();
-      qDebug() << "y: " << penColor;
+      qDebug() << "Color: " << penColor;
 
     //  lastXPosition = event->x();
     //  lastYPostion = event->y();

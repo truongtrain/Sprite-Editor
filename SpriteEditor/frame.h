@@ -20,6 +20,7 @@ private:
     int currentXCoord;
     int currentYCoord;
     QColor currentColor;
+    void saveColor(int x, int y, QColor color);
   //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
 
 public:

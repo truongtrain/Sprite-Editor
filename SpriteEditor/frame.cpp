@@ -82,6 +82,18 @@ void Frame::paintEvent(QPaintEvent *)
     {
         painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
     }
+
+    for (int row = 0; row < 32; row++)
+    {
+        for (int column = 0; column < 32; column++)
+        {
+            QColor color = colorGrid[row][column];
+            QBrush brush(color);
+            painter.setBrush(brush);
+            QRect rectangle(column*currentPixelSize, row*currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+            painter.fillRect(rectangle, brush);
+        }
+    }
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {

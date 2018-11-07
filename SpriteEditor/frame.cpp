@@ -69,7 +69,6 @@ void Frame::paintEvent(QPaintEvent *)
     painter.setBrush(brush);
 
     QRect rectangle(currentXCoord, currentYCoord, this->currentPixelSize,this->currentPixelSize);
-    painter.fillRect(rectangle, brush);
 
     QPen pen(Qt::white);
     painter.setPen(pen);
@@ -90,10 +89,21 @@ void Frame::paintEvent(QPaintEvent *)
             QColor color = colorGrid[row][column];
             QBrush brush(color);
             painter.setBrush(brush);
-            QRect rectangle(column*currentPixelSize, row*currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+            QRect rectangle(row*currentPixelSize, column*currentPixelSize, this->currentPixelSize,this->currentPixelSize);
             painter.fillRect(rectangle, brush);
+
         }
     }
+    qDebug()<<"row: " << 0 << " column: " << 0 << " color: " << colorGrid[0][0];
+
+
+//    for (int row = 0; row < 32; row++)
+//    {
+//        for (int column = 0; column < 32; column++)
+//        {
+
+//        }
+//    }
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {

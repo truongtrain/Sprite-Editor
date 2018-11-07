@@ -40,6 +40,10 @@ int* Frame::getPixelAtCoordinates(int x, int y)
 
     static int result [4];
     result[0] = xStarting;
+//    qDebug() << xStarting;
+//    qDebug() << xEnding;
+//    qDebug() << yStarting;
+//    qDebug() << yEnding;
     result[1] = xEnding;
     result[2] = yStarting;
     result[3] = yEnding;
@@ -55,8 +59,11 @@ void Frame::drawPixel(int x, int y, QColor color) {
     QBrush brush(white);
 
     painter.setBrush(brush);
-
-    painter.drawRect(points[0],points[1],points[2],points[3]);
+    qDebug() << points[0];
+    qDebug() << points[1];
+    qDebug() << points[2];
+    qDebug() << points[3];
+    painter.drawRect(points[0],points[1],this->getCurrentPixelSize(),this->getCurrentPixelSize());
 }
 
 void Frame::drawGrid()

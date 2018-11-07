@@ -383,7 +383,8 @@ main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../SpriteEditor/main.cpp
 
 spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spriteeditorwindow.h \
-		ui_spriteeditorwindow.h
+		ui_spriteeditorwindow.h \
+		../SpriteEditor/frame.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spriteeditorwindow.o ../SpriteEditor/spriteeditorwindow.cpp
 
 frame.o: ../SpriteEditor/frame.cpp ../SpriteEditor/frame.h

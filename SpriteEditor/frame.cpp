@@ -53,23 +53,17 @@ void Frame::drawPixel(int x, int y, QColor color) {
     qDebug() << x;
     qDebug() << y;
 
-    //int* points = getPixelAtCoordinates(x,y);
-
-    int xStarting = (x/currentPixelSize)*currentPixelSize;
-    int xEnding = xStarting + currentPixelSize -1;
-    int yStarting = (y/currentPixelSize)*currentPixelSize;
-    int yEnding = yStarting + currentPixelSize -1;
+    int* points = getPixelAtCoordinates(x,y);
 
     QPainter painter(&image);
 
     QBrush brush(color);
 
-   // QRect rect(xStarting,xEnding,yStarting,yEnding);
 
     painter.setBrush(brush);
 
-    painter.drawRect(xStarting,xEnding,yStarting,yEnding);
-   // painter.fillRect(rect,brush);
+    painter.drawRect(points[0],points[1],this->getCurrentPixelSize(),this->getCurrentPixelSize());
+
 }
 
 void Frame::drawGrid()

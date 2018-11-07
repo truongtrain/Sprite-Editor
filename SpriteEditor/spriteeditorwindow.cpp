@@ -37,6 +37,7 @@ void SpriteEditorWindow::on_chooseColorBox_clicked()
         if(penColor.isValid())
         {
             // changing the label background color to the selected color
+
             QString currentColor = QString("background-color:" + penColor.name());
             ui->colorLabel->setStyleSheet(currentColor);
         }
@@ -54,6 +55,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
     //  lastXPosition = event->x();
     //  lastYPostion = event->y();
+
     myFrame->drawPixel(event->x(),event->y(),penColor);
 
 }

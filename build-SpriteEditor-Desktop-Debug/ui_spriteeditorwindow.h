@@ -45,6 +45,7 @@ public:
             SpriteEditorWindow->setObjectName(QStringLiteral("SpriteEditorWindow"));
         SpriteEditorWindow->resize(1260, 1049);
         SpriteEditorWindow->setMinimumSize(QSize(300, 300));
+        SpriteEditorWindow->setMouseTracking(true);
         centralWidget = new QWidget(SpriteEditorWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         chooseColorBox = new QPushButton(centralWidget);

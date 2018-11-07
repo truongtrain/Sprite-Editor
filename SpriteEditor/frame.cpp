@@ -3,11 +3,14 @@
 #include <QRgba64>
 
 
-Frame::Frame()
+Frame::Frame(QWidget *parent)
+    : QWidget(parent)
 {
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
+
     image.fill(qRgba(160 , 160, 160, 10));
-    currentPixelSize= 240;
+
+    currentPixelSize= 30;
 
     for (int row = 0; row < 32; row++)
     {
@@ -48,21 +51,33 @@ int* Frame::getPixelAtCoordinates(int x, int y)
     return result;
 }
 
+void Frame::paintEvent(QPaintEvent *)
+{
+    qDebug() << "paint event is being called";
+    int* points = getPixelAtCoordinates(currentXCoord,currentYCoord);
+
+    QPainter painter(&image);
+
+    QBrush brush(currentColor);
+
+
+    painter.setBrush(brush);
+
+
+    painter.drawRect(points[0],points[2],this->currentPixelSize,this->currentPixelSize);
+}
+
 void Frame::drawPixel(int x, int y, QColor color) {
 
     qDebug() << x;
     qDebug() << y;
 
-    int* points = getPixelAtCoordinates(x,y);
+    currentXCoord = x;
+    currentYCoord = y;
+    currentColor = color;
 
-    QPainter painter(&image);
-
-    QBrush brush(color);
-
-
-    painter.setBrush(brush);
-
-    painter.drawRect(points[0],points[1],this->getCurrentPixelSize(),this->getCurrentPixelSize());
+    update();
+    repaint();
 
 }
 

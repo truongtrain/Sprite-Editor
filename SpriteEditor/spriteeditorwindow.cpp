@@ -17,9 +17,12 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent) :
 
     myFrame->drawGrid();
 
+   //  myFrame->drawPixel(50,50,penColor);
+   //  myFrame->drawPixel(200,200,penColor);
 
     QGraphicsScene *graphic = new QGraphicsScene(this);
     graphic->addPixmap(QPixmap::fromImage(myFrame->getImage()));
+
     ui->graphicsView->setScene(graphic);
     ui->graphicsView->setMouseTracking(true);
 }
@@ -50,8 +53,9 @@ void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event){
 
 void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
-    //qDebug() << "x: " << event->x();
-    //qDebug() << "y: " << event->y();
+      qDebug() << "x: " << event->x();
+      qDebug() << "y: " << event->y();
+      qDebug() << "y: " << penColor;
 
     //  lastXPosition = event->x();
     //  lastYPostion = event->y();
@@ -62,8 +66,5 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    qDebug() << "x: " << event->x();
-    qDebug() << "y: " << event->y();
 
-   // myFrame->drawPixel(lastXPosition,lastYPostion,penColor);
 }

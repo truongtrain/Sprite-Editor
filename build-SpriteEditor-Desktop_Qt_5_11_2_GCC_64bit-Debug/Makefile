@@ -53,22 +53,14 @@ OBJECTS_DIR   = ./
 SOURCES       = ../SpriteEditor/main.cpp \
 		../SpriteEditor/spriteeditorwindow.cpp \
 		../SpriteEditor/frame.cpp \
-<<<<<<< HEAD
 		../SpriteEditor/spritemodel.cpp moc_spriteeditorwindow.cpp \
 		moc_spritemodel.cpp
-=======
-		../SpriteEditor/spritemodel.cpp moc_spriteeditorwindow.cpp
->>>>>>> master
 OBJECTS       = main.o \
 		spriteeditorwindow.o \
 		frame.o \
 		spritemodel.o \
-<<<<<<< HEAD
 		moc_spriteeditorwindow.o \
 		moc_spritemodel.o
-=======
-		moc_spriteeditorwindow.o
->>>>>>> master
 DIST          = /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/common/unix.conf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/common/linux.conf \
@@ -713,11 +705,7 @@ moc_predefs.h: /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all: moc_spriteeditorwindow.cpp moc_spritemodel.cpp
 compiler_moc_header_clean:
-<<<<<<< HEAD
 	-$(DEL_FILE) moc_spriteeditorwindow.cpp moc_spritemodel.cpp
-=======
-	-$(DEL_FILE) moc_spriteeditorwindow.cpp
->>>>>>> master
 moc_spriteeditorwindow.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -827,7 +815,6 @@ moc_spriteeditorwindow.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMai
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QColorDialog \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qcolordialog.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
-<<<<<<< HEAD
 		../SpriteEditor/spritemodel.h \
 		../SpriteEditor/frame.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
@@ -836,13 +823,10 @@ moc_spriteeditorwindow.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMai
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QColor \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
-=======
->>>>>>> master
 		../SpriteEditor/spriteeditorwindow.h \
 		moc_predefs.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/bin/moc
 	/home/sunsun/Qt/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/sunsun/Desktop/CS_3505/A7/a7-sprite-editor-sunsiu-1/build-SpriteEditor-Desktop_Qt_5_11_2_GCC_64bit-Debug/moc_predefs.h -I/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/sunsun/Desktop/CS_3505/A7/a7-sprite-editor-sunsiu-1/SpriteEditor -I/home/sunsun/Qt/5.11.2/gcc_64/include -I/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets -I/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui -I/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SpriteEditor/spriteeditorwindow.h -o moc_spriteeditorwindow.cpp
-<<<<<<< HEAD
 
 moc_spritemodel.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -961,8 +945,6 @@ moc_spritemodel.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow
 		moc_predefs.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/bin/moc
 	/home/sunsun/Qt/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/sunsun/Desktop/CS_3505/A7/a7-sprite-editor-sunsiu-1/build-SpriteEditor-Desktop_Qt_5_11_2_GCC_64bit-Debug/moc_predefs.h -I/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/sunsun/Desktop/CS_3505/A7/a7-sprite-editor-sunsiu-1/SpriteEditor -I/home/sunsun/Qt/5.11.2/gcc_64/include -I/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets -I/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui -I/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SpriteEditor/spritemodel.h -o moc_spritemodel.cpp
-=======
->>>>>>> master
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1095,7 +1077,6 @@ main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QColorDialog \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qcolordialog.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
-<<<<<<< HEAD
 		../SpriteEditor/spritemodel.h \
 		../SpriteEditor/frame.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
@@ -1104,8 +1085,6 @@ main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QColor \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
-=======
->>>>>>> master
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1225,7 +1204,6 @@ spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spr
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QColorDialog \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qcolordialog.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
-<<<<<<< HEAD
 		../SpriteEditor/spritemodel.h \
 		../SpriteEditor/frame.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
@@ -1235,40 +1213,6 @@ spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spr
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QColor \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
 		ui_spriteeditorwindow.h
-=======
-		ui_spriteeditorwindow.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QVariant \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qeventloop.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qguiapplication.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qinputmethod.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QGraphicsView \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qgraphicsview.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qtextoption.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qscrollarea.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMenuBar \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmenubar.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmenu.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qaction.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qactiongroup.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QStatusBar \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstatusbar.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QToolBar \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtoolbar.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
-		../SpriteEditor/frame.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QColor \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64
->>>>>>> master
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spriteeditorwindow.o ../SpriteEditor/spriteeditorwindow.cpp
 
 frame.o: ../SpriteEditor/frame.cpp ../SpriteEditor/frame.h \
@@ -1388,10 +1332,6 @@ frame.o: ../SpriteEditor/frame.cpp ../SpriteEditor/frame.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o frame.o ../SpriteEditor/frame.cpp
 
 spritemodel.o: ../SpriteEditor/spritemodel.cpp ../SpriteEditor/spritemodel.h \
-<<<<<<< HEAD
-=======
-		../SpriteEditor/frame.h \
->>>>>>> master
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1498,10 +1438,7 @@ spritemodel.o: ../SpriteEditor/spritemodel.cpp ../SpriteEditor/spritemodel.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qicon.h \
-<<<<<<< HEAD
 		../SpriteEditor/frame.h \
-=======
->>>>>>> master
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qtextoption.h \

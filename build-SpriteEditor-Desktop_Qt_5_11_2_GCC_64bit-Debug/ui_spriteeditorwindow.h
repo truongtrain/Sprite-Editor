@@ -13,10 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QLabel>
-<<<<<<< HEAD
 #include <QtWidgets/QListWidget>
-=======
->>>>>>> master
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -49,17 +46,12 @@ public:
     {
         if (SpriteEditorWindow->objectName().isEmpty())
             SpriteEditorWindow->setObjectName(QStringLiteral("SpriteEditorWindow"));
-<<<<<<< HEAD
         SpriteEditorWindow->resize(1260, 1049);
-=======
-        SpriteEditorWindow->resize(1080, 840);
->>>>>>> master
         SpriteEditorWindow->setMinimumSize(QSize(300, 300));
         centralWidget = new QWidget(SpriteEditorWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         chooseColorBox = new QPushButton(centralWidget);
         chooseColorBox->setObjectName(QStringLiteral("chooseColorBox"));
-<<<<<<< HEAD
         chooseColorBox->setGeometry(QRect(1040, 290, 151, 31));
         colorLabel = new QLabel(centralWidget);
         colorLabel->setObjectName(QStringLiteral("colorLabel"));
@@ -70,16 +62,6 @@ public:
         sizeSlider = new QSlider(centralWidget);
         sizeSlider->setObjectName(QStringLiteral("sizeSlider"));
         sizeSlider->setGeometry(QRect(1040, 390, 160, 21));
-=======
-        chooseColorBox->setGeometry(QRect(840, 290, 151, 31));
-        colorLabel = new QLabel(centralWidget);
-        colorLabel->setObjectName(QStringLiteral("colorLabel"));
-        colorLabel->setGeometry(QRect(1000, 280, 50, 50));
-        colorLabel->setStyleSheet(QStringLiteral("border-color: rgb(238, 238, 236);"));
-        sizeSlider = new QSlider(centralWidget);
-        sizeSlider->setObjectName(QStringLiteral("sizeSlider"));
-        sizeSlider->setGeometry(QRect(830, 390, 160, 21));
->>>>>>> master
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -94,11 +76,7 @@ public:
         sizeSlider->setTickInterval(0);
         resolutionLabel = new QLabel(centralWidget);
         resolutionLabel->setObjectName(QStringLiteral("resolutionLabel"));
-<<<<<<< HEAD
         resolutionLabel->setGeometry(QRect(1060, 350, 111, 41));
-=======
-        resolutionLabel->setGeometry(QRect(860, 350, 111, 41));
->>>>>>> master
         QFont font;
         font.setPointSize(14);
         resolutionLabel->setFont(font);
@@ -106,7 +84,6 @@ public:
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->setEnabled(true);
-<<<<<<< HEAD
         graphicsView->setGeometry(QRect(10, 10, 960, 960));
         graphicsView->setFrameShadow(QFrame::Sunken);
         graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -138,16 +115,6 @@ public:
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1260, 22));
-=======
-        graphicsView->setGeometry(QRect(10, 10, 768, 768));
-        graphicsView->setFrameShadow(QFrame::Sunken);
-        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        SpriteEditorWindow->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(SpriteEditorWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1080, 22));
->>>>>>> master
         SpriteEditorWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(SpriteEditorWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -167,13 +134,10 @@ public:
         chooseColorBox->setText(QApplication::translate("SpriteEditorWindow", "Choose Color", nullptr));
         colorLabel->setText(QString());
         resolutionLabel->setText(QApplication::translate("SpriteEditorWindow", "Resolution", nullptr));
-<<<<<<< HEAD
         addFrameButton->setText(QApplication::translate("SpriteEditorWindow", "Add", nullptr));
         removeFrameButton->setText(QApplication::translate("SpriteEditorWindow", "Remove", nullptr));
         duplicateButton->setText(QApplication::translate("SpriteEditorWindow", "Duplicate", nullptr));
         label->setText(QApplication::translate("SpriteEditorWindow", "Frames", nullptr));
-=======
->>>>>>> master
     } // retranslateUi
 
 };

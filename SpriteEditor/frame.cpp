@@ -3,7 +3,7 @@
 #include <QRgba64>
 Frame::Frame()
 {
-    image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
+    image= QImage(GRID_RESOLUTION, GRID_RESOLUTION, QImage::Format_RGB32);
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize=30;
 
@@ -50,9 +50,8 @@ void Frame::drawPixel(int x, int y, QColor color) {
     int* points = getPixelAtCoordinates(x,y);
     QPainter painter(&image);
 
-    QRgb white;
-    white = qRgb(255,0,0);
-    QBrush brush(white);
+
+    QBrush brush(color);
 
     painter.setBrush(brush);
 

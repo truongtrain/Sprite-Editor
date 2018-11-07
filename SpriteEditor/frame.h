@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QColor>
 #include <QRgba64>
+
 class Frame
 {
 private:
@@ -11,7 +12,7 @@ private:
     Frame* nextFrame;
     Frame* previousFrame;
     int currentPixelSize;
-    const int GRID_RESOLUTION = 960;
+    int GRID_RESOLUTION = 960;
     QColor colorGrid[32][32];
   //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
 

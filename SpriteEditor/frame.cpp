@@ -1,12 +1,16 @@
 #include "frame.h"
 #include <QDebug>
 #include <QRgba64>
-Frame::Frame()
+
+
+Frame::Frame(QWidget *parent)
+    : QWidget(parent)
 {
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
-    image.fill(qRgba(160 , 160, 160, 10));
-    currentPixelSize=30;
 
+    image.fill(qRgba(160 , 160, 160, 10));
+    currentPixelSize= 30;
+    currentColor = Qt::gray;
     for (int row = 0; row < 32; row++)
     {
         for (int column = 0; column < 32; column++)
@@ -50,30 +54,34 @@ int* Frame::getPixelAtCoordinates(int x, int y)
     return result;
 }
 
-void Frame::drawPixel(int x, int y, QColor color) {
-    int* points = getPixelAtCoordinates(x,y);
-    QPainter painter(&image);
+void Frame::saveColor(int x, int y, QColor color)
+{
+    int xOffset = 10;
+    int yOffset = 26;
+    int xIndex = (x - xOffset)/currentPixelSize;
+    int yIndex = (y - yOffset)/currentPixelSize;
+    colorGrid[xIndex][yIndex] = color;
+}
+void Frame::paintEvent(QPaintEvent *)
+{
+    int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
-    QRgb white;
-    white = qRgb(255,0,0);
-    QBrush brush(white);
+    QPainter painter(this);
+    QPainter imagePainter(&image);
+    QBrush brush(currentColor);
 
     painter.setBrush(brush);
-    qDebug() << points[0];
-    qDebug() << points[1];
-    qDebug() << points[2];
-    qDebug() << points[3];
-    painter.drawRect(points[0],points[1],this->getCurrentPixelSize(),this->getCurrentPixelSize());
-}
-
-void Frame::drawGrid()
-{
-
-    QPainter painter(&image);
-
+    imagePainter.setBrush(brush);
     QPen pen(Qt::white);
     painter.setPen(pen);
 
+    QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
+    imagePainter.setBrush(brush);
+    imagePainter.fillRect(rectangle,brush);
+
+    painter.drawImage(QPoint(),image);
+
+    //display grid lines
     for(int row = 0; row<=(image.height()/this->getCurrentPixelSize()); row++)
     {
         painter.drawLine(0, row*this->getCurrentPixelSize(), GRID_RESOLUTION, row*this->getCurrentPixelSize());
@@ -82,4 +90,17 @@ void Frame::drawGrid()
     {
         painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
     }
+
+    //send image to model
+
 }
+
+void Frame::drawPixel(int x, int y, QColor color) {
+
+
+    currentXCoord = x;
+    currentYCoord = y;
+    currentColor = color;
+    //saveColor(x, y, color);
+    update();
+    }

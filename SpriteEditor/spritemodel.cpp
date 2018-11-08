@@ -1,4 +1,5 @@
 #include "spritemodel.h"
+#include <QDebug>
 
 SpriteModel::SpriteModel()
 {
@@ -20,32 +21,29 @@ void SpriteModel::changeResolution(int res)
 void SpriteModel::addFrame()
 {
 
-    // Add a new blank frame to our list and switch focus to it
-    Frame newFrame;
 
-    //frames.push_back(newFrame);
-    /*
-    int frameCount = int(frames.size());
 
+    //add image
+    QImage image;
+    image= QImage(960,960,QImage::Format_RGB32);
+
+    image.fill(qRgba(160 , 160, 160, 10));
+    images.append(image);
+    int frameCount = int(images.size());
+    qDebug() << "add frame called";
     currentFrameIndex = frameCount - 1;
-
     emit frameChanged(frameCount);
-*/
+
 }
 
 void SpriteModel::removeFrame(int selectedIndex)
 {
-    /*
-    int frameCount = int(frames.size());
+    int frameCount = int(images.size());
 
     // Adjust index since we have to add this to the begin() iterator
     selectedIndex = selectedIndex - 1;
-    frames.erase(frames.begin() + selectedIndex);
-
+    images.removeAt(selectedIndex);
     emit frameChanged(frameCount);
-    */
-
-
 
 }
 

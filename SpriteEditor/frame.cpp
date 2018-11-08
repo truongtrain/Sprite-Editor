@@ -76,6 +76,8 @@ void Frame::paintEvent(QPaintEvent *)
     imagePainter.fillRect(rectangle,brush);
 
     painter.drawImage(QPoint(),image);
+
+    //display grid lines
     for(int row = 0; row<=(image.height()/this->getCurrentPixelSize()); row++)
     {
         painter.drawLine(0, row*this->getCurrentPixelSize(), GRID_RESOLUTION, row*this->getCurrentPixelSize());
@@ -84,6 +86,8 @@ void Frame::paintEvent(QPaintEvent *)
     {
         painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
     }
+
+    //send image to model
 
 }
 

@@ -11,7 +11,8 @@ class SpriteModel : public QObject
     Q_OBJECT
 
 private:
-    std::vector<Frame> frames;
+    QList<QImage> images;
+    //std::vector<Frame> frames;
     int currentFrameIndex;
     int frameRate;
     const int GRID_RESOLUTION = 960;

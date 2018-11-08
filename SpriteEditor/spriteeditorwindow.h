@@ -18,7 +18,7 @@ class SpriteEditorWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit SpriteEditorWindow(QWidget *parent = nullptr, SpriteModel *model = nullptr);
+    explicit SpriteEditorWindow(QWidget *parent = nullptr, SpriteModel *model = new SpriteModel());
     ~SpriteEditorWindow();
 
 signals:

@@ -37,13 +37,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
        // We do this here instead of the model constructor because it executes
        // before the signals are connected.
 
-<<<<<<< HEAD
-    myFrame.drawGrid();
-    myFrame.drawPixel(100,100,nullptr);
-=======
    model->addFrame();
 
->>>>>>> AlanBranch2
 
 }
 
@@ -82,17 +77,6 @@ void SpriteEditorWindow::updateFrameList(int frameCount)
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
 {
-<<<<<<< HEAD
-    // Opening the QColorDialog
-    penColor = QColorDialog::getColor(penColor, this);
-
-    if(penColor.isValid())
-    {
-        // changing the label background color to the selected color
-        QString currentColor = QString("background-color:" + penColor.name());
-        ui->colorLabel->setStyleSheet(currentColor);
-    }
-=======
         // Opening the QColorDialog
         penColor = QColorDialog::getColor(penColor, this);
 
@@ -103,7 +87,6 @@ void SpriteEditorWindow::on_chooseColorBox_clicked()
             QString currentColor = QString("background-color:" + penColor.name());
             ui->colorLabel->setStyleSheet(currentColor);
         }
->>>>>>> AlanBranch2
 }
 
 

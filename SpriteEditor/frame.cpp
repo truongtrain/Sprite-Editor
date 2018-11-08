@@ -71,9 +71,6 @@ void Frame::paintEvent(QPaintEvent *)
     QPen pen(Qt::white);
     painter.setPen(pen);
 
-
-
-
     QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
     imagePainter.setBrush(brush);
     imagePainter.fillRect(rectangle,brush);
@@ -102,10 +99,3 @@ void Frame::drawPixel(int x, int y, QColor color) {
     update();
     }
 
-void Frame::drawGrid()
-{
-
-    QPainter painter(this);
-
-
-}

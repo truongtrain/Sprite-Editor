@@ -25,7 +25,7 @@ private:
 
 public:
     Frame(QWidget *parent = 0);
-    void drawGrid();
+    //void drawGrid();
     QImage& getImage();
     // newSize must be one of these numbers: 1,2,3,4,6,8,9,12,18,24,36
     void setCurrentPixelSize(int newSize);

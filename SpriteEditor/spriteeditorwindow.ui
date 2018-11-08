@@ -122,6 +122,42 @@ background-color: rgb(0, 0, 0);</string>
     </property>
     <layout class="QGridLayout" name="layout"/>
    </widget>
+   <widget class="QListWidget" name="frameList">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>410</y>
+      <width>221</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addFrameButton">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>610</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Frame</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="removeFrameButton">
+    <property name="geometry">
+     <rect>
+      <x>1128</x>
+      <y>610</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Frame</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

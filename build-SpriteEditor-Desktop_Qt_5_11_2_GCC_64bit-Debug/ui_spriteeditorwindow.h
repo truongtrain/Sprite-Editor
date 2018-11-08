@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -33,6 +34,9 @@ public:
     QLabel *resolutionLabel;
     QWidget *gridLayoutWidget;
     QGridLayout *layout;
+    QListWidget *frameList;
+    QPushButton *addFrameButton;
+    QPushButton *removeFrameButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -84,6 +88,15 @@ public:
         layout->setContentsMargins(11, 11, 11, 11);
         layout->setObjectName(QStringLiteral("layout"));
         layout->setContentsMargins(0, 0, 0, 0);
+        frameList = new QListWidget(centralWidget);
+        frameList->setObjectName(QStringLiteral("frameList"));
+        frameList->setGeometry(QRect(1020, 410, 221, 192));
+        addFrameButton = new QPushButton(centralWidget);
+        addFrameButton->setObjectName(QStringLiteral("addFrameButton"));
+        addFrameButton->setGeometry(QRect(1030, 610, 89, 25));
+        removeFrameButton = new QPushButton(centralWidget);
+        removeFrameButton->setObjectName(QStringLiteral("removeFrameButton"));
+        removeFrameButton->setGeometry(QRect(1128, 610, 111, 25));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -107,6 +120,8 @@ public:
         chooseColorBox->setText(QApplication::translate("SpriteEditorWindow", "Choose Color", nullptr));
         colorLabel->setText(QString());
         resolutionLabel->setText(QApplication::translate("SpriteEditorWindow", "Resolution", nullptr));
+        addFrameButton->setText(QApplication::translate("SpriteEditorWindow", "Add Frame", nullptr));
+        removeFrameButton->setText(QApplication::translate("SpriteEditorWindow", "Remove Frame", nullptr));
     } // retranslateUi
 
 };

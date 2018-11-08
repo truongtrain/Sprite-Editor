@@ -10,7 +10,7 @@ Frame::Frame(QWidget *parent)
 
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 30;
-
+    currentColor = Qt::gray;
     for (int row = 0; row < 32; row++)
     {
         for (int column = 0; column < 32; column++)
@@ -93,13 +93,11 @@ void Frame::paintEvent(QPaintEvent *)
 
 void Frame::drawPixel(int x, int y, QColor color) {
 
-    qDebug() << x;
-    qDebug() << y;
 
     currentXCoord = x;
     currentYCoord = y;
     currentColor = color;
-    saveColor(x, y, color);
+    //saveColor(x, y, color);
     update();
     }
 

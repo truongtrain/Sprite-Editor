@@ -30,7 +30,6 @@ void SpriteModel::addFrame()
     image.fill(qRgba(160 , 160, 160, 10));
     images.append(image);
     int frameCount = int(images.size());
-    qDebug() << "add frame called";
     currentFrameIndex = frameCount - 1;
     emit frameChanged(frameCount);
 

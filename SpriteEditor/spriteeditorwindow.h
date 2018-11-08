@@ -40,6 +40,7 @@ private:
     Frame* myFrame;
     int lastXPosition;
     int lastYPostion;
+    bool mousePressed;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;

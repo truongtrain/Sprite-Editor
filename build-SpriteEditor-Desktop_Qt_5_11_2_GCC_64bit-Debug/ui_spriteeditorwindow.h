@@ -60,7 +60,7 @@ public:
 "background-color: rgb(0, 0, 0);"));
         sizeSlider = new QSlider(centralWidget);
         sizeSlider->setObjectName(QStringLiteral("sizeSlider"));
-        sizeSlider->setGeometry(QRect(1040, 390, 160, 21));
+        sizeSlider->setGeometry(QRect(1050, 380, 160, 21));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -75,7 +75,7 @@ public:
         sizeSlider->setTickInterval(0);
         resolutionLabel = new QLabel(centralWidget);
         resolutionLabel->setObjectName(QStringLiteral("resolutionLabel"));
-        resolutionLabel->setGeometry(QRect(1060, 350, 111, 41));
+        resolutionLabel->setGeometry(QRect(1070, 340, 111, 41));
         QFont font;
         font.setPointSize(14);
         resolutionLabel->setFont(font);
@@ -90,13 +90,13 @@ public:
         layout->setContentsMargins(0, 0, 0, 0);
         frameList = new QListWidget(centralWidget);
         frameList->setObjectName(QStringLiteral("frameList"));
-        frameList->setGeometry(QRect(1020, 410, 221, 192));
+        frameList->setGeometry(QRect(1020, 430, 221, 192));
         addFrameButton = new QPushButton(centralWidget);
         addFrameButton->setObjectName(QStringLiteral("addFrameButton"));
-        addFrameButton->setGeometry(QRect(1030, 610, 89, 25));
+        addFrameButton->setGeometry(QRect(1020, 630, 89, 25));
         removeFrameButton = new QPushButton(centralWidget);
         removeFrameButton->setObjectName(QStringLiteral("removeFrameButton"));
-        removeFrameButton->setGeometry(QRect(1128, 610, 111, 25));
+        removeFrameButton->setGeometry(QRect(1130, 630, 111, 25));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));

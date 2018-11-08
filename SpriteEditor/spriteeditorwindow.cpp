@@ -90,12 +90,18 @@ void SpriteEditorWindow::on_chooseColorBox_clicked()
 }
 
 
-void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event){
-
+void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (mousePressed)
+    {
+        myFrame->drawPixel(event->x(),event->y(),penColor);
+    }
 }
 
 void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
+    mousePressed = true;
+
       qDebug() << "x: " << event->x();
       qDebug() << "y: " << event->y();
       qDebug() << "Color: " << penColor;
@@ -104,10 +110,9 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     //  lastYPostion = event->y();
 
     myFrame->drawPixel(event->x(),event->y(),penColor);
-
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-
+    mousePressed = false;
 }

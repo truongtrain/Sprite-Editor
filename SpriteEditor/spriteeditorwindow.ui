@@ -56,8 +56,8 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QSlider" name="sizeSlider">
     <property name="geometry">
      <rect>
-      <x>1040</x>
-      <y>390</y>
+      <x>1050</x>
+      <y>380</y>
       <width>160</width>
       <height>21</height>
      </rect>
@@ -93,8 +93,8 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="resolutionLabel">
     <property name="geometry">
      <rect>
-      <x>1060</x>
-      <y>350</y>
+      <x>1070</x>
+      <y>340</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -126,7 +126,7 @@ background-color: rgb(0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>1020</x>
-      <y>410</y>
+      <y>430</y>
       <width>221</width>
       <height>192</height>
      </rect>
@@ -135,8 +135,8 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="addFrameButton">
     <property name="geometry">
      <rect>
-      <x>1030</x>
-      <y>610</y>
+      <x>1020</x>
+      <y>630</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -148,8 +148,8 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="removeFrameButton">
     <property name="geometry">
      <rect>
-      <x>1128</x>
-      <y>610</y>
+      <x>1130</x>
+      <y>630</y>
       <width>111</width>
       <height>25</height>
      </rect>

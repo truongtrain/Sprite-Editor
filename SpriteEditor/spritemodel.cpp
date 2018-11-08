@@ -45,6 +45,8 @@ void SpriteModel::removeFrame(int selectedIndex)
     emit frameChanged(frameCount);
     */
 
+
+
 }
 
 void SpriteModel::setCurrentFrameIndex(int selectedIndex)

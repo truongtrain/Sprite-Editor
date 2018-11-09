@@ -20,6 +20,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     ui->frameLayout->addWidget(myFrame, 0, 0);
 
 
+
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
                     model, &SpriteModel::addFrame);
    // Lambda to send an integer to our slot
@@ -90,27 +91,47 @@ void SpriteEditorWindow::on_chooseColorBox_clicked()
 
 void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (mousePressed)
+    if (ui->penButton->isChecked() && mousePressed)
     {
         myFrame->drawPixel(event->x(),event->y(),penColor);
+    }
+
+    if(ui->eraserButton->isChecked()){
+        myFrame->drawPixel(event->x(),event->y(),qRgba(160 , 160, 160, 10));
     }
 }
 
 void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
-    mousePressed = true;
+    if(ui->penButton->isChecked())
+    {
+        mousePressed = true;
 
-      qDebug() << "x: " << event->x();
-      qDebug() << "y: " << event->y();
-      qDebug() << "Color: " << penColor;
+          qDebug() << "x: " << event->x();
+          qDebug() << "y: " << event->y();
+          qDebug() << "Color: " << penColor;
 
-    //  lastXPosition = event->x();
-    //  lastYPostion = event->y();
+        //  lastXPosition = event->x();
+        //  lastYPostion = event->y();
 
-    myFrame->drawPixel(event->x(),event->y(),penColor);
+        myFrame->drawPixel(event->x(),event->y(),penColor);
+    }
+
+    if(ui->eraserButton->isChecked()){
+        myFrame->drawPixel(event->x(),event->y(),qRgba(160 , 160, 160, 10));
+    }
+
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    mousePressed = false;
+    if(ui->penButton->isChecked())
+    {
+        mousePressed = false;
+    }
+
+    if(ui->eraserButton->isChecked())
+    {
+        mousePressed = false;
+    }
 }

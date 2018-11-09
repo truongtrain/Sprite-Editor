@@ -9,7 +9,7 @@ Frame::Frame(QWidget *parent)
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
 
     image.fill(qRgba(160 , 160, 160, 10));
-    currentPixelSize= 30;
+    currentPixelSize= 25;
     currentColor = Qt::gray;
     for (int row = 0; row < 32; row++)
     {

@@ -45,7 +45,7 @@ public:
     {
         if (SpriteEditorWindow->objectName().isEmpty())
             SpriteEditorWindow->setObjectName(QStringLiteral("SpriteEditorWindow"));
-        SpriteEditorWindow->resize(1260, 1049);
+        SpriteEditorWindow->resize(1024, 820);
         SpriteEditorWindow->setMinimumSize(QSize(300, 300));
         SpriteEditorWindow->setMouseTracking(true);
         centralWidget = new QWidget(SpriteEditorWindow);
@@ -82,7 +82,7 @@ public:
         resolutionLabel->setAlignment(Qt::AlignCenter);
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 10, 991, 951));
+        gridLayoutWidget->setGeometry(QRect(10, 10, 871, 751));
         layout = new QGridLayout(gridLayoutWidget);
         layout->setSpacing(6);
         layout->setContentsMargins(11, 11, 11, 11);
@@ -100,7 +100,7 @@ public:
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1260, 22));
+        menuBar->setGeometry(QRect(0, 0, 1024, 22));
         SpriteEditorWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(SpriteEditorWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

@@ -18,7 +18,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     myFrame = new Frame();
 
 
-    ui->layout->setGeometry(QRect(0, 0, 960, 960));
+    ui->layout->setGeometry(QRect(0, 0, 800, 800));
     ui->layout->addWidget(myFrame, 0, 0);
 
 

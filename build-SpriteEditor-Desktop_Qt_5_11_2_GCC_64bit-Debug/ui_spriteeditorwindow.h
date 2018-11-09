@@ -11,12 +11,14 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -30,14 +32,24 @@ public:
     QWidget *centralWidget;
     QPushButton *chooseColorBox;
     QLabel *colorLabel;
-    QSlider *sizeSlider;
+    QSlider *resolutionSlider;
     QLabel *resolutionLabel;
-    QGraphicsView *graphicsView;
+    QWidget *gridLayoutWidget;
+    QGridLayout *frameLayout;
     QListWidget *frameList;
     QPushButton *addFrameButton;
     QPushButton *removeFrameButton;
+    QRadioButton *penButton;
+    QRadioButton *eraserButton;
+    QRadioButton *selectionButton;
+    QWidget *gridLayoutWidget_2;
+    QGridLayout *previewLayout;
     QPushButton *duplicateButton;
-    QLabel *label;
+    QLabel *framesListLabel;
+    QCheckBox *drawMirrorCheckBox;
+    QSlider *frameRateSlider;
+    QLabel *frameRateLabel;
+    QPushButton *popOutButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -46,75 +58,110 @@ public:
     {
         if (SpriteEditorWindow->objectName().isEmpty())
             SpriteEditorWindow->setObjectName(QStringLiteral("SpriteEditorWindow"));
-        SpriteEditorWindow->resize(1260, 1049);
+        SpriteEditorWindow->resize(1164, 875);
         SpriteEditorWindow->setMinimumSize(QSize(300, 300));
+        SpriteEditorWindow->setMouseTracking(true);
         centralWidget = new QWidget(SpriteEditorWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         chooseColorBox = new QPushButton(centralWidget);
         chooseColorBox->setObjectName(QStringLiteral("chooseColorBox"));
-        chooseColorBox->setGeometry(QRect(1040, 290, 151, 31));
+        chooseColorBox->setGeometry(QRect(870, 430, 151, 31));
         colorLabel = new QLabel(centralWidget);
         colorLabel->setObjectName(QStringLiteral("colorLabel"));
-        colorLabel->setEnabled(true);
-        colorLabel->setGeometry(QRect(1200, 280, 50, 50));
-        colorLabel->setStyleSheet(QStringLiteral("border-color: rgb(238, 238, 236);"));
-        colorLabel->setLineWidth(5);
-        sizeSlider = new QSlider(centralWidget);
-        sizeSlider->setObjectName(QStringLiteral("sizeSlider"));
-        sizeSlider->setGeometry(QRect(1040, 390, 160, 21));
+        colorLabel->setGeometry(QRect(1030, 420, 50, 50));
+        colorLabel->setStyleSheet(QLatin1String("border-color: rgb(238, 238, 236);\n"
+"background-color: rgb(0, 0, 0);"));
+        resolutionSlider = new QSlider(centralWidget);
+        resolutionSlider->setObjectName(QStringLiteral("resolutionSlider"));
+        resolutionSlider->setGeometry(QRect(880, 520, 221, 21));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(sizeSlider->sizePolicy().hasHeightForWidth());
-        sizeSlider->setSizePolicy(sizePolicy);
-        sizeSlider->setMaximum(3);
-        sizeSlider->setSingleStep(0);
-        sizeSlider->setPageStep(1);
-        sizeSlider->setValue(3);
-        sizeSlider->setOrientation(Qt::Horizontal);
-        sizeSlider->setTickPosition(QSlider::TicksBelow);
-        sizeSlider->setTickInterval(0);
+        sizePolicy.setHeightForWidth(resolutionSlider->sizePolicy().hasHeightForWidth());
+        resolutionSlider->setSizePolicy(sizePolicy);
+        resolutionSlider->setMaximum(3);
+        resolutionSlider->setSingleStep(0);
+        resolutionSlider->setPageStep(1);
+        resolutionSlider->setValue(3);
+        resolutionSlider->setOrientation(Qt::Horizontal);
+        resolutionSlider->setTickPosition(QSlider::TicksBelow);
+        resolutionSlider->setTickInterval(0);
         resolutionLabel = new QLabel(centralWidget);
         resolutionLabel->setObjectName(QStringLiteral("resolutionLabel"));
-        resolutionLabel->setGeometry(QRect(1060, 350, 111, 41));
+        resolutionLabel->setGeometry(QRect(920, 490, 111, 21));
         QFont font;
         font.setPointSize(14);
         resolutionLabel->setFont(font);
         resolutionLabel->setAlignment(Qt::AlignCenter);
-        graphicsView = new QGraphicsView(centralWidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setEnabled(true);
-        graphicsView->setGeometry(QRect(10, 10, 960, 960));
-        graphicsView->setFrameShadow(QFrame::Sunken);
-        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        gridLayoutWidget = new QWidget(centralWidget);
+        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(10, 10, 831, 801));
+        frameLayout = new QGridLayout(gridLayoutWidget);
+        frameLayout->setSpacing(6);
+        frameLayout->setContentsMargins(11, 11, 11, 11);
+        frameLayout->setObjectName(QStringLiteral("frameLayout"));
+        frameLayout->setContentsMargins(0, 0, 0, 0);
         frameList = new QListWidget(centralWidget);
         frameList->setObjectName(QStringLiteral("frameList"));
-        frameList->setGeometry(QRect(990, 490, 251, 420));
-        frameList->setDragDropOverwriteMode(true);
+        frameList->setGeometry(QRect(870, 580, 221, 192));
+        frameList->setDragEnabled(true);
         frameList->setDragDropMode(QAbstractItemView::DragDrop);
-        frameList->setDefaultDropAction(Qt::MoveAction);
         addFrameButton = new QPushButton(centralWidget);
         addFrameButton->setObjectName(QStringLiteral("addFrameButton"));
-        addFrameButton->setGeometry(QRect(980, 920, 61, 31));
+        addFrameButton->setGeometry(QRect(860, 780, 51, 25));
         removeFrameButton = new QPushButton(centralWidget);
         removeFrameButton->setObjectName(QStringLiteral("removeFrameButton"));
-        removeFrameButton->setEnabled(true);
-        removeFrameButton->setGeometry(QRect(1050, 920, 71, 31));
+        removeFrameButton->setGeometry(QRect(920, 780, 71, 25));
+        penButton = new QRadioButton(centralWidget);
+        penButton->setObjectName(QStringLiteral("penButton"));
+        penButton->setGeometry(QRect(870, 330, 112, 23));
+        eraserButton = new QRadioButton(centralWidget);
+        eraserButton->setObjectName(QStringLiteral("eraserButton"));
+        eraserButton->setGeometry(QRect(870, 360, 112, 23));
+        selectionButton = new QRadioButton(centralWidget);
+        selectionButton->setObjectName(QStringLiteral("selectionButton"));
+        selectionButton->setGeometry(QRect(870, 390, 112, 23));
+        gridLayoutWidget_2 = new QWidget(centralWidget);
+        gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
+        gridLayoutWidget_2->setGeometry(QRect(860, 10, 271, 231));
+        previewLayout = new QGridLayout(gridLayoutWidget_2);
+        previewLayout->setSpacing(6);
+        previewLayout->setContentsMargins(11, 11, 11, 11);
+        previewLayout->setObjectName(QStringLiteral("previewLayout"));
+        previewLayout->setContentsMargins(0, 0, 0, 0);
         duplicateButton = new QPushButton(centralWidget);
         duplicateButton->setObjectName(QStringLiteral("duplicateButton"));
-        duplicateButton->setGeometry(QRect(1160, 920, 91, 31));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(990, 450, 251, 31));
-        QFont font1;
-        font1.setPointSize(15);
-        label->setFont(font1);
-        label->setAlignment(Qt::AlignCenter);
+        duplicateButton->setGeometry(QRect(1020, 780, 81, 25));
+        framesListLabel = new QLabel(centralWidget);
+        framesListLabel->setObjectName(QStringLiteral("framesListLabel"));
+        framesListLabel->setGeometry(QRect(950, 560, 67, 17));
+        drawMirrorCheckBox = new QCheckBox(centralWidget);
+        drawMirrorCheckBox->setObjectName(QStringLiteral("drawMirrorCheckBox"));
+        drawMirrorCheckBox->setGeometry(QRect(1000, 360, 101, 23));
+        frameRateSlider = new QSlider(centralWidget);
+        frameRateSlider->setObjectName(QStringLiteral("frameRateSlider"));
+        frameRateSlider->setGeometry(QRect(880, 310, 221, 21));
+        sizePolicy.setHeightForWidth(frameRateSlider->sizePolicy().hasHeightForWidth());
+        frameRateSlider->setSizePolicy(sizePolicy);
+        frameRateSlider->setMaximum(3);
+        frameRateSlider->setSingleStep(0);
+        frameRateSlider->setPageStep(1);
+        frameRateSlider->setValue(3);
+        frameRateSlider->setOrientation(Qt::Horizontal);
+        frameRateSlider->setTickPosition(QSlider::TicksBelow);
+        frameRateSlider->setTickInterval(0);
+        frameRateLabel = new QLabel(centralWidget);
+        frameRateLabel->setObjectName(QStringLiteral("frameRateLabel"));
+        frameRateLabel->setGeometry(QRect(910, 280, 151, 21));
+        frameRateLabel->setFont(font);
+        frameRateLabel->setAlignment(Qt::AlignCenter);
+        popOutButton = new QPushButton(centralWidget);
+        popOutButton->setObjectName(QStringLiteral("popOutButton"));
+        popOutButton->setGeometry(QRect(920, 250, 131, 25));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1260, 22));
+        menuBar->setGeometry(QRect(0, 0, 1164, 22));
         SpriteEditorWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(SpriteEditorWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -136,8 +183,14 @@ public:
         resolutionLabel->setText(QApplication::translate("SpriteEditorWindow", "Resolution", nullptr));
         addFrameButton->setText(QApplication::translate("SpriteEditorWindow", "Add", nullptr));
         removeFrameButton->setText(QApplication::translate("SpriteEditorWindow", "Remove", nullptr));
+        penButton->setText(QApplication::translate("SpriteEditorWindow", "Pen", nullptr));
+        eraserButton->setText(QApplication::translate("SpriteEditorWindow", "Eraser", nullptr));
+        selectionButton->setText(QApplication::translate("SpriteEditorWindow", "Selection", nullptr));
         duplicateButton->setText(QApplication::translate("SpriteEditorWindow", "Duplicate", nullptr));
-        label->setText(QApplication::translate("SpriteEditorWindow", "Frames", nullptr));
+        framesListLabel->setText(QApplication::translate("SpriteEditorWindow", "Frames", nullptr));
+        drawMirrorCheckBox->setText(QApplication::translate("SpriteEditorWindow", "Draw Mirrored", nullptr));
+        frameRateLabel->setText(QApplication::translate("SpriteEditorWindow", "Frame Rate (fps)", nullptr));
+        popOutButton->setText(QApplication::translate("SpriteEditorWindow", "Full Size Preview", nullptr));
     } // retranslateUi
 
 };

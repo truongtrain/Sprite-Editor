@@ -38,6 +38,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
 
    model->addFrame();
 
+   ui->selectionButton->setAttribute(Qt::WA_KeyCompression);
 
 }
 
@@ -115,12 +116,25 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
         //  lastYPostion = event->y();
 
         myFrame->drawPixel(event->x(),event->y(),penColor);
+        myFrame->setIsPixelSelected(false);
     }
 
-    if(ui->eraserButton->isChecked()){
+    if(ui->eraserButton->isChecked())
+    {
         myFrame->drawPixel(event->x(),event->y(),qRgba(160 , 160, 160, 10));
+        myFrame->setIsPixelSelected(false);
     }
 
+    if(ui->selectionButton->isChecked())
+    {
+        if(event->x() >= 10 && event->x() < 810 && event->y() >=26 && event->y() <826)
+        {
+            myFrame->setIsPixelSelected(true);
+            myFrame->setCurrentSelectedX(event->x());
+            myFrame->setCurrentSelectedY(event->y());
+            myFrame->setSelectedColor(QColor(myFrame->getImage().pixel(event->x(), event->y())));
+        }
+    }
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
@@ -133,5 +147,23 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
     if(ui->eraserButton->isChecked())
     {
         mousePressed = false;
+    }
+
+
+}
+
+void SpriteEditorWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Up)
+    {
+      //  qDebug() << "key up is press";
+    }
+}
+
+void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Up)
+    {
+        qDebug() << "key up is press";
     }
 }

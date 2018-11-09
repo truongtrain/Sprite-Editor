@@ -11,13 +11,9 @@ Frame::Frame(QWidget *parent)
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
     currentColor = Qt::gray;
-    for (int row = 0; row < 32; row++)
-    {
-        for (int column = 0; column < 32; column++)
-        {
-            colorGrid[row][column] = Qt::transparent;
-        }
-    }
+
+    isPixelSelected = false;
+
 }
 
 QImage& Frame::getImage()
@@ -52,6 +48,48 @@ int* Frame::getPixelAtCoordinates(int x, int y)
     result[2] = yStarting;
     result[3] = yEnding;
     return result;
+}
+
+void Frame::setIsPixelSelected(bool input)
+{
+    qDebug() <<input;
+    this->isPixelSelected = input;
+}
+
+void Frame::setCurrentSelectedX(int input)
+{
+    this->currentSelectedX = input;
+}
+
+void Frame::setCurrentSelectedY(int input)
+{
+    this->currentSelectedY = input;
+}
+
+void Frame::setSelectedColor(QColor input)
+{
+    qDebug() <<input.name();
+    this->selectedColor = input;
+}
+
+bool Frame::getIsPixelSelected()
+{
+    return this->isPixelSelected;
+}
+
+int Frame::getCurrentSelectedX()
+{
+    this->currentSelectedX;
+}
+
+int Frame::getCurrentSelectedY()
+{
+    this->currentSelectedY;
+}
+
+QColor Frame::getSelectedColor()
+{
+    this->selectedColor;
 }
 
 void Frame::saveColor(int x, int y, QColor color)

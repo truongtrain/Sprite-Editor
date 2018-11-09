@@ -21,7 +21,13 @@ private:
     int currentYCoord;
     QColor currentColor;
     void saveColor(int x, int y, QColor color);
-  //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
+
+    // Theses 4 variablies are for moving pixels
+    bool isPixelSelected;
+    int currentSelectedX;
+    int currentSelectedY;
+    QColor selectedColor;
+
 
 public:
     Frame(QWidget *parent = 0);
@@ -40,6 +46,20 @@ public:
      * @return an array - [xStarting, xEnding, yStarting, yEnding]
      */
     int* getPixelAtCoordinates(int x, int y);
+
+    // These are for moving pixels
+
+
+    void setIsPixelSelected(bool input);
+    void setCurrentSelectedX(int input);
+    void setCurrentSelectedY(int input);
+    void setSelectedColor(QColor input);
+
+
+    bool getIsPixelSelected();
+    int getCurrentSelectedX();
+    int getCurrentSelectedY();
+    QColor getSelectedColor();
 
 protected:
     void paintEvent (QPaintEvent *event) override;

@@ -8,6 +8,7 @@
 #include "frame.h"
 #include "spritemodel.h"
 #include <QSignalMapper>
+#include <QKeyEvent>
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -46,6 +47,9 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
+
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 };
 

@@ -52,11 +52,17 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../SpriteEditor/main.cpp \
 		../SpriteEditor/spriteeditorwindow.cpp \
-		../SpriteEditor/frame.cpp moc_spriteeditorwindow.cpp
+		../SpriteEditor/frame.cpp \
+		../SpriteEditor/spritemodel.cpp moc_spriteeditorwindow.cpp \
+		moc_frame.cpp \
+		moc_spritemodel.cpp
 OBJECTS       = main.o \
 		spriteeditorwindow.o \
 		frame.o \
-		moc_spriteeditorwindow.o
+		spritemodel.o \
+		moc_spriteeditorwindow.o \
+		moc_frame.o \
+		moc_spritemodel.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -111,7 +117,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		../SpriteEditor/.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -132,9 +137,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../SpriteEditor/SpriteEditor.pro ../SpriteEditor/spriteeditorwindow.h \
-		../SpriteEditor/frame.h ../SpriteEditor/main.cpp \
+		../SpriteEditor/frame.h \
+		../SpriteEditor/spritemodel.h ../SpriteEditor/main.cpp \
 		../SpriteEditor/spriteeditorwindow.cpp \
-		../SpriteEditor/frame.cpp
+		../SpriteEditor/frame.cpp \
+		../SpriteEditor/spritemodel.cpp
 QMAKE_TARGET  = SpriteEditor
 DESTDIR       = 
 TARGET        = SpriteEditor
@@ -200,7 +207,6 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -279,7 +285,6 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -318,8 +323,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../SpriteEditor/spriteeditorwindow.h ../SpriteEditor/frame.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/frame.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../SpriteEditor/spriteeditorwindow.h ../SpriteEditor/frame.h ../SpriteEditor/spritemodel.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/frame.cpp ../SpriteEditor/spritemodel.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../SpriteEditor/spriteeditorwindow.ui $(DISTDIR)/
 
 
@@ -352,13 +357,26 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_spriteeditorwindow.cpp
+compiler_moc_header_make_all: moc_spriteeditorwindow.cpp moc_frame.cpp moc_spritemodel.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_spriteeditorwindow.cpp
-moc_spriteeditorwindow.cpp: ../SpriteEditor/spriteeditorwindow.h \
+	-$(DEL_FILE) moc_spriteeditorwindow.cpp moc_frame.cpp moc_spritemodel.cpp
+moc_spriteeditorwindow.cpp: ../SpriteEditor/frame.h \
+		../SpriteEditor/spritemodel.h \
+		../SpriteEditor/spriteeditorwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hansol/a7-sprite-editor-sunsiu-1/SpriteEditor -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SpriteEditor/spriteeditorwindow.h -o moc_spriteeditorwindow.cpp
+
+moc_frame.cpp: ../SpriteEditor/frame.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hansol/a7-sprite-editor-sunsiu-1/SpriteEditor -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SpriteEditor/frame.h -o moc_frame.cpp
+
+moc_spritemodel.cpp: ../SpriteEditor/frame.h \
+		../SpriteEditor/spritemodel.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/hansol/a7-sprite-editor-sunsiu-1/SpriteEditor -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SpriteEditor/spritemodel.h -o moc_spritemodel.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -379,18 +397,32 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h
+main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h \
+		../SpriteEditor/frame.h \
+		../SpriteEditor/spritemodel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../SpriteEditor/main.cpp
 
 spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spriteeditorwindow.h \
+		../SpriteEditor/frame.h \
+		../SpriteEditor/spritemodel.h \
 		ui_spriteeditorwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spriteeditorwindow.o ../SpriteEditor/spriteeditorwindow.cpp
 
 frame.o: ../SpriteEditor/frame.cpp ../SpriteEditor/frame.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o frame.o ../SpriteEditor/frame.cpp
 
+spritemodel.o: ../SpriteEditor/spritemodel.cpp ../SpriteEditor/spritemodel.h \
+		../SpriteEditor/frame.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spritemodel.o ../SpriteEditor/spritemodel.cpp
+
 moc_spriteeditorwindow.o: moc_spriteeditorwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_spriteeditorwindow.o moc_spriteeditorwindow.cpp
+
+moc_frame.o: moc_frame.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_frame.o moc_frame.cpp
+
+moc_spritemodel.o: moc_spritemodel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_spritemodel.o moc_spritemodel.cpp
 
 ####### Install
 

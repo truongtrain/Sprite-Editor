@@ -18,9 +18,11 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     model, &SpriteModel::addFrame);
    // Lambda to send an integer to our slot
    QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
-                    [=]() {model->removeFrame(ui->frameList->currentRow());});
+                    [=]() {model->removeFrame(ui->framesList->currentRow());});
    QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
                     model, &SpriteModel::setCurrentFrameIndex);
+   QObject::connect(ui->framesList, &QListWidget::itemPressed,
+                    this, &SpriteEditorWindow::handleFrameSelection);
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameAdded,
@@ -50,34 +52,44 @@ void SpriteEditorWindow::handleAddedFrame(int framesMade)
     QString frameName = QString("Frame %1").arg(framesMade);
 
     // Add new blank frame and switch focus to it
-    ui->frameList->addItem(frameName);
-    int lastRow = ui->frameList->count() - 1;
-    ui->frameList->setCurrentRow(lastRow);
+    ui->framesList->addItem(frameName);
+
+    int lastRow = ui->framesList->count() - 1;
+    ui->framesList->setCurrentRow(lastRow);
+
+    emit updateCurrentFrameIndex(lastRow);
     updateRemoveButton();
 }
 
 void SpriteEditorWindow::handleRemovedFrame()
 {
     // Removes the currently selected item
-    int selectionIndex = ui->frameList->currentRow();
-    ui->frameList->takeItem(selectionIndex);
+    int selectionIndex = ui->framesList->currentRow();
+    ui->framesList->takeItem(selectionIndex);
 
-    emit updateCurrentFrameIndex(ui->frameList->currentRow());
+    int newRow = ui->framesList->currentRow();
+    emit updateCurrentFrameIndex(newRow);
     updateRemoveButton();
 }
 
 void SpriteEditorWindow::updateRemoveButton()
 {
-    bool isLastFrame = (ui->frameList->count() == 1);
+    bool isLastFrame = (ui->framesList->count() == 1);
     ui->removeFrameButton->setDisabled(isLastFrame);
 }
 
-void SpriteEditorWindow::updateFrame(Frame* current)
+void SpriteEditorWindow::updateFrame(Frame* newCurrent)
 {
-    ui->frameLayout->takeAt(0);
-    ui->frameLayout->addWidget(current);
-    currentFrame = current;
+    ui->frameLayout->removeWidget(currentFrame);
+    ui->frameLayout->addWidget(newCurrent, 0 , 0);
+    currentFrame = newCurrent;
+
     currentFrame->update();
+}
+
+void SpriteEditorWindow::handleFrameSelection()
+{
+    emit updateCurrentFrameIndex(ui->framesList->currentRow());
 }
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
@@ -109,7 +121,6 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
       qDebug() << "x: " << event->x();
       qDebug() << "y: " << event->y();
       qDebug() << "Color: " << penColor;
-
     //  lastXPosition = event->x();
     //  lastYPostion = event->y();
 
@@ -120,3 +131,4 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     mousePressed = false;
 }
+

@@ -232,7 +232,6 @@ DIST          = /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf \
-		../SpriteEditor/.qmake.stash \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -438,7 +437,6 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /home/sunsun/Qt/5.11.2/gcc_64/mkspecs
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -632,7 +630,6 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /home/sunsun/Qt/5.11.2/gcc_64/mkspecs
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf:

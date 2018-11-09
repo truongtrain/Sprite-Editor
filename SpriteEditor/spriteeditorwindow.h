@@ -5,9 +5,10 @@
 #include <QColorDialog>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QListWidget>
 #include "frame.h"
 #include "spritemodel.h"
-#include <QSignalMapper>
+
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -39,11 +40,14 @@ private:
     bool mousePressed;
 
     void updateRemoveButton();
+
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 
+private slots:
+    void handleFrameSelection();
 };
 
 #endif // SPRITEEDITORWINDOW_H

@@ -99,14 +99,12 @@ void Frame::paintEvent(QPaintEvent *)
     QPainter imagePainter(&image);
     QBrush brush(currentColor);
 
-    painter.setBrush(brush);
-    QPen pen(Qt::white);
-    painter.setPen(pen);
-
-    QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
     imagePainter.setBrush(brush);
+    QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
     imagePainter.fillRect(rectangle,brush);
 
+    QPen pen(Qt::white);
+    painter.setPen(pen);
     painter.drawImage(QPoint(),image);
 
     //display grid lines
@@ -120,7 +118,6 @@ void Frame::paintEvent(QPaintEvent *)
     }
 
     //send image to model
-
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {

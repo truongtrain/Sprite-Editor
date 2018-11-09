@@ -36,7 +36,7 @@ public:
     QLabel *resolutionLabel;
     QWidget *gridLayoutWidget;
     QGridLayout *frameLayout;
-    QListWidget *frameList;
+    QListWidget *framesList;
     QPushButton *addFrameButton;
     QPushButton *removeFrameButton;
     QRadioButton *penButton;
@@ -103,11 +103,14 @@ public:
         frameLayout->setContentsMargins(11, 11, 11, 11);
         frameLayout->setObjectName(QStringLiteral("frameLayout"));
         frameLayout->setContentsMargins(0, 0, 0, 0);
-        frameList = new QListWidget(centralWidget);
-        frameList->setObjectName(QStringLiteral("frameList"));
-        frameList->setGeometry(QRect(870, 580, 221, 192));
-        frameList->setDragEnabled(true);
-        frameList->setDragDropMode(QAbstractItemView::DragDrop);
+        framesList = new QListWidget(centralWidget);
+        framesList->setObjectName(QStringLiteral("framesList"));
+        framesList->setGeometry(QRect(870, 580, 221, 192));
+        framesList->setEditTriggers(QAbstractItemView::DoubleClicked);
+        framesList->setDragEnabled(true);
+        framesList->setDragDropMode(QAbstractItemView::DragDrop);
+        framesList->setDefaultDropAction(Qt::MoveAction);
+        framesList->setSelectionBehavior(QAbstractItemView::SelectRows);
         addFrameButton = new QPushButton(centralWidget);
         addFrameButton->setObjectName(QStringLiteral("addFrameButton"));
         addFrameButton->setGeometry(QRect(860, 780, 51, 25));

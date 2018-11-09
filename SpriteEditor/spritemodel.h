@@ -12,7 +12,7 @@ class SpriteModel : public QObject
 
 private:
     //QList<QImage> images;
-    std::vector<Frame*> frames;
+    std::vector<Frame> frames;
     int currentFrameIndex;
     int frameRate;
     int framesMade;

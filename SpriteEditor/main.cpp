@@ -1,11 +1,12 @@
 #include "spriteeditorwindow.h"
+#include "spritemodel.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SpriteEditorWindow w;
-    w.show();
+    SpriteEditorWindow* w = new SpriteEditorWindow(nullptr, new SpriteModel());
+    w->show();
 
     return a.exec();
 }

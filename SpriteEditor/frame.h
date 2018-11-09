@@ -11,6 +11,7 @@ class Frame : public QWidget
     Q_OBJECT
 private:
     QImage image;
+
     //Frame* nextFrame;
    // Frame* previousFrame;
     int currentPixelSize;
@@ -40,6 +41,9 @@ public:
      * @return an array - [xStarting, xEnding, yStarting, yEnding]
      */
     int* getPixelAtCoordinates(int x, int y);
+
+public slots:
+    void changeResolution(int newPixelSize);
 
 protected:
     void paintEvent (QPaintEvent *event) override;

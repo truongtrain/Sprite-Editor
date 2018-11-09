@@ -12,7 +12,7 @@ class SpriteModel : public QObject
 
 private:
     QList<QImage> images;
-    //std::vector<Frame> frames;
+    std::vector<Frame*> frames;
     int currentFrameIndex;
     int frameRate;
     const int GRID_RESOLUTION = 960;
@@ -33,7 +33,9 @@ public slots:
      * Adds a blank frame to the list then tells the view to update
      * its corresponding list.
      */
-    void addFrame();
+    void addNewFrameFromButton();
+    void addFrame(Frame* frame);
+    void changeResolutionOfAllFrames(int value);
 
     /**
      * Removes the frame at the selected index. Guranteed that

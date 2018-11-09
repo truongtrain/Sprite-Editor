@@ -23,6 +23,8 @@ public:
 
 signals:
     void updateCurrentFrameIndex(int index);
+    void addInitialFrameSignal(Frame* frame);
+    void resolutionSliderMovedSignal(int value);
 
 
 
@@ -33,6 +35,8 @@ private slots:
      * based on how many frames there are
      */
 void updateFrameList(int frameIndex);
+
+void on_resolutionSlider_sliderMoved(int position);
 
 private:
     Ui::SpriteEditorWindow *ui;

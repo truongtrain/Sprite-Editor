@@ -176,6 +176,9 @@ background-color: rgb(0, 0, 0);</string>
     <property name="text">
      <string>Pen</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QRadioButton" name="eraserButton">
     <property name="geometry">

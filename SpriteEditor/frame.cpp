@@ -1,6 +1,7 @@
 #include "frame.h"
 #include <QDebug>
 #include <QRgba64>
+#include <iostream>
 
 
 Frame::Frame(QWidget *parent)
@@ -18,6 +19,7 @@ Frame::Frame(QWidget *parent)
             colorGrid[row][column] = Qt::transparent;
         }
     }
+
 }
 
 QImage& Frame::getImage()
@@ -75,8 +77,11 @@ void Frame::paintEvent(QPaintEvent *)
     QPen pen(Qt::white);
     painter.setPen(pen);
 
+
     QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
     imagePainter.setBrush(brush);
+
+
     imagePainter.fillRect(rectangle,brush);
 
     painter.drawImage(QPoint(),image);
@@ -103,4 +108,20 @@ void Frame::drawPixel(int x, int y, QColor color) {
     currentColor = color;
     //saveColor(x, y, color);
     update();
+}
+
+void Frame::changeResolution(int newPixelSize)
+{
+
+    if (newPixelSize > currentPixelSize)
+    {
+        image.fill(qRgba(160 , 160, 160, 10));
+        currentColor = Qt::transparent;
     }
+
+    this->currentPixelSize = newPixelSize;
+
+    update();
+
+    std::cout << "PixelSize changed to " << newPixelSize << std::endl;
+}

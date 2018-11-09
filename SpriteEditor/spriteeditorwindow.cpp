@@ -1,6 +1,7 @@
 #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
 #include "frame.h"
+#include <iostream>
 
 #include <QGridLayout>
 
@@ -21,12 +22,17 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
 
 
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
-                    model, &SpriteModel::addFrame);
+                    model, &SpriteModel::addNewFrameFromButton);
    // Lambda to send an integer to our slot
    QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
                     [=]() {model->removeFrame(ui->frameList->currentRow());});
    QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
                     model, &SpriteModel::setCurrentFrameIndex);
+
+   QObject::connect(this, &SpriteEditorWindow::addInitialFrameSignal,
+                    model, &SpriteModel::addFrame);
+   QObject::connect(this, &SpriteEditorWindow::resolutionSliderMovedSignal,
+                    model, &SpriteModel::changeResolutionOfAllFrames);
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameChanged,
@@ -35,7 +41,9 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
 
-   model->addFrame();
+   //model->addFrame(myFrame);
+
+   emit addInitialFrameSignal(myFrame);
 
 
 }
@@ -113,4 +121,10 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     mousePressed = false;
+}
+
+void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
+{
+    std::cout << "resolution slider moved to " << position << std::endl;
+    emit resolutionSliderMovedSignal(position);
 }

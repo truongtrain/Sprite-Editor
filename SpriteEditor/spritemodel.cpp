@@ -1,5 +1,6 @@
 #include "spritemodel.h"
 #include <QDebug>
+#include <iostream>
 
 SpriteModel::SpriteModel()
 {
@@ -18,10 +19,8 @@ void SpriteModel::changeResolution(int res)
     res++;
 }
 
-void SpriteModel::addFrame()
+void SpriteModel::addNewFrameFromButton()
 {
-
-
 
     //add image
     QImage image;
@@ -32,6 +31,13 @@ void SpriteModel::addFrame()
     int frameCount = int(images.size());
     currentFrameIndex = frameCount - 1;
     emit frameChanged(frameCount);
+
+}
+
+void SpriteModel::addFrame(Frame* frame)
+{
+    std::cout << "frame added" << std::endl;
+    frames.push_back(frame);
 
 }
 
@@ -51,4 +57,26 @@ void SpriteModel::setCurrentFrameIndex(int selectedIndex)
 
     currentFrameIndex = selectedIndex;
 
+}
+
+void SpriteModel::changeResolutionOfAllFrames(int value)
+{
+    std::cout << "frames.size() = " << frames.size() << std::endl;
+
+    int newPixelSize;
+
+    if (value == 0)
+        newPixelSize = 200;
+    else if (value == 1)
+        newPixelSize = 100;
+    else if (value == 2)
+        newPixelSize = 50;
+    else
+        newPixelSize = 25;
+
+    for (unsigned long i = 0; i < frames.size(); i++)
+    {
+        frames[i]->changeResolution(newPixelSize);
+        std::cout << "telling frame " << i << " to update res" << std::endl;
+    }
 }

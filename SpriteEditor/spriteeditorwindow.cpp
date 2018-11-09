@@ -17,25 +17,23 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
 
     myFrame = new Frame();
 
-
-    ui->layout->setGeometry(QRect(0, 0, 800, 800));
-    ui->layout->addWidget(myFrame, 0, 0);
+    ui->frameLayout->addWidget(myFrame, 0, 0);
 
 
-       QObject::connect(ui->addFrameButton, &QPushButton::pressed,
-                        model, &SpriteModel::addFrame);
-       // Lambda to send an integer to our slot
-       QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
-                        [=]() {model->removeFrame(ui->frameList->currentRow());});
-       QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
-                        model, &SpriteModel::setCurrentFrameIndex);
+   QObject::connect(ui->addFrameButton, &QPushButton::pressed,
+                    model, &SpriteModel::addFrame);
+   // Lambda to send an integer to our slot
+   QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
+                    [=]() {model->removeFrame(ui->frameList->currentRow());});
+   QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
+                    model, &SpriteModel::setCurrentFrameIndex);
 
-       // Listen for signals from model
-       QObject::connect(model, &SpriteModel::frameChanged,
-                        this, &SpriteEditorWindow::updateFrameList);
+   // Listen for signals from model
+   QObject::connect(model, &SpriteModel::frameChanged,
+                    this, &SpriteEditorWindow::updateFrameList);
 
-       // We do this here instead of the model constructor because it executes
-       // before the signals are connected.
+   // We do this here instead of the model constructor because it executes
+   // before the signals are connected.
 
    model->addFrame();
 

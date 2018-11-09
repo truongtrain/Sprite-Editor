@@ -50,11 +50,6 @@ public:
     QSlider *frameRateSlider;
     QLabel *frameRateLabel;
     QPushButton *popOutButton;
-    QListWidget *frameList1;
-    QPushButton *addFrameButton1;
-    QPushButton *removeFrameButton1;
-    QPushButton *duplicateButton1;
-    QLabel *label;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -95,7 +90,7 @@ public:
         resolutionSlider->setTickInterval(0);
         resolutionLabel = new QLabel(centralWidget);
         resolutionLabel->setObjectName(QStringLiteral("resolutionLabel"));
-        resolutionLabel->setGeometry(QRect(920, 490, 111, 21));
+        resolutionLabel->setGeometry(QRect(930, 490, 111, 21));
         QFont font;
         font.setPointSize(14);
         resolutionLabel->setFont(font);
@@ -141,7 +136,8 @@ public:
         duplicateButton->setGeometry(QRect(1020, 780, 81, 25));
         framesListLabel = new QLabel(centralWidget);
         framesListLabel->setObjectName(QStringLiteral("framesListLabel"));
-        framesListLabel->setGeometry(QRect(950, 560, 67, 17));
+        framesListLabel->setGeometry(QRect(940, 550, 71, 21));
+        framesListLabel->setFont(font);
         drawMirrorCheckBox = new QCheckBox(centralWidget);
         drawMirrorCheckBox->setObjectName(QStringLiteral("drawMirrorCheckBox"));
         drawMirrorCheckBox->setGeometry(QRect(1000, 360, 101, 23));
@@ -165,29 +161,6 @@ public:
         popOutButton = new QPushButton(centralWidget);
         popOutButton->setObjectName(QStringLiteral("popOutButton"));
         popOutButton->setGeometry(QRect(920, 250, 131, 25));
-        frameList1 = new QListWidget(centralWidget);
-        frameList1->setObjectName(QStringLiteral("frameList1"));
-        frameList1->setGeometry(QRect(990, 490, 251, 420));
-        frameList1->setDragDropOverwriteMode(true);
-        frameList1->setDragDropMode(QAbstractItemView::DragDrop);
-        frameList1->setDefaultDropAction(Qt::MoveAction);
-        addFrameButton1 = new QPushButton(centralWidget);
-        addFrameButton1->setObjectName(QStringLiteral("addFrameButton1"));
-        addFrameButton1->setGeometry(QRect(980, 920, 61, 31));
-        removeFrameButton1 = new QPushButton(centralWidget);
-        removeFrameButton1->setObjectName(QStringLiteral("removeFrameButton1"));
-        removeFrameButton1->setEnabled(true);
-        removeFrameButton1->setGeometry(QRect(1050, 920, 71, 31));
-        duplicateButton1 = new QPushButton(centralWidget);
-        duplicateButton1->setObjectName(QStringLiteral("duplicateButton1"));
-        duplicateButton1->setGeometry(QRect(1160, 920, 91, 31));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(990, 450, 251, 31));
-        QFont font1;
-        font1.setPointSize(15);
-        label->setFont(font1);
-        label->setAlignment(Qt::AlignCenter);
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -221,10 +194,6 @@ public:
         drawMirrorCheckBox->setText(QApplication::translate("SpriteEditorWindow", "Draw Mirrored", nullptr));
         frameRateLabel->setText(QApplication::translate("SpriteEditorWindow", "Frame Rate (fps)", nullptr));
         popOutButton->setText(QApplication::translate("SpriteEditorWindow", "Full Size Preview", nullptr));
-        addFrameButton1->setText(QApplication::translate("SpriteEditorWindow", "Add", nullptr));
-        removeFrameButton1->setText(QApplication::translate("SpriteEditorWindow", "Remove", nullptr));
-        duplicateButton1->setText(QApplication::translate("SpriteEditorWindow", "Duplicate", nullptr));
-        label->setText(QApplication::translate("SpriteEditorWindow", "Frames", nullptr));
     } // retranslateUi
 
 };

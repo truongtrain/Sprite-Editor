@@ -3,7 +3,8 @@
 
 SpriteModel::SpriteModel()
 {
-    framesMade = 1;
+    framesMade = 0;
+
 }
 
 
@@ -20,42 +21,33 @@ void SpriteModel::changeResolution(int res)
 
 void SpriteModel::addFrame()
 {
-    //add image
-    QImage image;
-    image= QImage(GRID_RESOLUTION, GRID_RESOLUTION, QImage::Format_RGB32);
-    image.fill(qRgba(160 , 160, 160, 10));
-
-    Frame newFrame;
+    Frame* newFrame = new Frame;
     frames.push_back(newFrame);
-    images.append(image);
+
+    // Adding a frame switches focus to that new frame
+    currentFrameIndex = int(frames.size() - 1);
     framesMade++;
 
     emit frameAdded(framesMade);
-
+    emit currentFrameUpdated(newFrame);
 }
 
 void SpriteModel::removeFrame(int selectedIndex)
 {
     // Adjust index since we have to add this to the begin() iterator
-    selectedIndex = selectedIndex - 1;
-    images.removeAt(selectedIndex);
-
-    emit frameRemoved();
-
-}
-
-void SpriteModel::setCurrentFrameIndex(int selectedIndex)
-{
-    currentFrameIndex = selectedIndex;
-
-    // Adjust index since we have to add this to the begin() iterator
-    selectedIndex = selectedIndex - 1;
+    if(selectedIndex != 0)
+    {
+        selectedIndex = selectedIndex - 1;
+    }
+    //images.removeAt(selectedIndex);
     frames.erase(frames.begin() + selectedIndex);
 
-    emit frameChanged(framesMade);
+    emit frameRemoved();
 }
 
 void SpriteModel::setCurrentFrameIndex(int selectedIndex)
 {
     currentFrameIndex = selectedIndex;
+    Frame* current = frames.at(currentFrameIndex);
+    emit currentFrameUpdated(current);
 }

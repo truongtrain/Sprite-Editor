@@ -19,7 +19,7 @@ class SpriteEditorWindow : public QMainWindow
 
 public:
     explicit SpriteEditorWindow(QWidget *parent = nullptr, SpriteModel *model = new SpriteModel());
-    ~SpriteEditorWindow();
+    ~SpriteEditorWindow() override;
 
 signals:
     void updateCurrentFrameIndex(int index);
@@ -27,16 +27,18 @@ signals:
 public slots:
     void on_chooseColorBox_clicked();
     void handleRemovedFrame();
-    void handleAddedFrame();
+    void handleAddedFrame(int framesMade);
+    void updateFrame(Frame* current);
 
 private:
     Ui::SpriteEditorWindow *ui;
     QColor penColor;
-    Frame* myFrame;
+    Frame* currentFrame;
     int lastXPosition;
     int lastYPostion;
     bool mousePressed;
 
+    void updateRemoveButton();
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

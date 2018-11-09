@@ -9,23 +9,26 @@
 class Frame : public QWidget
 {
     Q_OBJECT
+
 private:
     QImage image;
     int currentPixelSize;
-    const int GRID_RESOLUTION = 800;
-    QColor colorGrid[32][32];
-
+    int gridResolution;
+    //QColor colorGrid[32][32];
     int currentXCoord;
     int currentYCoord;
     QColor currentColor;
+
     void saveColor(int x, int y, QColor color);
-  //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
+    //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
 
 public:
-    Frame(QWidget *parent = 0);
+    Frame(QWidget *parent = nullptr);
+    Frame(const Frame &other);
+    ~Frame() override;
+    Frame &operator =(Frame other);
     //void drawGrid();
     QImage& getImage();
-    // newSize must be one of these numbers: 1,2,3,4,6,8,9,12,18,24,36
     void setCurrentPixelSize(int newSize);
     int getCurrentPixelSize();
     void drawPixel(int x, int y, QColor color);
@@ -38,6 +41,7 @@ public:
      * @return an array - [xStarting, xEnding, yStarting, yEnding]
      */
     int* getPixelAtCoordinates(int x, int y);
+
 
 protected:
     void paintEvent (QPaintEvent *event) override;

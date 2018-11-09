@@ -42,7 +42,7 @@ void SpriteModel::removeFrame(int removedIndex, int newIndex)
 void SpriteModel::duplicateFrame(int index)
 {
     Frame* original = frames.at(index);
-    Frame* copy = new Frame(*original);
+    Frame* copy = new Frame(*original,isDrawMirroredChecked);
 
     int newIndex = index + 1;
     frames.insert(frames.begin() + newIndex, copy);

@@ -25,13 +25,14 @@ Frame::Frame(QWidget *parent, bool isDrawingMirroredChecked)
 //    }
 }
 
-Frame::Frame(const Frame& other)
+Frame::Frame(const Frame& other, bool isDrawingMirroredChecked)
 {
     image = other.image.copy();
     currentPixelSize = other.currentPixelSize;
     currentXCoord = other.currentXCoord;
     currentYCoord = other.currentYCoord;
     currentColor = other.currentColor;
+    isDrawingMirrored = isDrawingMirroredChecked;
 }
 
 Frame& Frame::operator= (Frame other)

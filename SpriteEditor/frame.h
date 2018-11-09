@@ -25,7 +25,7 @@ private:
 
 public:
     Frame(QWidget *parent = nullptr, bool isDrawingMirroredChecked = false);
-    Frame(const Frame &other);
+    Frame(const Frame &other, bool isDrawingMirroredChecked = false);
     ~Frame() override;
     Frame &operator= (Frame other);
     //void drawGrid();

@@ -42,14 +42,13 @@ public:
     QRadioButton *penButton;
     QRadioButton *eraserButton;
     QRadioButton *selectionButton;
-    QWidget *gridLayoutWidget_2;
-    QGridLayout *previewLayout;
     QPushButton *duplicateButton;
     QLabel *framesListLabel;
     QCheckBox *drawMirrorCheckBox;
     QSlider *frameRateSlider;
     QLabel *frameRateLabel;
     QPushButton *popOutButton;
+    QLabel *imageLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -121,14 +120,6 @@ public:
         selectionButton = new QRadioButton(centralWidget);
         selectionButton->setObjectName(QStringLiteral("selectionButton"));
         selectionButton->setGeometry(QRect(870, 390, 112, 23));
-        gridLayoutWidget_2 = new QWidget(centralWidget);
-        gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(860, 10, 271, 231));
-        previewLayout = new QGridLayout(gridLayoutWidget_2);
-        previewLayout->setSpacing(6);
-        previewLayout->setContentsMargins(11, 11, 11, 11);
-        previewLayout->setObjectName(QStringLiteral("previewLayout"));
-        previewLayout->setContentsMargins(0, 0, 0, 0);
         duplicateButton = new QPushButton(centralWidget);
         duplicateButton->setObjectName(QStringLiteral("duplicateButton"));
         duplicateButton->setGeometry(QRect(1020, 780, 81, 25));
@@ -158,6 +149,9 @@ public:
         popOutButton = new QPushButton(centralWidget);
         popOutButton->setObjectName(QStringLiteral("popOutButton"));
         popOutButton->setGeometry(QRect(920, 250, 131, 25));
+        imageLabel = new QLabel(centralWidget);
+        imageLabel->setObjectName(QStringLiteral("imageLabel"));
+        imageLabel->setGeometry(QRect(860, 60, 271, 161));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -191,6 +185,7 @@ public:
         drawMirrorCheckBox->setText(QApplication::translate("SpriteEditorWindow", "Draw Mirrored", nullptr));
         frameRateLabel->setText(QApplication::translate("SpriteEditorWindow", "Frame Rate (fps)", nullptr));
         popOutButton->setText(QApplication::translate("SpriteEditorWindow", "Full Size Preview", nullptr));
+        imageLabel->setText(QString());
     } // retranslateUi
 
 };

@@ -33,6 +33,12 @@ void SpriteModel::addFrame()
     currentFrameIndex = frameCount - 1;
     emit frameChanged(frameCount);
 
+    /*
+    Frame myFrame;
+    frames->push_back(myFrame);
+    */
+
+
 }
 
 void SpriteModel::removeFrame(int selectedIndex)

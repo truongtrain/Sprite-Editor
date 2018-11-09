@@ -16,9 +16,9 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     ui->setupUi(this);
 
     myFrame = new Frame();
+    previewFrame = new Frame();
 
     ui->frameLayout->addWidget(myFrame, 0, 0);
-
 
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
                     model, &SpriteModel::addFrame);
@@ -104,10 +104,18 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
       qDebug() << "y: " << event->y();
       qDebug() << "Color: " << penColor;
 
-    //  lastXPosition = event->x();
-    //  lastYPostion = event->y();
-
     myFrame->drawPixel(event->x(),event->y(),penColor);
+    QImage image = myFrame->getImage();
+    int height = image.height()/5;
+    int width = image.width()/5;
+
+    QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
+   // previewImage= QImage(160,160,QImage::Format_RGB32);
+    //previewImage.fill(qRgba(160 , 160, 160, 10));
+    ui->imageLabel->setPixmap(QPixmap::fromImage(previewImage));
+    ui->imageLabel->show();
+    //previewFrame->drawPreview();
+    //previewFrame->drawPixel(event->x(),event->y(),penColor);
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)

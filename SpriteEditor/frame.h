@@ -14,7 +14,7 @@ private:
     //Frame* nextFrame;
    // Frame* previousFrame;
     int currentPixelSize;
-    const int GRID_RESOLUTION = 800;
+    int GRID_RESOLUTION = 800;
     QColor colorGrid[32][32];
 
     int currentXCoord;
@@ -25,12 +25,14 @@ private:
 
 public:
     Frame(QWidget *parent = 0);
+    ~Frame();
     //void drawGrid();
     QImage& getImage();
     // newSize must be one of these numbers: 1,2,3,4,6,8,9,12,18,24,36
     void setCurrentPixelSize(int newSize);
     int getCurrentPixelSize();
     void drawPixel(int x, int y, QColor color);
+
     /**
      * @brief This function returns the current pixel (starting and ending pixel for both x and y of QImage)  that was clicked.
      *  For example, if current size of pixel is 8 and the coordinate (700,900) is clicked,

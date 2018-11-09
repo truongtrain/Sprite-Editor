@@ -20,6 +20,11 @@ Frame::Frame(QWidget *parent)
     }
 }
 
+Frame::~Frame()
+{
+
+}
+
 QImage& Frame::getImage()
 {
     return this->image;
@@ -90,8 +95,6 @@ void Frame::paintEvent(QPaintEvent *)
     {
         painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
     }
-
-    //send image to model
 
 }
 

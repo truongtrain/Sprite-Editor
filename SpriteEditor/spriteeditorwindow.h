@@ -38,6 +38,7 @@ private:
     Ui::SpriteEditorWindow *ui;
     QColor penColor;
     Frame* myFrame;
+    Frame* previewFrame;
     int lastXPosition;
     int lastYPostion;
     bool mousePressed;

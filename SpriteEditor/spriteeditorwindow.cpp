@@ -28,8 +28,10 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     model, &SpriteModel::setCurrentFrameIndex);
 
    // Listen for signals from model
-   QObject::connect(model, &SpriteModel::frameChanged,
-                    this, &SpriteEditorWindow::updateFrameList);
+   QObject::connect(model, &SpriteModel::frameAdded,
+                    this, &SpriteEditorWindow::handleAddedFrame);
+   QObject::connect(model, &SpriteModel::frameRemoved,
+                    this, &SpriteEditorWindow::handleRemovedFrame);
 
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
@@ -45,28 +47,29 @@ SpriteEditorWindow::~SpriteEditorWindow()
     //delete myFrame;
 }
 
-void SpriteEditorWindow::updateFrameList(int frameCount)
+void SpriteEditorWindow::handleAddedFrame(int framesMade)
 {
-    int totalItems = ui->frameList->count();
+    // The syntax for interpolating an int in a QString
+    QString frameName = QString("Frame %1").arg(framesMade);
 
-    // Check to see if frame was added or removed
-    if(frameCount > totalItems)
-    {
-        // The syntax for interpolating an int in a QString
-        QString frameName = QString("Frame %1").arg(frameCount);
+    // Add new blank frame and switch focus to it
+    ui->frameList->addItem(frameName);
+    int lastRow = ui->frameList->count() - 1;
+    ui->frameList->setCurrentRow(lastRow);
 
-        // Add new blank frame and switch focus to it
-        ui->frameList->addItem(frameName);
-        ui->frameList->setCurrentRow(frameCount - 1);
+    emit updateCurrentFrameIndex(ui->frameList->currentRow());
 
-        emit updateCurrentFrameIndex(ui->frameList->currentRow());
-    }
-    else
-    {
-      // Removes the currently selected item
-      int selectionIndex = ui->frameList->currentRow();
-      ui->frameList->takeItem(selectionIndex);
-    }
+    bool isLastFrame = (ui->frameList->count() == 1);
+    ui->removeFrameButton->setDisabled(isLastFrame);
+}
+
+void SpriteEditorWindow::handleRemovedFrame()
+{
+    // Removes the currently selected item
+    int selectionIndex = ui->frameList->currentRow();
+    ui->frameList->takeItem(selectionIndex);
+
+    emit updateCurrentFrameIndex(ui->frameList->currentRow());
 
     bool isLastFrame = (ui->frameList->count() == 1);
     ui->removeFrameButton->setDisabled(isLastFrame);

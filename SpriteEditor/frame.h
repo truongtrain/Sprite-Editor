@@ -11,8 +11,6 @@ class Frame : public QWidget
     Q_OBJECT
 private:
     QImage image;
-    //Frame* nextFrame;
-   // Frame* previousFrame;
     int currentPixelSize;
     const int GRID_RESOLUTION = 800;
     QColor colorGrid[32][32];

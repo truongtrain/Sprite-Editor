@@ -12,10 +12,11 @@ class SpriteModel : public QObject
 
 private:
     QList<QImage> images;
-    //std::vector<Frame> frames;
+    std::vector<Frame> frames;
     int currentFrameIndex;
     int frameRate;
-    const int GRID_RESOLUTION = 960;
+    int framesMade;
+    const int GRID_RESOLUTION = 800;
 
     void adjustToAvailableFrame(int index);
 
@@ -26,7 +27,8 @@ public:
 
 signals:
     // Lets view know a frame was added and gives it the count of frames
-    void frameChanged(int count);
+    void frameAdded(int count);
+    void frameRemoved();
 
 public slots:
     /**

@@ -24,15 +24,10 @@ public:
 signals:
     void updateCurrentFrameIndex(int index);
 
-
-
-private slots:
+public slots:
     void on_chooseColorBox_clicked();
-    /**
-     * Updates the frame list with the new frame and naming it
-     * based on how many frames there are
-     */
-void updateFrameList(int frameIndex);
+    void handleRemovedFrame();
+    void handleAddedFrame();
 
 private:
     Ui::SpriteEditorWindow *ui;

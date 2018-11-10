@@ -42,14 +42,13 @@ public:
     QRadioButton *penButton;
     QRadioButton *eraserButton;
     QRadioButton *selectionButton;
-    QWidget *gridLayoutWidget_2;
-    QGridLayout *previewLayout;
     QPushButton *duplicateButton;
     QLabel *framesListLabel;
     QCheckBox *drawMirrorCheckBox;
     QSlider *frameRateSlider;
     QLabel *frameRateLabel;
     QPushButton *popOutButton;
+    QLabel *previewLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -113,10 +112,10 @@ public:
         framesList->setSelectionBehavior(QAbstractItemView::SelectRows);
         addFrameButton = new QPushButton(centralWidget);
         addFrameButton->setObjectName(QStringLiteral("addFrameButton"));
-        addFrameButton->setGeometry(QRect(860, 780, 51, 25));
+        addFrameButton->setGeometry(QRect(1100, 580, 51, 25));
         removeFrameButton = new QPushButton(centralWidget);
         removeFrameButton->setObjectName(QStringLiteral("removeFrameButton"));
-        removeFrameButton->setGeometry(QRect(920, 780, 71, 25));
+        removeFrameButton->setGeometry(QRect(1090, 610, 71, 25));
         penButton = new QRadioButton(centralWidget);
         penButton->setObjectName(QStringLiteral("penButton"));
         penButton->setGeometry(QRect(870, 330, 112, 23));
@@ -126,17 +125,9 @@ public:
         selectionButton = new QRadioButton(centralWidget);
         selectionButton->setObjectName(QStringLiteral("selectionButton"));
         selectionButton->setGeometry(QRect(870, 390, 112, 23));
-        gridLayoutWidget_2 = new QWidget(centralWidget);
-        gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(860, 10, 271, 231));
-        previewLayout = new QGridLayout(gridLayoutWidget_2);
-        previewLayout->setSpacing(6);
-        previewLayout->setContentsMargins(11, 11, 11, 11);
-        previewLayout->setObjectName(QStringLiteral("previewLayout"));
-        previewLayout->setContentsMargins(0, 0, 0, 0);
         duplicateButton = new QPushButton(centralWidget);
         duplicateButton->setObjectName(QStringLiteral("duplicateButton"));
-        duplicateButton->setGeometry(QRect(1020, 780, 81, 25));
+        duplicateButton->setGeometry(QRect(1090, 640, 81, 25));
         framesListLabel = new QLabel(centralWidget);
         framesListLabel->setObjectName(QStringLiteral("framesListLabel"));
         framesListLabel->setGeometry(QRect(940, 550, 71, 21));
@@ -164,6 +155,9 @@ public:
         popOutButton = new QPushButton(centralWidget);
         popOutButton->setObjectName(QStringLiteral("popOutButton"));
         popOutButton->setGeometry(QRect(920, 250, 131, 25));
+        previewLabel = new QLabel(centralWidget);
+        previewLabel->setObjectName(QStringLiteral("previewLabel"));
+        previewLabel->setGeometry(QRect(880, 20, 261, 201));
         SpriteEditorWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -197,6 +191,7 @@ public:
         drawMirrorCheckBox->setText(QApplication::translate("SpriteEditorWindow", "Draw Mirrored", nullptr));
         frameRateLabel->setText(QApplication::translate("SpriteEditorWindow", "Frame Rate (fps)", nullptr));
         popOutButton->setText(QApplication::translate("SpriteEditorWindow", "Full Size Preview", nullptr));
+        previewLabel->setText(QString());
     } // retranslateUi
 
 };

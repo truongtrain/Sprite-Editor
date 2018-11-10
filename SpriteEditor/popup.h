@@ -2,6 +2,7 @@
 #define POPUP_H
 
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui {
 class Popup;
@@ -15,8 +16,13 @@ public:
     explicit Popup(QWidget *parent = nullptr);
     ~Popup();
 
+public slots:
+    void updateImage();
+    void updateImage2();
+
 private:
     Ui::Popup *ui;
+
 };
 
 #endif // POPUP_H

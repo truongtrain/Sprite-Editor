@@ -28,15 +28,18 @@ SOURCES += \
         main.cpp \
         spriteeditorwindow.cpp \
     frame.cpp \
-    spritemodel.cpp
+    spritemodel.cpp \
+    popup.cpp
 
 HEADERS += \
         spriteeditorwindow.h \
     frame.h \
-    spritemodel.h
+    spritemodel.h \
+    popup.h
 
 FORMS += \
-        spriteeditorwindow.ui
+        spriteeditorwindow.ui \
+    popup.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

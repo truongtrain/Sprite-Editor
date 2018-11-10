@@ -89,7 +89,9 @@ void SpriteEditorWindow::updateFrame(Frame* newCurrent)
 
 void SpriteEditorWindow::handleFrameSelection()
 {
+    updatePreviewImage();
     emit updateCurrentFrameIndex(ui->framesList->currentRow());
+
 }
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
@@ -117,18 +119,31 @@ void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event)
 void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
     mousePressed = true;
-
-      qDebug() << "x: " << event->x();
-      qDebug() << "y: " << event->y();
-      qDebug() << "Color: " << penColor;
-    //  lastXPosition = event->x();
-    //  lastYPostion = event->y();
-
     currentFrame->drawPixel(event->x(),event->y(),penColor);
+    updatePreviewImage();
+
+}
+
+void SpriteEditorWindow::updatePreviewImage()
+{
+    //qDebug()<<currentFrame->currentIndex;
+    QImage image = currentFrame->getImage();
+    int height = image.height()/5;
+    int width = image.width()/5;
+    QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
+    ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
+    ui->previewLabel->show();
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
+    updatePreviewImage();
     mousePressed = false;
 }
 
+
+void SpriteEditorWindow::on_popOutButton_clicked()
+{
+    popup.show();
+    popup.updateImage();
+}

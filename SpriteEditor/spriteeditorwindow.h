@@ -8,7 +8,7 @@
 #include <QListWidget>
 #include "frame.h"
 #include "spritemodel.h"
-
+#include "popup.h"
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -30,6 +30,7 @@ public slots:
     void handleRemovedFrame();
     void handleAddedFrame(int framesMade);
     void updateFrame(Frame* current);
+    void updatePreviewImage();
 
 private:
     Ui::SpriteEditorWindow *ui;
@@ -38,7 +39,7 @@ private:
     int lastXPosition;
     int lastYPostion;
     bool mousePressed;
-
+    Popup popup;
     void updateRemoveButton();
 
 protected:
@@ -48,6 +49,7 @@ protected:
 
 private slots:
     void handleFrameSelection();
+    void on_popOutButton_clicked();
 };
 
 #endif // SPRITEEDITORWINDOW_H

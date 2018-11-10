@@ -36,6 +36,7 @@ public slots:
     void addNewFrameFromButton();
     void addFrame(Frame* frame);
     void changeResolutionOfAllFrames(int value);
+    void setDrawMirrored(bool checked);
 
     /**
      * Removes the frame at the selected index. Guranteed that

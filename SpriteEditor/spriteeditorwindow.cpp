@@ -33,6 +33,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     model, &SpriteModel::addFrame);
    QObject::connect(this, &SpriteEditorWindow::resolutionSliderMovedSignal,
                     model, &SpriteModel::changeResolutionOfAllFrames);
+   QObject::connect(this, &SpriteEditorWindow::drawMirroredBoxChangedSignal,
+                    model, &SpriteModel::setDrawMirrored);
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameChanged,
@@ -127,4 +129,9 @@ void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
 {
     std::cout << "resolution slider moved to " << position << std::endl;
     emit resolutionSliderMovedSignal(position);
+}
+
+void SpriteEditorWindow::on_drawMirrorCheckBox_toggled(bool checked)
+{
+    emit drawMirroredBoxChangedSignal(checked);
 }

@@ -8,6 +8,7 @@ Frame::Frame(QWidget *parent)
     : QWidget(parent)
 {
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
+    isDrawingMirrored = false;
 
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
@@ -84,6 +85,25 @@ void Frame::paintEvent(QPaintEvent *)
 
     imagePainter.fillRect(rectangle,brush);
 
+    if (isDrawingMirrored)
+    {
+        //441
+        int mirroredXCoord = 0;
+        int mirroredYCoord = 0;
+
+        if (currentXCoord <= 410)
+            currentXCoord = 819 - currentXCoord;
+        else if (currentXCoord > 410)
+            currentXCoord = 819 - currentXCoord;
+
+        int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+
+        QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
+        imagePainter.setBrush(brush);
+
+        imagePainter.fillRect(rectangle,brush);
+    }
+
     painter.drawImage(QPoint(),image);
 
     //display grid lines
@@ -124,4 +144,11 @@ void Frame::changeResolution(int newPixelSize)
     update();
 
     std::cout << "PixelSize changed to " << newPixelSize << std::endl;
+}
+
+void Frame::setDrawMirrored(bool checked)
+{
+    std::cout << "changing isDrawimgMirrored" << std::endl;
+
+    isDrawingMirrored = checked;
 }

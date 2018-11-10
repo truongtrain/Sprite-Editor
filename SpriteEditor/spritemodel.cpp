@@ -80,3 +80,9 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
         std::cout << "telling frame " << i << " to update res" << std::endl;
     }
 }
+
+void SpriteModel::setDrawMirrored(bool checked)
+{
+    for (unsigned long i = 0; i < frames.size(); i++)
+        frames[i]->setDrawMirrored(checked);
+}

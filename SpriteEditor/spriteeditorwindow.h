@@ -25,6 +25,7 @@ signals:
     void updateCurrentFrameIndex(int index);
     void addInitialFrameSignal(Frame* frame);
     void resolutionSliderMovedSignal(int value);
+    void drawMirroredBoxChangedSignal(bool checked);
 
 
 
@@ -37,6 +38,8 @@ private slots:
 void updateFrameList(int frameIndex);
 
 void on_resolutionSlider_sliderMoved(int position);
+
+void on_drawMirrorCheckBox_toggled(bool checked);
 
 private:
     Ui::SpriteEditorWindow *ui;

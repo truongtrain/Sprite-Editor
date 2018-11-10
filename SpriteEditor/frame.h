@@ -15,6 +15,7 @@ private:
     //Frame* nextFrame;
    // Frame* previousFrame;
     int currentPixelSize;
+    bool isDrawingMirrored;
     const int GRID_RESOLUTION = 800;
     QColor colorGrid[32][32];
 
@@ -44,6 +45,7 @@ public:
 
 public slots:
     void changeResolution(int newPixelSize);
+    void setDrawMirrored(bool checked);
 
 protected:
     void paintEvent (QPaintEvent *event) override;

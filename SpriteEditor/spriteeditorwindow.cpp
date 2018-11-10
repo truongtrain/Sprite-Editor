@@ -149,8 +149,10 @@ void SpriteEditorWindow::updatePreviewImage()
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    updatePreviewImage();
     mousePressed = false;
+    updatePreviewImage();
+    QImage& image = currentFrame->getImage();
+    emit updateAnimation(currentFrameIndex, image);
 }
 
 

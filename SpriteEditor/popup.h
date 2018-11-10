@@ -22,7 +22,9 @@ public slots:
 
 private:
     Ui::Popup *ui;
-
+    QList<QImage> images;
+    int imageIndex;
+    void incrementImageIndex();
 };
 
 #endif // POPUP_H

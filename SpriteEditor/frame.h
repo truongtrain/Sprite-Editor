@@ -12,6 +12,12 @@ class Frame : public QWidget
 
 private:
     QImage image;
+<<<<<<< HEAD
+=======
+
+    //Frame* nextFrame;
+   // Frame* previousFrame;
+>>>>>>> master
     int currentPixelSize;
     int gridResolution;
     //QColor colorGrid[32][32];
@@ -42,6 +48,11 @@ public:
      */
     int* getPixelAtCoordinates(int x, int y);
 
+<<<<<<< HEAD
+=======
+public slots:
+    void changeResolution(int newPixelSize);
+>>>>>>> master
 
 protected:
     void paintEvent (QPaintEvent *event) override;

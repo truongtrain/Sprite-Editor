@@ -11,7 +11,11 @@ class SpriteModel : public QObject
     Q_OBJECT
 
 private:
+<<<<<<< HEAD
     //QList<QImage> images;
+=======
+    QList<QImage> images;
+>>>>>>> master
     std::vector<Frame*> frames;
     int currentFrameIndex;
     int frameRate;
@@ -36,7 +40,9 @@ public slots:
      * Adds a blank frame to the list then tells the view to update
      * its corresponding list.
      */
-    void addFrame();
+    void addNewFrameFromButton();
+    void addFrame(Frame* frame);
+    void changeResolutionOfAllFrames(int value);
 
     /**
      * Removes the frame at the selected index. Guranteed that

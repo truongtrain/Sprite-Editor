@@ -783,6 +783,10 @@ moc_spriteeditorwindow.cpp: ../../Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow
 		../../Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../SpriteEditor/spritemodel.h \
+		../SpriteEditor/popup.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/QTimer \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		../SpriteEditor/spriteeditorwindow.h \
 		moc_predefs.h \
 		../../Qt/5.11.2/gcc_64/bin/moc
@@ -1128,6 +1132,9 @@ moc_popup.cpp: ../../Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../../Qt/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/QTimer \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		../SpriteEditor/popup.h \
 		moc_predefs.h \
 		../../Qt/5.11.2/gcc_64/bin/moc
@@ -1297,6 +1304,10 @@ main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../SpriteEditor/spritemodel.h \
+		../SpriteEditor/popup.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/QTimer \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
 		../../Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1445,6 +1456,10 @@ spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spr
 		../../Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../SpriteEditor/spritemodel.h \
+		../SpriteEditor/popup.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/QTimer \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		ui_spriteeditorwindow.h \
 		../../Qt/5.11.2/gcc_64/include/QtCore/QVariant \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
@@ -1819,7 +1834,32 @@ popup.o: ../SpriteEditor/popup.cpp ../SpriteEditor/popup.h \
 		../../Qt/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_popup.h
+		../../Qt/5.11.2/gcc_64/include/QtCore/QTimer \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
+		ui_popup.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/QVariant \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.11.2/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/QLabel \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
+		../SpriteEditor/frame.h \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
+		../../Qt/5.11.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/qicon.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/QPainter \
+		../../Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/qtextoption.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
+		../../Qt/5.11.2/gcc_64/include/QtGui/QColor \
+		../../Qt/5.11.2/gcc_64/include/QtGui/QRgba64
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o popup.o ../SpriteEditor/popup.cpp
 
 moc_spriteeditorwindow.o: moc_spriteeditorwindow.cpp 

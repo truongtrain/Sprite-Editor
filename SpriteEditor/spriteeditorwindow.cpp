@@ -23,6 +23,10 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     model, &SpriteModel::setCurrentFrameIndex);
    QObject::connect(ui->framesList, &QListWidget::itemPressed,
                     this, &SpriteEditorWindow::handleFrameSelection);
+   QObject::connect(ui->popOutButton, &QPushButton::pressed,
+                    model, &SpriteModel::getImages);
+   QObject::connect(this, &SpriteEditorWindow::updateAnimation,
+                    model, &SpriteModel::updateImages);
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameAdded,
@@ -31,11 +35,14 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     this, &SpriteEditorWindow::handleRemovedFrame);
    QObject::connect(model, &SpriteModel::currentFrameUpdated,
                     this, &SpriteEditorWindow::updateFrame);
+   QObject::connect(model, &SpriteModel::sendImages,
+                    this, &SpriteEditorWindow::sendImagesToPopup);
 
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
 
    model->addFrame();
+   currentFrameIndex = 0;
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
@@ -57,6 +64,8 @@ void SpriteEditorWindow::handleAddedFrame(int framesMade)
     int lastRow = ui->framesList->count() - 1;
     ui->framesList->setCurrentRow(lastRow);
 
+    currentFrameIndex = lastRow;
+    qDebug()<<"frame index" << currentFrameIndex;
     emit updateCurrentFrameIndex(lastRow);
     updateRemoveButton();
 }
@@ -121,6 +130,8 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     mousePressed = true;
     currentFrame->drawPixel(event->x(),event->y(),penColor);
     updatePreviewImage();
+    QImage& image = currentFrame->getImage();
+    emit updateAnimation(currentFrameIndex, image);
 
 }
 
@@ -146,4 +157,18 @@ void SpriteEditorWindow::on_popOutButton_clicked()
 {
     popup.show();
     popup.updateImage();
+
 }
+
+void SpriteEditorWindow::sendImagesToPopup(QList<QImage> images)
+{
+    qDebug()<<"images sent to popup";
+    popup.setImages(images);
+}
+
+/*
+void SpriteEditorWindow::updateAnimation(int index, QImage image)
+{
+    emit updateImages(image);
+}
+*/

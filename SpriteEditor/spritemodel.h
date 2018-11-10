@@ -11,7 +11,7 @@ class SpriteModel : public QObject
     Q_OBJECT
 
 private:
-    //QList<QImage> images;
+    QList<QImage> images;
     std::vector<Frame> frames;
     int currentFrameIndex;
     int frameRate;
@@ -30,6 +30,7 @@ signals:
     void frameAdded(int count);
     void frameRemoved();
     void currentFrameUpdated(Frame* current);
+    void sendImages(QList<QImage> images);
 
 public slots:
     /**
@@ -49,6 +50,11 @@ public slots:
      * an item was removed.
      */
     void setCurrentFrameIndex(int selectedIndex);
+
+    void getImages();
+
+    void updateImages(int index, QImage& image);
+
 
 };
 

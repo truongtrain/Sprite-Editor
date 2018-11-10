@@ -17,11 +17,16 @@ Popup::Popup(QWidget *parent) :
     image2= QImage(800,800,QImage::Format_RGB32);
     image2.fill(qRgba(5 , 255, 5, 10));
 
-    images.append(image);
-    images.append(image2);
+    //images.append(image);
+    //images.append(image2);
 
     imageIndex = 0;
 
+}
+
+void Popup::setImages(QList<QImage> imageList)
+{
+    images = imageList;
 }
 
 void Popup::updateImage()

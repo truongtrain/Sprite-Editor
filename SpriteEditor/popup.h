@@ -15,6 +15,7 @@ class Popup : public QWidget
 public:
     explicit Popup(QWidget *parent = nullptr);
     ~Popup();
+    void setImages(QList<QImage> imageList);
 
 public slots:
     void updateImage();
@@ -25,6 +26,7 @@ private:
     QList<QImage> images;
     int imageIndex;
     void incrementImageIndex();
+
 };
 
 #endif // POPUP_H

@@ -24,6 +24,7 @@ public:
 
 signals:
     void updateCurrentFrameIndex(int index);
+    void updateAnimation(int index, QImage& image);
 
 public slots:
     void on_chooseColorBox_clicked();
@@ -31,6 +32,8 @@ public slots:
     void handleAddedFrame(int framesMade);
     void updateFrame(Frame* current);
     void updatePreviewImage();
+    void sendImagesToPopup(QList<QImage> images);
+
 
 private:
     Ui::SpriteEditorWindow *ui;
@@ -38,6 +41,7 @@ private:
     Frame* currentFrame;
     int lastXPosition;
     int lastYPostion;
+    int currentFrameIndex;
     bool mousePressed;
     Popup popup;
     void updateRemoveButton();

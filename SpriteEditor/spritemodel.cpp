@@ -26,7 +26,7 @@ void SpriteModel::addFrame()
 
     // Adding a frame switches focus to that new frame
     framesMade++;
-
+    images.append(QPixmap().toImage());
     emit frameAdded(framesMade);
 }
 
@@ -42,4 +42,16 @@ void SpriteModel::setCurrentFrameIndex(int selectedIndex)
     qDebug() << "Row changed: " << selectedIndex;
     currentFrameIndex = selectedIndex;
     emit currentFrameUpdated(&frames.at(selectedIndex));
+}
+
+void SpriteModel::getImages()
+{
+    qDebug() << "images sent";
+    emit sendImages(images);
+}
+
+void SpriteModel::updateImages(int index, QImage& image)
+{
+    qDebug() << "image " << index << " updated";
+    images[index] = image;
 }

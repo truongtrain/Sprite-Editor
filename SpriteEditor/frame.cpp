@@ -58,6 +58,7 @@ void Frame::setIsPixelSelected(bool input)
 
 void Frame::setCurrentSelectedX(int input)
 {
+    qDebug() << "setCurrentSelectedX input was" << input ;
     this->currentSelectedX = input;
 }
 
@@ -68,7 +69,6 @@ void Frame::setCurrentSelectedY(int input)
 
 void Frame::setSelectedColor(QColor input)
 {
-    qDebug() <<input.name();
     this->selectedColor = input;
 }
 
@@ -79,17 +79,17 @@ bool Frame::getIsPixelSelected()
 
 int Frame::getCurrentSelectedX()
 {
-    this->currentSelectedX;
+    return this->currentSelectedX;
 }
 
 int Frame::getCurrentSelectedY()
 {
-    this->currentSelectedY;
+    return this->currentSelectedY;
 }
 
 QColor Frame::getSelectedColor()
 {
-    this->selectedColor;
+    return this->selectedColor;
 }
 
 void Frame::saveColor(int x, int y, QColor color)
@@ -102,6 +102,7 @@ void Frame::saveColor(int x, int y, QColor color)
 }
 void Frame::paintEvent(QPaintEvent *)
 {
+    qDebug() << "Im here in update";
     int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
     QPainter painter(this);
@@ -116,6 +117,7 @@ void Frame::paintEvent(QPaintEvent *)
     QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
     imagePainter.setBrush(brush);
     imagePainter.fillRect(rectangle,brush);
+    imagePainter.drawRect(rectangle);
 
     painter.drawImage(QPoint(),image);
 
@@ -139,6 +141,24 @@ void Frame::drawPixel(int x, int y, QColor color) {
     currentXCoord = x;
     currentYCoord = y;
     currentColor = color;
-    //saveColor(x, y, color);
     update();
+}
+
+void Frame::movePixel(int x, int y, QColor color, int whichArrow)
+{
+    currentXCoord = x;
+    currentYCoord = y;
+    currentColor = Qt::gray;
+    update();
+    if(whichArrow == 0) // up arrow
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x;
+        currentYCoord = y - currentPixelSize;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        setCurrentSelectedY(getCurrentSelectedY()-getCurrentPixelSize());
     }
+
+    update();
+}

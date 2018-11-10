@@ -107,22 +107,23 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     if(ui->penButton->isChecked())
     {
         mousePressed = true;
-
-          qDebug() << "x: " << event->x();
-          qDebug() << "y: " << event->y();
-          qDebug() << "Color: " << penColor;
+//          qDebug() << "x: " << event->x();
+//          qDebug() << "y: " << event->y();
+//          qDebug() << "Color: " << penColor;
 
         //  lastXPosition = event->x();
         //  lastYPostion = event->y();
 
         myFrame->drawPixel(event->x(),event->y(),penColor);
         myFrame->setIsPixelSelected(false);
+        return;
     }
 
     if(ui->eraserButton->isChecked())
     {
         myFrame->drawPixel(event->x(),event->y(),qRgba(160 , 160, 160, 10));
         myFrame->setIsPixelSelected(false);
+        return;
     }
 
     if(ui->selectionButton->isChecked())
@@ -130,8 +131,10 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
         if(event->x() >= 10 && event->x() < 810 && event->y() >=26 && event->y() <826)
         {
             myFrame->setIsPixelSelected(true);
+            qDebug() << "event x was" << event->x() ;
             myFrame->setCurrentSelectedX(event->x());
             myFrame->setCurrentSelectedY(event->y());
+            qDebug() << "selected color was" << QColor(myFrame->getImage().pixel(event->x(), event->y())) ;
             myFrame->setSelectedColor(QColor(myFrame->getImage().pixel(event->x(), event->y())));
         }
     }
@@ -156,14 +159,52 @@ void SpriteEditorWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Up)
     {
-      //  qDebug() << "key up is press";
+        qDebug() << "key up is press";
     }
 }
 
 void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Up)
+    if(event->key() == Qt::Key_Up) // which arrow == 0
     {
-        qDebug() << "key up is press";
+        qDebug() << "Im here";
+        if(myFrame->getIsPixelSelected())
+        {
+
+            qDebug() << "Im here 2";
+//            qDebug() << "X is" <<myFrame->getCurrentSelectedX();
+//            qDebug() << "Y is" <<myFrame->getCurrentSelectedY();
+//            myFrame->drawPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(),Qt::gray);
+//            myFrame->drawPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize(),myFrame->getSelectedColor());
+
+//            myFrame->setCurrentSelectedY(myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize());
+            myFrame->movePixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor(),0);
+            qDebug() << "Y is now" <<myFrame->getCurrentSelectedY();
+
+        }
+    }
+
+    if(event->key() == Qt::Key_Down)
+    {
+        if(myFrame->getIsPixelSelected())
+        {
+
+        }
+    }
+
+    if(event->key() == Qt::Key_Left)
+    {
+        if(myFrame->getIsPixelSelected())
+        {
+
+        }
+    }
+
+    if(event->key() == Qt::Key_Right)
+    {
+        if(myFrame->getIsPixelSelected())
+        {
+
+        }
     }
 }

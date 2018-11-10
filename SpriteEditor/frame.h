@@ -61,6 +61,8 @@ public:
     int getCurrentSelectedY();
     QColor getSelectedColor();
 
+    void movePixel(int x, int y, QColor color, int whichArrow);
+
 protected:
     void paintEvent (QPaintEvent *event) override;
 };

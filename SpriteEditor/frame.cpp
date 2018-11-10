@@ -24,7 +24,7 @@ Frame::Frame(QWidget *parent)
 
 Frame::Frame(const Frame& other)
 {
-    image = other.image;
+    image = other.image.copy();
     currentPixelSize = other.currentPixelSize;
     gridResolution = other.gridResolution;
     currentXCoord = other.currentXCoord;

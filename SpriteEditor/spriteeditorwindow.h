@@ -24,12 +24,13 @@ public:
 
 signals:
     void updateCurrentFrameIndex(int index);
+     void frameRemoved(int removedIndex, int newIndex);
 
 public slots:
     void on_chooseColorBox_clicked();
-    void handleRemovedFrame();
     void handleAddedFrame(int framesMade);
-    void updateFrame(Frame* current);
+    void handleDuplicatedFrame(int originalIndex);
+    void updateFrame(Frame& current);
 
 private:
     Ui::SpriteEditorWindow *ui;
@@ -47,7 +48,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 private slots:
-    void handleFrameSelection();
+    void handleRemovedFrame();
+    void handleItemClicked();
 };
 
 #endif // SPRITEEDITORWINDOW_H

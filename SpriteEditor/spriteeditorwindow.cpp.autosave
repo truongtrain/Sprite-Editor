@@ -104,7 +104,6 @@ void SpriteEditorWindow::updateFrame(Frame& newCurrent)
     currentFrame = &newCurrent;
 
     currentFrame->update();
-    qDebug() << currentFrame;
 }
 
 void SpriteEditorWindow::handleItemClicked()

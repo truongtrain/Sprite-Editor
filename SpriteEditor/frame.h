@@ -26,7 +26,7 @@ public:
     Frame(QWidget *parent = nullptr);
     Frame(const Frame &other);
     ~Frame() override;
-    Frame &operator =(Frame other);
+    Frame &operator= (Frame other);
     //void drawGrid();
     QImage& getImage();
     void setCurrentPixelSize(int newSize);

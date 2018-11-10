@@ -55,7 +55,6 @@ void SpriteModel::duplicateFrame(int index)
 
 void SpriteModel::setCurrentFrameIndex(int selectedIndex)
 {
-    qDebug() << "Row changed: " << selectedIndex;
     currentFrameIndex = selectedIndex;
     Frame* currentFrame = frames.at(selectedIndex);
     emit currentFrameUpdated(*currentFrame);

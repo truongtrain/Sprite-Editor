@@ -26,8 +26,18 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     [=]() {model->duplicateFrame(ui->framesList->currentRow());});
    QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
                     model, &SpriteModel::setCurrentFrameIndex);
+<<<<<<< HEAD
    QObject::connect(ui->framesList, &QListWidget::itemPressed,
                     this, &SpriteEditorWindow::handleItemClicked);
+=======
+
+   QObject::connect(this, &SpriteEditorWindow::addInitialFrameSignal,
+                    model, &SpriteModel::addFrame);
+   QObject::connect(this, &SpriteEditorWindow::resolutionSliderMovedSignal,
+                    model, &SpriteModel::changeResolutionOfAllFrames);
+   QObject::connect(this, &SpriteEditorWindow::drawMirroredBoxChangedSignal,
+                    model, &SpriteModel::setDrawMirrored);
+>>>>>>> 5138bed... Draw Mirrored fully implemented
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameAdded,
@@ -154,3 +164,16 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
     mousePressed = false;
 }
 
+<<<<<<< HEAD
+=======
+void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
+{
+    std::cout << "resolution slider moved to " << position << std::endl;
+    emit resolutionSliderMovedSignal(position);
+}
+
+void SpriteEditorWindow::on_drawMirrorCheckBox_toggled(bool checked)
+{
+    emit drawMirroredBoxChangedSignal(checked);
+}
+>>>>>>> 5138bed... Draw Mirrored fully implemented

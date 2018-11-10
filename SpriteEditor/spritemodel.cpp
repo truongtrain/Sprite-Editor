@@ -60,3 +60,9 @@ void SpriteModel::setCurrentFrameIndex(int selectedIndex)
     Frame* currentFrame = frames.at(selectedIndex);
     emit currentFrameUpdated(*currentFrame);
 }
+
+void SpriteModel::setDrawMirrored(bool checked)
+{
+    for (unsigned long i = 0; i < frames.size(); i++)
+        frames[i]->setDrawMirrored(checked);
+}

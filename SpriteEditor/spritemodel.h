@@ -36,7 +36,14 @@ public slots:
      * Adds a blank frame to the list then tells the view to update
      * its corresponding list.
      */
+<<<<<<< HEAD
     void addFrame();
+=======
+    void addNewFrameFromButton();
+    void addFrame(Frame* frame);
+    void changeResolutionOfAllFrames(int value);
+    void setDrawMirrored(bool checked);
+>>>>>>> 5138bed... Draw Mirrored fully implemented
 
     /**
      * Removes the frame at the selected index. Guranteed that

@@ -24,13 +24,22 @@ public:
 
 signals:
     void updateCurrentFrameIndex(int index);
+<<<<<<< HEAD
      void frameRemoved(int removedIndex, int newIndex);
+=======
+    void addInitialFrameSignal(Frame* frame);
+    void resolutionSliderMovedSignal(int value);
+    void drawMirroredBoxChangedSignal(bool checked);
+
+>>>>>>> 5138bed... Draw Mirrored fully implemented
 
 public slots:
     void on_chooseColorBox_clicked();
     void handleAddedFrame(int framesMade);
     void handleDuplicatedFrame(int originalIndex);
     void updateFrame(Frame& current);
+
+void on_drawMirrorCheckBox_toggled(bool checked);
 
 private:
     Ui::SpriteEditorWindow *ui;

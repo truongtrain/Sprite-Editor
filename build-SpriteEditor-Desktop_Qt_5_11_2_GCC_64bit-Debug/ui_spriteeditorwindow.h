@@ -143,7 +143,7 @@ public:
         framesListLabel->setFont(font);
         drawMirrorCheckBox = new QCheckBox(centralWidget);
         drawMirrorCheckBox->setObjectName(QStringLiteral("drawMirrorCheckBox"));
-        drawMirrorCheckBox->setGeometry(QRect(1000, 360, 101, 23));
+        drawMirrorCheckBox->setGeometry(QRect(1000, 360, 141, 23));
         frameRateSlider = new QSlider(centralWidget);
         frameRateSlider->setObjectName(QStringLiteral("frameRateSlider"));
         frameRateSlider->setGeometry(QRect(880, 310, 221, 21));

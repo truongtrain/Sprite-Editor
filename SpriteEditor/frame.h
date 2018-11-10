@@ -13,8 +13,15 @@ class Frame : public QWidget
 private:
     QImage image;
     int currentPixelSize;
+<<<<<<< HEAD
     int gridResolution;
     //QColor colorGrid[32][32];
+=======
+    bool isDrawingMirrored;
+    const int GRID_RESOLUTION = 800;
+    QColor colorGrid[32][32];
+
+>>>>>>> 5138bed... Draw Mirrored fully implemented
     int currentXCoord;
     int currentYCoord;
     QColor currentColor;
@@ -42,6 +49,12 @@ public:
      */
     int* getPixelAtCoordinates(int x, int y);
 
+<<<<<<< HEAD
+=======
+public slots:
+    void changeResolution(int newPixelSize);
+    void setDrawMirrored(bool checked);
+>>>>>>> 5138bed... Draw Mirrored fully implemented
 
 protected:
     void paintEvent (QPaintEvent *event) override;

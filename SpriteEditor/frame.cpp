@@ -7,7 +7,12 @@ using namespace std;
 Frame::Frame(QWidget *parent)
     : QWidget(parent)
 {
+<<<<<<< HEAD
     image= QImage(800, 800, QImage::Format_RGB32);
+=======
+    image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
+    isDrawingMirrored = false;
+>>>>>>> 5138bed... Draw Mirrored fully implemented
 
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
@@ -103,8 +108,30 @@ void Frame::paintEvent(QPaintEvent *)
     QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
     imagePainter.fillRect(rectangle,brush);
 
+<<<<<<< HEAD
     QPen pen(Qt::white);
     painter.setPen(pen);
+=======
+    if (isDrawingMirrored)
+    {
+        //441
+        int mirroredXCoord = 0;
+        int mirroredYCoord = 0;
+
+        if (currentXCoord <= 410)
+            currentXCoord = 819 - currentXCoord;
+        else if (currentXCoord > 410)
+            currentXCoord = 819 - currentXCoord;
+
+        int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+
+        QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
+        imagePainter.setBrush(brush);
+
+        imagePainter.fillRect(rectangle,brush);
+    }
+
+>>>>>>> 5138bed... Draw Mirrored fully implemented
     painter.drawImage(QPoint(),image);
 
     //display grid lines
@@ -127,3 +154,29 @@ void Frame::drawPixel(int x, int y, QColor color) {
     //saveColor(x, y, color);
     update();
 }
+<<<<<<< HEAD
+=======
+
+void Frame::changeResolution(int newPixelSize)
+{
+
+    if (newPixelSize > currentPixelSize)
+    {
+        image.fill(qRgba(160 , 160, 160, 10));
+        currentColor = Qt::transparent;
+    }
+
+    this->currentPixelSize = newPixelSize;
+
+    update();
+
+    std::cout << "PixelSize changed to " << newPixelSize << std::endl;
+}
+
+void Frame::setDrawMirrored(bool checked)
+{
+    std::cout << "changing isDrawimgMirrored" << std::endl;
+
+    isDrawingMirrored = checked;
+}
+>>>>>>> 5138bed... Draw Mirrored fully implemented

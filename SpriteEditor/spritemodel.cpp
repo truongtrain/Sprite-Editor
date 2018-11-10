@@ -1,11 +1,11 @@
 #include "spritemodel.h"
 #include <QDebug>
+#include <iostream>
 
 SpriteModel::SpriteModel()
 {
     framesMade = 0;
 }
-
 
 SpriteModel::~SpriteModel()
 {
@@ -14,12 +14,6 @@ SpriteModel::~SpriteModel()
        delete frames[i];
    }
    frames.clear();
-}
-
-
-void SpriteModel::changeResolution(int res)
-{
-    res++;
 }
 
 void SpriteModel::addFrame()
@@ -59,6 +53,28 @@ void SpriteModel::setCurrentFrameIndex(int selectedIndex)
     currentFrameIndex = selectedIndex;
     Frame* currentFrame = frames.at(selectedIndex);
     emit currentFrameUpdated(*currentFrame);
+}
+
+void SpriteModel::changeResolutionOfAllFrames(int value)
+{
+    std::cout << "frames.size() = " << frames.size() << std::endl;
+
+    int newPixelSize;
+
+    if (value == 0)
+        newPixelSize = 200;
+    else if (value == 1)
+        newPixelSize = 100;
+    else if (value == 2)
+        newPixelSize = 50;
+    else
+        newPixelSize = 25;
+
+    for (unsigned long i = 0; i < frames.size(); i++)
+    {
+        frames[i]->changeResolution(newPixelSize);
+        std::cout << "telling frame " << i << " to update res" << std::endl;
+    }
 }
 
 void SpriteModel::setDrawMirrored(bool checked)

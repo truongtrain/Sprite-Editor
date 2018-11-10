@@ -23,8 +23,6 @@ private:
 public:
     SpriteModel();
     ~SpriteModel();
-    void changeResolution(int res);
-
 signals:
     // Lets view know a frame was added and gives it the count of frames
     void frameAdded(int count);
@@ -36,14 +34,10 @@ public slots:
      * Adds a blank frame to the list then tells the view to update
      * its corresponding list.
      */
-<<<<<<< HEAD
     void addFrame();
-=======
-    void addNewFrameFromButton();
-    void addFrame(Frame* frame);
     void changeResolutionOfAllFrames(int value);
     void setDrawMirrored(bool checked);
->>>>>>> 5138bed... Draw Mirrored fully implemented
+
 
     /**
      * Removes the frame at the selected index. Guranteed that

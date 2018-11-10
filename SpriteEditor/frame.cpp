@@ -3,16 +3,14 @@
 #include <QRgba64>
 #include <algorithm>
 
+#include <iostream>
+
 using namespace std;
 Frame::Frame(QWidget *parent)
     : QWidget(parent)
 {
-<<<<<<< HEAD
-    image= QImage(800, 800, QImage::Format_RGB32);
-=======
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
     isDrawingMirrored = false;
->>>>>>> 5138bed... Draw Mirrored fully implemented
 
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
@@ -31,7 +29,6 @@ Frame::Frame(const Frame& other)
 {
     image = other.image.copy();
     currentPixelSize = other.currentPixelSize;
-    gridResolution = other.gridResolution;
     currentXCoord = other.currentXCoord;
     currentYCoord = other.currentYCoord;
     currentColor = other.currentColor;
@@ -41,7 +38,6 @@ Frame& Frame::operator= (Frame other)
 {
     swap(image, other.image);
     swap(currentPixelSize, other.currentPixelSize);
-    swap(gridResolution, other.gridResolution);
     swap(currentXCoord, other.currentXCoord);
     swap(currentYCoord, other.currentYCoord);
     swap(currentColor, other.currentColor);
@@ -108,10 +104,9 @@ void Frame::paintEvent(QPaintEvent *)
     QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
     imagePainter.fillRect(rectangle,brush);
 
-<<<<<<< HEAD
     QPen pen(Qt::white);
     painter.setPen(pen);
-=======
+
     if (isDrawingMirrored)
     {
         //441
@@ -131,7 +126,6 @@ void Frame::paintEvent(QPaintEvent *)
         imagePainter.fillRect(rectangle,brush);
     }
 
->>>>>>> 5138bed... Draw Mirrored fully implemented
     painter.drawImage(QPoint(),image);
 
     //display grid lines
@@ -154,8 +148,6 @@ void Frame::drawPixel(int x, int y, QColor color) {
     //saveColor(x, y, color);
     update();
 }
-<<<<<<< HEAD
-=======
 
 void Frame::changeResolution(int newPixelSize)
 {
@@ -170,13 +162,12 @@ void Frame::changeResolution(int newPixelSize)
 
     update();
 
-    std::cout << "PixelSize changed to " << newPixelSize << std::endl;
+    cout << "PixelSize changed to " << newPixelSize << std::endl;
 }
 
 void Frame::setDrawMirrored(bool checked)
 {
-    std::cout << "changing isDrawimgMirrored" << std::endl;
+    cout << "changing isDrawimgMirrored" << std::endl;
 
     isDrawingMirrored = checked;
 }
->>>>>>> 5138bed... Draw Mirrored fully implemented

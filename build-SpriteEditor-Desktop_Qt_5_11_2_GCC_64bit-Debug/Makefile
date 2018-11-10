@@ -232,6 +232,7 @@ DIST          = /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf \
+		../SpriteEditor/.qmake.stash \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -437,6 +438,7 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /home/sunsun/Qt/5.11.2/gcc_64/mkspecs
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -630,6 +632,7 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /home/sunsun/Qt/5.11.2/gcc_64/mkspecs
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -816,6 +819,24 @@ moc_spriteeditorwindow.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMai
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QMouseEvent \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QDebug \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QListWidget \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlistwidget.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlistview.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qrubberband.h \
 		../SpriteEditor/frame.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
@@ -825,8 +846,6 @@ moc_spriteeditorwindow.cpp: /home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMai
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../SpriteEditor/spritemodel.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QSignalMapper \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qsignalmapper.h \
 		../SpriteEditor/spriteeditorwindow.h \
 		moc_predefs.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/bin/moc
@@ -1202,6 +1221,24 @@ main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QMouseEvent \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QDebug \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QListWidget \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlistwidget.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlistview.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qrubberband.h \
 		../SpriteEditor/frame.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
@@ -1211,8 +1248,6 @@ main.o: ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../SpriteEditor/spritemodel.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QSignalMapper \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1334,42 +1369,12 @@ spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spr
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QMouseEvent \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QDebug \
-		../SpriteEditor/frame.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qtextoption.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QColor \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
-		../SpriteEditor/spritemodel.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QSignalMapper \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qsignalmapper.h \
-		ui_spriteeditorwindow.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QVariant \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qeventloop.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qguiapplication.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qinputmethod.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QCheckBox \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qcheckbox.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QGridLayout \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlayout.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QLabel \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlabel.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QListWidget \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlistwidget.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlistview.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractitemview.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qabstractitemmodel.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qitemselectionmodel.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -1382,20 +1387,21 @@ spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spr
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstyle.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtabbar.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qrubberband.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMenuBar \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmenubar.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmenu.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qaction.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qactiongroup.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QPushButton \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QRadioButton \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qradiobutton.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QSlider \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QStatusBar \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstatusbar.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QToolBar \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtoolbar.h
+		../SpriteEditor/frame.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QPainter \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpainter.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qtextoption.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QColor \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
+		../SpriteEditor/spritemodel.h \
+		ui_spriteeditorwindow.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spriteeditorwindow.o ../SpriteEditor/spriteeditorwindow.cpp
 
 frame.o: ../SpriteEditor/frame.cpp ../SpriteEditor/frame.h \

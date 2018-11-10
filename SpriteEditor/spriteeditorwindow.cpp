@@ -38,6 +38,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    QObject::connect(model, &SpriteModel::sendImages,
                     this, &SpriteEditorWindow::sendImagesToPopup);
 
+
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
 
@@ -166,9 +167,3 @@ void SpriteEditorWindow::sendImagesToPopup(QList<QImage> images)
     popup.setImages(images);
 }
 
-/*
-void SpriteEditorWindow::updateAnimation(int index, QImage image)
-{
-    emit updateImages(image);
-}
-*/

@@ -47,6 +47,7 @@ void SpriteModel::setCurrentFrameIndex(int selectedIndex)
 void SpriteModel::getImages()
 {
     qDebug() << "images sent";
+    updateImages(currentFrameIndex, images[currentFrameIndex]);
     emit sendImages(images);
 }
 

@@ -24,20 +24,13 @@ public:
 
 signals:
     void updateCurrentFrameIndex(int index);
-<<<<<<< HEAD
      void frameRemoved(int removedIndex, int newIndex);
-=======
-    void addInitialFrameSignal(Frame* frame);
-    void resolutionSliderMovedSignal(int value);
->>>>>>> master
 
 public slots:
     void on_chooseColorBox_clicked();
     void handleAddedFrame(int framesMade);
     void handleDuplicatedFrame(int originalIndex);
     void updateFrame(Frame& current);
-
-void on_resolutionSlider_sliderMoved(int position);
 
 private:
     Ui::SpriteEditorWindow *ui;

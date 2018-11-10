@@ -1,11 +1,7 @@
 #include "frame.h"
 #include <QDebug>
 #include <QRgba64>
-<<<<<<< HEAD
 #include <algorithm>
-=======
-#include <iostream>
->>>>>>> master
 
 using namespace std;
 Frame::Frame(QWidget *parent)
@@ -16,7 +12,6 @@ Frame::Frame(QWidget *parent)
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
     currentColor = Qt::gray;
-<<<<<<< HEAD
 
 //    for (int row = 0; row < 32; row++)
 //    {
@@ -50,15 +45,6 @@ Frame& Frame::operator= (Frame other)
 
 Frame::~Frame()
 {
-=======
-    for (int row = 0; row < 32; row++)
-    {
-        for (int column = 0; column < 32; column++)
-        {
-            colorGrid[row][column] = Qt::transparent;
-        }
-    }
->>>>>>> master
 
 }
 
@@ -113,21 +99,8 @@ void Frame::paintEvent(QPaintEvent *)
     QPainter imagePainter(&image);
     QBrush brush(currentColor);
 
-<<<<<<< HEAD
     imagePainter.setBrush(brush);
     QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
-=======
-    painter.setBrush(brush);
-    imagePainter.setBrush(brush);
-    QPen pen(Qt::white);
-    painter.setPen(pen);
-
-
-    QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
-    imagePainter.setBrush(brush);
-
-
->>>>>>> master
     imagePainter.fillRect(rectangle,brush);
 
     QPen pen(Qt::white);
@@ -154,22 +127,3 @@ void Frame::drawPixel(int x, int y, QColor color) {
     //saveColor(x, y, color);
     update();
 }
-<<<<<<< HEAD
-=======
-
-void Frame::changeResolution(int newPixelSize)
-{
-
-    if (newPixelSize > currentPixelSize)
-    {
-        image.fill(qRgba(160 , 160, 160, 10));
-        currentColor = Qt::transparent;
-    }
-
-    this->currentPixelSize = newPixelSize;
-
-    update();
-
-    std::cout << "PixelSize changed to " << newPixelSize << std::endl;
-}
->>>>>>> master

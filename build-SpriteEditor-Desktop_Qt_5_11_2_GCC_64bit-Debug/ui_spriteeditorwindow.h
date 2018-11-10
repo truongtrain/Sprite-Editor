@@ -120,7 +120,6 @@ public:
         penButton = new QRadioButton(centralWidget);
         penButton->setObjectName(QStringLiteral("penButton"));
         penButton->setGeometry(QRect(870, 330, 112, 23));
-        penButton->setChecked(true);
         eraserButton = new QRadioButton(centralWidget);
         eraserButton->setObjectName(QStringLiteral("eraserButton"));
         eraserButton->setGeometry(QRect(870, 360, 112, 23));

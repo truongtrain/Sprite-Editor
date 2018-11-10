@@ -1,10 +1,5 @@
 #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
-<<<<<<< HEAD
-=======
-#include "frame.h"
-#include <iostream>
->>>>>>> master
 
 #include <QGridLayout>
 
@@ -21,7 +16,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     ui->removeFrameButton->setDisabled(true);
 
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
-                    model, &SpriteModel::addNewFrameFromButton);
+                    model, &SpriteModel::addFrame);
    // Lambda to send an integer to our slot
    QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
                     this, &SpriteEditorWindow::handleRemovedFrame);
@@ -34,11 +29,6 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    QObject::connect(ui->framesList, &QListWidget::itemPressed,
                     this, &SpriteEditorWindow::handleItemClicked);
 
-   QObject::connect(this, &SpriteEditorWindow::addInitialFrameSignal,
-                    model, &SpriteModel::addFrame);
-   QObject::connect(this, &SpriteEditorWindow::resolutionSliderMovedSignal,
-                    model, &SpriteModel::changeResolutionOfAllFrames);
-
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameAdded,
                     this, &SpriteEditorWindow::handleAddedFrame);
@@ -50,15 +40,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
 
-<<<<<<< HEAD
    model->addFrame();
-=======
-   //model->addFrame(myFrame);
-
-   emit addInitialFrameSignal(myFrame);
-
-
->>>>>>> master
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
@@ -172,11 +154,3 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
     mousePressed = false;
 }
 
-<<<<<<< HEAD
-=======
-void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
-{
-    std::cout << "resolution slider moved to " << position << std::endl;
-    emit resolutionSliderMovedSignal(position);
-}
->>>>>>> master

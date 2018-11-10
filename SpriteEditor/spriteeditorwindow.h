@@ -5,9 +5,10 @@
 #include <QColorDialog>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QListWidget>
 #include "frame.h"
 #include "spritemodel.h"
-#include <QSignalMapper>
+
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -19,41 +20,43 @@ class SpriteEditorWindow : public QMainWindow
 
 public:
     explicit SpriteEditorWindow(QWidget *parent = nullptr, SpriteModel *model = new SpriteModel());
-    ~SpriteEditorWindow();
+    ~SpriteEditorWindow() override;
 
 signals:
     void updateCurrentFrameIndex(int index);
-    void addInitialFrameSignal(Frame* frame);
+    void frameRemoved(int removedIndex, int newIndex);
     void resolutionSliderMovedSignal(int value);
     void drawMirroredBoxChangedSignal(bool checked);
 
-
-
-private slots:
+public slots:
     void on_chooseColorBox_clicked();
-    /**
-     * Updates the frame list with the new frame and naming it
-     * based on how many frames there are
-     */
-void updateFrameList(int frameIndex);
+    void handleAddedFrame(int framesMade);
+    void handleDuplicatedFrame(int originalIndex);
+    void updateFrame(Frame& current);
 
 void on_resolutionSlider_sliderMoved(int position);
+void on_drawMirrorCheckBox_toggled(bool checked);
 
 void on_drawMirrorCheckBox_toggled(bool checked);
 
 private:
     Ui::SpriteEditorWindow *ui;
     QColor penColor;
-    Frame* myFrame;
+    Frame* currentFrame;
     int lastXPosition;
     int lastYPostion;
     bool mousePressed;
+
+    void updateRemoveButton();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 
+private slots:
+    void handleRemovedFrame();
+    void handleItemClicked();
 };
 
 #endif // SPRITEEDITORWINDOW_H

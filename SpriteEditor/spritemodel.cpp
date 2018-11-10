@@ -4,59 +4,55 @@
 
 SpriteModel::SpriteModel()
 {
-
+    framesMade = 0;
 }
-
 
 SpriteModel::~SpriteModel()
 {
-
+   for(int i = 0; i < frames.size(); i++)
+   {
+       delete frames[i];
+   }
+   frames.clear();
 }
 
-
-void SpriteModel::changeResolution(int res)
+void SpriteModel::addFrame()
 {
-    res++;
+   // Frame newFrame;
+    frames.push_back(new Frame);
+
+    // Adding a frame switches focus to that new frame
+    framesMade++;
+
+    emit frameAdded(framesMade);
 }
 
-void SpriteModel::addNewFrameFromButton()
+void SpriteModel::removeFrame(int removedIndex, int newIndex)
 {
-
-    //add image
-    QImage image;
-    image= QImage(960,960,QImage::Format_RGB32);
-
-    image.fill(qRgba(160 , 160, 160, 10));
-    images.append(image);
-    int frameCount = int(images.size());
-    currentFrameIndex = frameCount - 1;
-    emit frameChanged(frameCount);
-
+    delete frames.at(removedIndex);
+    frames.erase(frames.begin() + removedIndex);
+    setCurrentFrameIndex(newIndex);
 }
 
-void SpriteModel::addFrame(Frame* frame)
+void SpriteModel::duplicateFrame(int index)
 {
-    std::cout << "frame added" << std::endl;
-    frames.push_back(frame);
+    Frame* original = frames.at(index);
+    Frame* copy = new Frame(*original);
 
-}
+    int newIndex = index + 1;
+    frames.insert(frames.begin() + newIndex, copy);
 
-void SpriteModel::removeFrame(int selectedIndex)
-{
-    int frameCount = int(images.size());
+    framesMade++;
 
-    // Adjust index since we have to add this to the begin() iterator
-    selectedIndex = selectedIndex - 1;
-    images.removeAt(selectedIndex);
-    emit frameChanged(frameCount);
-
+    emit frameDuplicated(index);
 }
 
 void SpriteModel::setCurrentFrameIndex(int selectedIndex)
 {
-
+    qDebug() << "Row changed: " << selectedIndex;
     currentFrameIndex = selectedIndex;
-
+    Frame* currentFrame = frames.at(selectedIndex);
+    emit currentFrameUpdated(*currentFrame);
 }
 
 void SpriteModel::changeResolutionOfAllFrames(int value)

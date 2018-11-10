@@ -1,9 +1,11 @@
 #include "frame.h"
 #include <QDebug>
 #include <QRgba64>
+#include <algorithm>
+
 #include <iostream>
 
-
+using namespace std;
 Frame::Frame(QWidget *parent)
     : QWidget(parent)
 {
@@ -13,13 +15,37 @@ Frame::Frame(QWidget *parent)
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
     currentColor = Qt::gray;
-    for (int row = 0; row < 32; row++)
-    {
-        for (int column = 0; column < 32; column++)
-        {
-            colorGrid[row][column] = Qt::transparent;
-        }
-    }
+
+//    for (int row = 0; row < 32; row++)
+//    {
+//        for (int column = 0; column < 32; column++)
+//        {
+//            colorGrid[row][column] = Qt::transparent;
+//        }
+//    }
+}
+
+Frame::Frame(const Frame& other)
+{
+    image = other.image.copy();
+    currentPixelSize = other.currentPixelSize;
+    currentXCoord = other.currentXCoord;
+    currentYCoord = other.currentYCoord;
+    currentColor = other.currentColor;
+}
+
+Frame& Frame::operator= (Frame other)
+{
+    swap(image, other.image);
+    swap(currentPixelSize, other.currentPixelSize);
+    swap(currentXCoord, other.currentXCoord);
+    swap(currentYCoord, other.currentYCoord);
+    swap(currentColor, other.currentColor);
+    return *this;
+}
+
+Frame::~Frame()
+{
 
 }
 
@@ -63,27 +89,42 @@ void Frame::saveColor(int x, int y, QColor color)
     int yOffset = 26;
     int xIndex = (x - xOffset)/currentPixelSize;
     int yIndex = (y - yOffset)/currentPixelSize;
-    colorGrid[xIndex][yIndex] = color;
+    //colorGrid[xIndex][yIndex] = color;
 }
 void Frame::paintEvent(QPaintEvent *)
 {
+    // Account for offset of our draw area within the window
     int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
     QPainter painter(this);
     QPainter imagePainter(&image);
     QBrush brush(currentColor);
 
-    painter.setBrush(brush);
     imagePainter.setBrush(brush);
+    QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
+    imagePainter.fillRect(rectangle,brush);
+
     QPen pen(Qt::white);
     painter.setPen(pen);
 
+    if (isDrawingMirrored)
+    {
+        //441
+        int mirroredXCoord = 0;
+        int mirroredYCoord = 0;
 
-    QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
-    imagePainter.setBrush(brush);
+        if (currentXCoord <= 410)
+            currentXCoord = 819 - currentXCoord;
+        else if (currentXCoord > 410)
+            currentXCoord = 819 - currentXCoord;
 
+        int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
-    imagePainter.fillRect(rectangle,brush);
+        QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
+        imagePainter.setBrush(brush);
+
+        imagePainter.fillRect(rectangle,brush);
+    }
 
     if (isDrawingMirrored)
     {
@@ -109,7 +150,7 @@ void Frame::paintEvent(QPaintEvent *)
     //display grid lines
     for(int row = 0; row<=(image.height()/this->getCurrentPixelSize()); row++)
     {
-        painter.drawLine(0, row*this->getCurrentPixelSize(), GRID_RESOLUTION, row*this->getCurrentPixelSize());
+        painter.drawLine(0, row*this->getCurrentPixelSize(), 800, row*this->getCurrentPixelSize());
     }
     for(int column = 0; column<=(image.width()/this->getCurrentPixelSize()); column++)
     {
@@ -117,12 +158,9 @@ void Frame::paintEvent(QPaintEvent *)
     }
 
     //send image to model
-
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {
-
-
     currentXCoord = x;
     currentYCoord = y;
     currentColor = color;
@@ -143,7 +181,14 @@ void Frame::changeResolution(int newPixelSize)
 
     update();
 
-    std::cout << "PixelSize changed to " << newPixelSize << std::endl;
+    cout << "PixelSize changed to " << newPixelSize << std::endl;
+}
+
+void Frame::setDrawMirrored(bool checked)
+{
+    cout << "changing isDrawimgMirrored" << std::endl;
+
+    isDrawingMirrored = checked;
 }
 
 void Frame::setDrawMirrored(bool checked)

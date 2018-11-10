@@ -1,100 +1,133 @@
 #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
-#include "frame.h"
-#include <iostream>
 
 #include <QGridLayout>
-
+#include <iostream>
 
 SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     QMainWindow(parent),
     ui(new Ui::SpriteEditorWindow)
 {
-
     // Setting up the color picker color
     penColor = Qt::black;
+    currentFrame = nullptr;
 
     ui->setupUi(this);
-
-    myFrame = new Frame();
-
-    ui->frameLayout->addWidget(myFrame, 0, 0);
-
+    ui->removeFrameButton->setDisabled(true);
 
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
-                    model, &SpriteModel::addNewFrameFromButton);
+                    model, &SpriteModel::addFrame);
    // Lambda to send an integer to our slot
    QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
-                    [=]() {model->removeFrame(ui->frameList->currentRow());});
+                    this, &SpriteEditorWindow::handleRemovedFrame);
+   QObject::connect(this, &SpriteEditorWindow::frameRemoved,
+                    model, &SpriteModel::removeFrame);
+   QObject::connect(ui->duplicateButton, &QPushButton::pressed,
+                    [=]() {model->duplicateFrame(ui->framesList->currentRow());});
    QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
                     model, &SpriteModel::setCurrentFrameIndex);
-
-   QObject::connect(this, &SpriteEditorWindow::addInitialFrameSignal,
-                    model, &SpriteModel::addFrame);
+   QObject::connect(ui->framesList, &QListWidget::itemPressed,
+                    this, &SpriteEditorWindow::handleItemClicked);
    QObject::connect(this, &SpriteEditorWindow::resolutionSliderMovedSignal,
                     model, &SpriteModel::changeResolutionOfAllFrames);
    QObject::connect(this, &SpriteEditorWindow::drawMirroredBoxChangedSignal,
                     model, &SpriteModel::setDrawMirrored);
 
+
    // Listen for signals from model
-   QObject::connect(model, &SpriteModel::frameChanged,
-                    this, &SpriteEditorWindow::updateFrameList);
+   QObject::connect(model, &SpriteModel::frameAdded,
+                    this, &SpriteEditorWindow::handleAddedFrame);
+   QObject::connect(model, &SpriteModel::frameDuplicated,
+                    this, &SpriteEditorWindow::handleDuplicatedFrame);
+   QObject::connect(model, &SpriteModel::currentFrameUpdated,
+                    this, &SpriteEditorWindow::updateFrame);
 
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
 
-   //model->addFrame(myFrame);
-
-   emit addInitialFrameSignal(myFrame);
-
-
+   model->addFrame();
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
 {
+    // Current frame points to a frame from model, so to avoid double deletion, we just set ours to nullptr
+    // and let the parent handle deletion.
+    currentFrame = nullptr;
     delete ui;
-    //delete myFrame;
 }
 
-void SpriteEditorWindow::updateFrameList(int frameCount)
+void SpriteEditorWindow::handleAddedFrame(int framesMade)
 {
-    int totalItems = ui->frameList->count();
+    // The syntax for interpolating an int in a QString
+    QString frameName = QString("Frame %1").arg(framesMade);
 
-    // Check to see if frame was added or removed
-    if(frameCount > totalItems)
-    {
-        // The syntax for interpolating an int in a QString
-        QString frameName = QString("Frame %1").arg(frameCount);
+    // Add new blank frame and switch focus to it
+    ui->framesList->addItem(frameName);
 
-        // Add new blank frame and switch focus to it
-        ui->frameList->addItem(frameName);
-        ui->frameList->setCurrentRow(frameCount - 1);
+    int lastRow = ui->framesList->count() - 1;
+    ui->framesList->setCurrentRow(lastRow);
 
-        emit updateCurrentFrameIndex(ui->frameList->currentRow());
-    }
-    else
-    {
-      // Removes the currently selected item
-      int selectionIndex = ui->frameList->currentRow();
-      ui->frameList->takeItem(selectionIndex);
-    }
+    emit updateCurrentFrameIndex(lastRow);
+    updateRemoveButton();
+}
 
-    bool isLastFrame = (ui->frameList->count() == 1);
+void SpriteEditorWindow::handleRemovedFrame()
+{
+    // Removes the currently selected item
+    int removedIndex = ui->framesList->currentRow();
+    ui->framesList->takeItem(removedIndex);
+    int newIndex = ui->framesList->currentRow();
+    emit frameRemoved(removedIndex, newIndex);
+
+    updateRemoveButton();
+}
+
+void SpriteEditorWindow::handleDuplicatedFrame(int originalIndex)
+{
+     QString originalName = ui->framesList->currentItem()->text();
+     QString copyName = QString(originalName + " Copy");
+
+     int copyIndex = ui->framesList->currentRow() + 1;
+     ui->framesList->insertItem(copyIndex, copyName);
+     ui->framesList->setCurrentRow(copyIndex);
+
+     emit updateCurrentFrameIndex(copyIndex);
+
+     updateRemoveButton();
+}
+
+void SpriteEditorWindow::updateRemoveButton()
+{
+    bool isLastFrame = (ui->framesList->count() == 1);
     ui->removeFrameButton->setDisabled(isLastFrame);
+}
+
+void SpriteEditorWindow::updateFrame(Frame& newCurrent)
+{
+    ui->frameLayout->removeWidget(currentFrame);
+    ui->frameLayout->addWidget(&newCurrent, 0 , 0);
+    currentFrame = &newCurrent;
+
+    currentFrame->update();
+    qDebug() << currentFrame;
+}
+
+void SpriteEditorWindow::handleItemClicked()
+{
+    emit updateCurrentFrameIndex(ui->framesList->currentRow());
 }
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
 {
-        // Opening the QColorDialog
-        penColor = QColorDialog::getColor(penColor, this);
+    // Opening the QColorDialog
+    penColor = QColorDialog::getColor(penColor, this);
 
-        if(penColor.isValid())
-        {
-            // changing the label background color to the selected color
-
-            QString currentColor = QString("background-color:" + penColor.name());
-            ui->colorLabel->setStyleSheet(currentColor);
-        }
+    if(penColor.isValid())
+    {
+        // Changing the label background color to the selected color
+        QString currentColor = QString("background-color:" + penColor.name());
+        ui->colorLabel->setStyleSheet(currentColor);
+    }
 }
 
 
@@ -102,23 +135,24 @@ void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event)
 {
     if (mousePressed)
     {
-        myFrame->drawPixel(event->x(),event->y(),penColor);
+        currentFrame->drawPixel(event->x(),event->y(),penColor);
     }
 }
 
 void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
-    mousePressed = true;
-
-      qDebug() << "x: " << event->x();
-      qDebug() << "y: " << event->y();
-      qDebug() << "Color: " << penColor;
-
-    //  lastXPosition = event->x();
-    //  lastYPostion = event->y();
-
-    myFrame->drawPixel(event->x(),event->y(),penColor);
+    // 10 is the x offset of the frame and 26 is the y offset
+    bool isMouseInFrame = (event->x() >= 10 && event->x() <= 810 && event->y() >= 26 && event->x() <= 826);
+    if(isMouseInFrame)
+    {
+        mousePressed = true;
+        qDebug() << "x: " << event->x();
+        qDebug() << "y: " << event->y();
+        qDebug() << "Color: " << penColor;
+        currentFrame->drawPixel(event->x(),event->y(),penColor);
+    }
 }
+
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {

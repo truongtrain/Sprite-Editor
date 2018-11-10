@@ -37,6 +37,9 @@
     </property>
    </widget>
    <widget class="QLabel" name="colorLabel">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>1030</x>
@@ -48,6 +51,9 @@
     <property name="styleSheet">
      <string notr="true">border-color: rgb(238, 238, 236);
 background-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="lineWidth">
+     <number>5</number>
     </property>
     <property name="text">
      <string/>
@@ -93,7 +99,7 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="resolutionLabel">
     <property name="geometry">
      <rect>
-      <x>920</x>
+      <x>930</x>
       <y>490</y>
       <width>111</width>
       <height>21</height>
@@ -122,7 +128,7 @@ background-color: rgb(0, 0, 0);</string>
     </property>
     <layout class="QGridLayout" name="frameLayout"/>
    </widget>
-   <widget class="QListWidget" name="frameList">
+   <widget class="QListWidget" name="framesList">
     <property name="geometry">
      <rect>
       <x>870</x>
@@ -131,11 +137,20 @@ background-color: rgb(0, 0, 0);</string>
       <height>192</height>
      </rect>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::DoubleClicked</set>
+    </property>
     <property name="dragEnabled">
      <bool>true</bool>
     </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
+    </property>
+    <property name="defaultDropAction">
+     <enum>Qt::MoveAction</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="addFrameButton">
@@ -175,9 +190,6 @@ background-color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Pen</string>
-    </property>
-    <property name="checked">
-     <bool>true</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="eraserButton">
@@ -233,11 +245,16 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="framesListLabel">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>560</y>
-      <width>67</width>
-      <height>17</height>
+      <x>940</x>
+      <y>550</y>
+      <width>71</width>
+      <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Frames</string>

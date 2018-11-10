@@ -128,7 +128,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
     if(ui->selectionButton->isChecked())
     {
-        if(event->x() >= 10 && event->x() < 810 && event->y() >=26 && event->y() <826)
+        if(event->x() >= 12 && event->x() <= 812 && event->y() >=29 && event->y() <=829)
         {
             myFrame->setIsPixelSelected(true);
             qDebug() << "event x was" << event->x() ;
@@ -167,44 +167,65 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Up) // which arrow == 0
     {
-        qDebug() << "Im here";
+        if(myFrame->getCurrentSelectedY() < 29 + myFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
         if(myFrame->getIsPixelSelected())
         {
-
-            qDebug() << "Im here 2";
-//            qDebug() << "X is" <<myFrame->getCurrentSelectedX();
-//            qDebug() << "Y is" <<myFrame->getCurrentSelectedY();
-//            myFrame->drawPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(),Qt::gray);
-//            myFrame->drawPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize(),myFrame->getSelectedColor());
-
-//            myFrame->setCurrentSelectedY(myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize());
-            //myFrame->setOldPixelPosToGray(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY());
-            myFrame->shiftPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor(),0);
-            qDebug() << "Y is now" <<myFrame->getCurrentSelectedY();
+            //create  the setter for this variable
+            myFrame->whichArrow = 0;
+            myFrame->shiftPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor());
             myFrame->update();
+            myFrame->setCurrentSelectedY(myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize());
+
         }
     }
 
     if(event->key() == Qt::Key_Down)
     {
+        if(myFrame->getCurrentSelectedY() > 829 - myFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
         if(myFrame->getIsPixelSelected())
         {
+            myFrame->whichArrow = 1;
+            myFrame->shiftPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor());
+            myFrame->update();
+            myFrame->setCurrentSelectedY(myFrame->getCurrentSelectedY()+myFrame->getCurrentPixelSize());
 
         }
     }
 
     if(event->key() == Qt::Key_Left)
     {
+        if(myFrame->getCurrentSelectedX() < 12+ myFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
         if(myFrame->getIsPixelSelected())
         {
+            myFrame->whichArrow = 2;
+            myFrame->shiftPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor());
+            myFrame->update();
+            myFrame->setCurrentSelectedX(myFrame->getCurrentSelectedX()-myFrame->getCurrentPixelSize());
 
         }
     }
 
     if(event->key() == Qt::Key_Right)
     {
+        if(myFrame->getCurrentSelectedX() > 820 - myFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
         if(myFrame->getIsPixelSelected())
         {
+            myFrame->whichArrow = 3;
+            myFrame->shiftPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor());
+            myFrame->update();
+            myFrame->setCurrentSelectedX(myFrame->getCurrentSelectedX()+myFrame->getCurrentPixelSize());
 
         }
     }

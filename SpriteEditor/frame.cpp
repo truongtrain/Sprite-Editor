@@ -103,7 +103,7 @@ void Frame::saveColor(int x, int y, QColor color)
 void Frame::paintEvent(QPaintEvent *)
 {
     qDebug() << "Im here in update";
-    int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+    int* points = getPixelAtCoordinates(currentXCoord-12,currentYCoord-29);
 
     QPainter painter(this);
     QPainter imagePainter(&image);
@@ -118,7 +118,42 @@ void Frame::paintEvent(QPaintEvent *)
     imagePainter.setBrush(brush);
     imagePainter.fillRect(rectangle,brush);
     imagePainter.drawRect(rectangle);
-
+    if(isPixelSelected)
+    {
+        qDebug() <<whichArrow;
+        if(whichArrow == 0)
+        {
+            QRect rectanglePrevious(points[0], points[2]+currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            imagePainter.drawRect(rectanglePrevious);
+        }
+        if(whichArrow == 1)
+        {
+            QRect rectanglePrevious(points[0], points[2]-currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            imagePainter.drawRect(rectanglePrevious);
+        }
+        if(whichArrow == 2)
+        {
+            QRect rectanglePrevious(points[0]+currentPixelSize, points[2], this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            imagePainter.drawRect(rectanglePrevious);
+        }
+        if(whichArrow == 3)
+        {
+            QRect rectanglePrevious(points[0]-currentPixelSize, points[2], this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            imagePainter.drawRect(rectanglePrevious);
+        }
+    }
     painter.drawImage(QPoint(),image);
 
     //display grid lines
@@ -149,20 +184,45 @@ void Frame::setOldPixelPosToGray(int x, int y)
     currentColor = Qt::gray;
 
 }
-void Frame::shiftPixel(int x, int y, QColor color, int whichArrow)
+void Frame::shiftPixel(int x, int y, QColor color)
 {
-
-    if(whichArrow == 0) // up arrow
+    if(whichArrow == 0)
     {
         qDebug() << "Im here 3";
         currentXCoord = x;
         currentYCoord = y - currentPixelSize;
         qDebug() << "The color was" << color;
         currentColor = color;
-        setCurrentSelectedY(getCurrentSelectedY()-getCurrentPixelSize());
-
-        setOldPixelPosToGray(x,y);
+        update();
     }
+    if(whichArrow == 1)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x;
+        currentYCoord = y + currentPixelSize;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+    if(whichArrow == 2)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x - currentPixelSize;
+        currentYCoord = y ;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+    if(whichArrow == 3)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x+ currentPixelSize;
+        currentYCoord = y ;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+
 
 
 }

@@ -26,10 +26,12 @@ private:
     bool isPixelSelected;
     int currentSelectedX;
     int currentSelectedY;
+
     QColor selectedColor;
 
 
 public:
+    int whichArrow;
     Frame(QWidget *parent = 0);
     //void drawGrid();
     QImage& getImage();
@@ -61,7 +63,7 @@ public:
     int getCurrentSelectedY();
     QColor getSelectedColor();
 
-    void shiftPixel(int x, int y, QColor color, int whichArrow);
+    void shiftPixel(int x, int y, QColor color);
 
     void setOldPixelPosToGray(int x, int y);
 

@@ -135,7 +135,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
             myFrame->setCurrentSelectedX(event->x());
             myFrame->setCurrentSelectedY(event->y());
             qDebug() << "selected color was" << QColor(myFrame->getImage().pixel(event->x(), event->y())) ;
-            myFrame->setSelectedColor(myFrame->getImage().pixelColor(event->x(), event->y()));
+            myFrame->setSelectedColor(myFrame->getImage().pixelColor(event->x()-12, event->y()-29));
         }
     }
 }
@@ -178,9 +178,10 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 //            myFrame->drawPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize(),myFrame->getSelectedColor());
 
 //            myFrame->setCurrentSelectedY(myFrame->getCurrentSelectedY()-myFrame->getCurrentPixelSize());
-            myFrame->movePixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor(),0);
+            //myFrame->setOldPixelPosToGray(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY());
+            myFrame->shiftPixel(myFrame->getCurrentSelectedX(),myFrame->getCurrentSelectedY(), myFrame->getSelectedColor(),0);
             qDebug() << "Y is now" <<myFrame->getCurrentSelectedY();
-
+            myFrame->update();
         }
     }
 

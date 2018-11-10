@@ -136,20 +136,22 @@ void Frame::paintEvent(QPaintEvent *)
 }
 
 void Frame::drawPixel(int x, int y, QColor color) {
-
-
     currentXCoord = x;
     currentYCoord = y;
     currentColor = color;
     update();
 }
-
-void Frame::movePixel(int x, int y, QColor color, int whichArrow)
+void Frame::setOldPixelPosToGray(int x, int y)
 {
+    qDebug() << "Im here old";
     currentXCoord = x;
     currentYCoord = y;
     currentColor = Qt::gray;
-    update();
+
+}
+void Frame::shiftPixel(int x, int y, QColor color, int whichArrow)
+{
+
     if(whichArrow == 0) // up arrow
     {
         qDebug() << "Im here 3";
@@ -158,7 +160,9 @@ void Frame::movePixel(int x, int y, QColor color, int whichArrow)
         qDebug() << "The color was" << color;
         currentColor = color;
         setCurrentSelectedY(getCurrentSelectedY()-getCurrentPixelSize());
+
+        setOldPixelPosToGray(x,y);
     }
 
-    update();
+
 }

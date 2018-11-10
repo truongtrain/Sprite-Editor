@@ -61,7 +61,10 @@ public:
     int getCurrentSelectedY();
     QColor getSelectedColor();
 
-    void movePixel(int x, int y, QColor color, int whichArrow);
+    void shiftPixel(int x, int y, QColor color, int whichArrow);
+
+    void setOldPixelPosToGray(int x, int y);
+
 
 protected:
     void paintEvent (QPaintEvent *event) override;

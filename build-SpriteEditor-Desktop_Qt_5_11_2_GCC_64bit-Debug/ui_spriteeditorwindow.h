@@ -115,12 +115,17 @@ public:
         penButton = new QRadioButton(centralWidget);
         penButton->setObjectName(QStringLiteral("penButton"));
         penButton->setGeometry(QRect(870, 330, 112, 23));
+        penButton->setFocusPolicy(Qt::NoFocus);
+        penButton->setChecked(true);
         eraserButton = new QRadioButton(centralWidget);
         eraserButton->setObjectName(QStringLiteral("eraserButton"));
         eraserButton->setGeometry(QRect(870, 360, 112, 23));
+        eraserButton->setFocusPolicy(Qt::NoFocus);
         selectionButton = new QRadioButton(centralWidget);
         selectionButton->setObjectName(QStringLiteral("selectionButton"));
+        selectionButton->setEnabled(true);
         selectionButton->setGeometry(QRect(870, 390, 112, 23));
+        selectionButton->setFocusPolicy(Qt::NoFocus);
         gridLayoutWidget_2 = new QWidget(centralWidget);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
         gridLayoutWidget_2->setGeometry(QRect(860, 10, 271, 231));

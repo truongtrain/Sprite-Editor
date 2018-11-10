@@ -1,4 +1,4 @@
-#include "spriteeditorwindow.h"
+ #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
 #include "frame.h"
 
@@ -107,8 +107,8 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     if(ui->penButton->isChecked())
     {
         mousePressed = true;
-//          qDebug() << "x: " << event->x();
-//          qDebug() << "y: " << event->y();
+          qDebug() << "x: " << event->x();
+         qDebug() << "y: " << event->y();
 //          qDebug() << "Color: " << penColor;
 
         //  lastXPosition = event->x();
@@ -135,7 +135,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
             myFrame->setCurrentSelectedX(event->x());
             myFrame->setCurrentSelectedY(event->y());
             qDebug() << "selected color was" << QColor(myFrame->getImage().pixel(event->x(), event->y())) ;
-            myFrame->setSelectedColor(QColor(myFrame->getImage().pixel(event->x(), event->y())));
+            myFrame->setSelectedColor(myFrame->getImage().pixelColor(event->x(), event->y()));
         }
     }
 }

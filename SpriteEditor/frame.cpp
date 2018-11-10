@@ -8,7 +8,7 @@ Frame::Frame(QWidget *parent)
 {
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
 
-    image.fill(qRgba(160 , 160, 160, 10));
+   image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
     currentColor = Qt::gray;
 
@@ -94,7 +94,7 @@ QColor Frame::getSelectedColor()
 
 void Frame::saveColor(int x, int y, QColor color)
 {
-    int xOffset = 10;
+    int xOffset = 12;
     int yOffset = 26;
     int xIndex = (x - xOffset)/currentPixelSize;
     int yIndex = (y - yOffset)/currentPixelSize;

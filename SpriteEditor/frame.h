@@ -10,6 +10,13 @@ class Frame : public QWidget
 {
     Q_OBJECT
 
+struct PixelCoordinates
+{
+public:
+    int xStarting, xEnding, yStarting, yEnding;
+    PixelCoordinates(int xStarting, int xEnding, int yStarting, int yEnding);
+};
+
 private:
     QImage image;
     int currentPixelSize;
@@ -28,20 +35,14 @@ public:
     Frame(const Frame &other);
     ~Frame() override;
     Frame &operator= (Frame other);
-    //void drawGrid();
     QImage& getImage();
     void setCurrentPixelSize(int newSize);
     int getCurrentPixelSize();
     void drawPixel(int x, int y, QColor color);
     /**
-     * @brief This function returns the current pixel (starting and ending pixel for both x and y of QImage)  that was clicked.
-     *  For example, if current size of pixel is 8 and the coordinate (700,900) is clicked,
-     * this function will return an array of size 4 looks like this: [696, 703, 896, 903]
-     * @param x -x coordinate of the mouse clicked position
-     * @param y -y coordinate of the mouse clicked position
-     * @return an array - [xStarting, xEnding, yStarting, yEnding]
+     *  Returns an object with the boundaries of whatever pixel x, y are inside of.
      */
-    int* getPixelAtCoordinates(int x, int y);
+    PixelCoordinates getPixelAtCoordinates(int x, int y);
 
 
 public slots:

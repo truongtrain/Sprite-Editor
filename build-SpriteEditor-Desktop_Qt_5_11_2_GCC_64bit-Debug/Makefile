@@ -53,13 +53,15 @@ OBJECTS_DIR   = ./
 SOURCES       = ../SpriteEditor/main.cpp \
 		../SpriteEditor/spriteeditorwindow.cpp \
 		../SpriteEditor/frame.cpp \
-		../SpriteEditor/spritemodel.cpp moc_spriteeditorwindow.cpp \
+		../SpriteEditor/spritemodel.cpp qrc_resources.cpp \
+		moc_spriteeditorwindow.cpp \
 		moc_frame.cpp \
 		moc_spritemodel.cpp
 OBJECTS       = main.o \
 		spriteeditorwindow.o \
 		frame.o \
 		spritemodel.o \
+		qrc_resources.o \
 		moc_spriteeditorwindow.o \
 		moc_frame.o \
 		moc_spritemodel.o
@@ -459,6 +461,7 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /home/sunsun/Qt/5.11.2/gcc_64/mkspecs
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/yacc.prf \
 		/home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/lex.prf \
 		../SpriteEditor/SpriteEditor.pro \
+		../SpriteEditor/resources.qrc \
 		/home/sunsun/Qt/5.11.2/gcc_64/lib/libQt5Widgets.prl \
 		/home/sunsun/Qt/5.11.2/gcc_64/lib/libQt5Gui.prl \
 		/home/sunsun/Qt/5.11.2/gcc_64/lib/libQt5Core.prl
@@ -653,6 +656,7 @@ Makefile: ../SpriteEditor/SpriteEditor.pro /home/sunsun/Qt/5.11.2/gcc_64/mkspecs
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/yacc.prf:
 /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/lex.prf:
 ../SpriteEditor/SpriteEditor.pro:
+../SpriteEditor/resources.qrc:
 /home/sunsun/Qt/5.11.2/gcc_64/lib/libQt5Widgets.prl:
 /home/sunsun/Qt/5.11.2/gcc_64/lib/libQt5Gui.prl:
 /home/sunsun/Qt/5.11.2/gcc_64/lib/libQt5Core.prl:
@@ -670,6 +674,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../SpriteEditor/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /home/sunsun/Qt/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../SpriteEditor/spriteeditorwindow.h ../SpriteEditor/frame.h ../SpriteEditor/spritemodel.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../SpriteEditor/main.cpp ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/frame.cpp ../SpriteEditor/spritemodel.cpp $(DISTDIR)/
@@ -697,8 +702,17 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: ../SpriteEditor/resources.qrc \
+		/home/sunsun/Qt/5.11.2/gcc_64/bin/rcc \
+		../SpriteEditor/images/eraserIcon.png \
+		../SpriteEditor/images/penIcon.png \
+		../SpriteEditor/images/mirrorIcon.png \
+		../SpriteEditor/images/selectionIcon.png
+	/home/sunsun/Qt/5.11.2/gcc_64/bin/rcc -name resources ../SpriteEditor/resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -1105,7 +1119,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -1397,11 +1411,38 @@ spriteeditorwindow.o: ../SpriteEditor/spriteeditorwindow.cpp ../SpriteEditor/spr
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		../SpriteEditor/spritemodel.h \
 		ui_spriteeditorwindow.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QVariant \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/qeventloop.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qguiapplication.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtGui/qinputmethod.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QCheckBox \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QGridLayout \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qgridlayout.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlayout.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qboxlayout.h
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QLabel \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qlabel.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QMenuBar \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qmenu.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qaction.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QPushButton \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QRadioButton \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qradiobutton.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QSlider \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QStatusBar \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QToolBar \
+		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spriteeditorwindow.o ../SpriteEditor/spriteeditorwindow.cpp
 
 frame.o: ../SpriteEditor/frame.cpp ../SpriteEditor/frame.h \
@@ -1638,6 +1679,9 @@ spritemodel.o: ../SpriteEditor/spritemodel.cpp ../SpriteEditor/spritemodel.h \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtWidgets/QWidget \
 		/home/sunsun/Qt/5.11.2/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spritemodel.o ../SpriteEditor/spritemodel.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
 moc_spriteeditorwindow.o: moc_spriteeditorwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_spriteeditorwindow.o moc_spriteeditorwindow.cpp

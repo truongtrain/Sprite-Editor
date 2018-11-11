@@ -13,7 +13,6 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     currentFrame = nullptr;
 
     ui->setupUi(this);
-    ui->removeFrameButton->setDisabled(true);
 
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
                     model, &SpriteModel::addFrame);
@@ -25,13 +24,19 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    QObject::connect(ui->duplicateButton, &QPushButton::pressed,
                     [=]() {model->duplicateFrame(ui->framesList->currentRow());});
    QObject::connect(this, &SpriteEditorWindow::updateCurrentFrameIndex,
-                    model, &SpriteModel::setCurrentFrameIndex);
+                    model, &SpriteModel::setCurrentFrame);
    QObject::connect(ui->framesList, &QListWidget::itemPressed,
                     this, &SpriteEditorWindow::handleItemClicked);
    QObject::connect(this, &SpriteEditorWindow::resolutionSliderMovedSignal,
                     model, &SpriteModel::changeResolutionOfAllFrames);
    QObject::connect(this, &SpriteEditorWindow::drawMirroredBoxChangedSignal,
                     model, &SpriteModel::setDrawMirrored);
+   QObject::connect(ui->itemUpButton, &QPushButton::pressed,
+                    [=]() {swapItem(false);});
+   QObject::connect(ui->itemDownButton, &QPushButton::pressed,
+                    [=]() {swapItem(true);});
+   QObject::connect(this, &SpriteEditorWindow::itemSwapped,
+                    model, &SpriteModel::swapItem);
 
 
    // Listen for signals from model
@@ -42,8 +47,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    QObject::connect(model, &SpriteModel::currentFrameUpdated,
                     this, &SpriteEditorWindow::updateFrame);
 
-   // We do this here instead of the model constructor because it executes
-   // before the signals are connected.
+   // We do this here instead of the model constructor because the constructor
+   // executes before the signals are connected.
 
    model->addFrame();
 }
@@ -68,7 +73,7 @@ void SpriteEditorWindow::handleAddedFrame(int framesMade)
     ui->framesList->setCurrentRow(lastRow);
 
     emit updateCurrentFrameIndex(lastRow);
-    updateRemoveButton();
+    updateButtonsToDisable();
 }
 
 void SpriteEditorWindow::handleRemovedFrame()
@@ -79,7 +84,7 @@ void SpriteEditorWindow::handleRemovedFrame()
     int newIndex = ui->framesList->currentRow();
     emit frameRemoved(removedIndex, newIndex);
 
-    updateRemoveButton();
+    updateButtonsToDisable();
 }
 
 void SpriteEditorWindow::handleDuplicatedFrame(int originalIndex)
@@ -93,13 +98,18 @@ void SpriteEditorWindow::handleDuplicatedFrame(int originalIndex)
 
      emit updateCurrentFrameIndex(copyIndex);
 
-     updateRemoveButton();
+     updateButtonsToDisable();
 }
 
-void SpriteEditorWindow::updateRemoveButton()
+void SpriteEditorWindow::updateButtonsToDisable()
 {
     bool isLastFrame = (ui->framesList->count() == 1);
+    bool isFirstRow = (ui->framesList->currentRow() == 0);
+    bool isLastRow = (ui->framesList->currentRow() == ui->framesList->count() - 1);
+
     ui->removeFrameButton->setDisabled(isLastFrame);
+    ui->itemUpButton->setDisabled(isLastFrame || isFirstRow);
+    ui->itemDownButton->setDisabled(isLastFrame || isLastRow);
 }
 
 void SpriteEditorWindow::updateFrame(Frame& newCurrent)
@@ -110,6 +120,30 @@ void SpriteEditorWindow::updateFrame(Frame& newCurrent)
 
     currentFrame->update();
     qDebug() << currentFrame;
+}
+
+void SpriteEditorWindow::swapItem(bool isMoveDown)
+{
+    // Remove the currently selected item and readd it 1 up or 1 down
+    int currentIndex = ui->framesList->currentRow();
+    QListWidgetItem* currentItem = ui->framesList->takeItem(currentIndex);
+    int nextIndex = currentIndex;
+
+    if(isMoveDown)
+    {
+        nextIndex = currentIndex + 1;
+    }
+    else
+    {
+        nextIndex = currentIndex - 1;
+    }
+
+    ui->framesList->insertItem(nextIndex, currentItem);
+    emit itemSwapped(currentIndex, nextIndex);
+
+    // Focus on the item after we readd it
+    ui->framesList->setCurrentRow(nextIndex);
+    updateButtonsToDisable();
 }
 
 void SpriteEditorWindow::handleItemClicked()

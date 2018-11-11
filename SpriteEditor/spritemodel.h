@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <vector>
+#include <algorithm>
 #include "frame.h"
 
 
@@ -13,7 +14,6 @@ class SpriteModel : public QObject
 private:
     //QList<QImage> images;
     std::vector<Frame*> frames;
-    int currentFrameIndex;
     int frameRate;
     int framesMade;
     //const int GRID_RESOLUTION = 800;
@@ -37,6 +37,7 @@ public slots:
     void addFrame();
     void changeResolutionOfAllFrames(int value);
     void setDrawMirrored(bool checked);
+    void swapItem(int currentIndex, int newIndex);
 
 
     /**
@@ -55,7 +56,7 @@ public slots:
      * Updates the current index to whatever the list defaulted to after
      * an item was removed.
      */
-    void setCurrentFrameIndex(int selectedIndex);
+    void setCurrentFrame(int selectedIndex);
 
 };
 

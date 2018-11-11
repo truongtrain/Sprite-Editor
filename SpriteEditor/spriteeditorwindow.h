@@ -27,6 +27,7 @@ signals:
     void frameRemoved(int removedIndex, int newIndex);
     void resolutionSliderMovedSignal(int value);
     void drawMirroredBoxChangedSignal(bool checked);
+    void itemSwapped(int index, bool isDown);
 
 public slots:
     void on_chooseColorBox_clicked();
@@ -34,8 +35,8 @@ public slots:
     void handleDuplicatedFrame(int originalIndex);
     void updateFrame(Frame& current);
 
-void on_resolutionSlider_sliderMoved(int position);
-void on_drawMirrorCheckBox_toggled(bool checked);
+    void on_resolutionSlider_sliderMoved(int position);
+    void on_drawMirrorCheckBox_toggled(bool checked);
 
 private:
     Ui::SpriteEditorWindow *ui;
@@ -45,7 +46,7 @@ private:
     int lastYPostion;
     bool mousePressed;
 
-    void updateRemoveButton();
+    void updateButtonsToDisable();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -55,6 +56,7 @@ protected:
 private slots:
     void handleRemovedFrame();
     void handleItemClicked();
+    void swapItem(bool isDown);
 };
 
 #endif // SPRITEEDITORWINDOW_H

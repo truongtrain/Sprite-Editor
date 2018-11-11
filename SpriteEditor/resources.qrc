@@ -4,5 +4,7 @@
 	<file>images/eraserIcon.png</file>
 	<file>images/mirrorIcon.png</file>
 	<file>images/selectionIcon.png</file>
+	<file>images/upIcon.png</file>
+	<file>images/downIcon.png</file>
 </qresource>
 </RCC>

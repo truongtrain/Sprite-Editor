@@ -27,13 +27,22 @@
     <property name="geometry">
      <rect>
       <x>880</x>
-      <y>430</y>
+      <y>435</y>
       <width>151</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Choose Color</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="colorLabel">
@@ -43,7 +52,7 @@
     <property name="geometry">
      <rect>
       <x>1040</x>
-      <y>420</y>
+      <y>425</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -140,7 +149,7 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QListWidget" name="framesList">
     <property name="geometry">
      <rect>
-      <x>880</x>
+      <x>860</x>
       <y>580</y>
       <width>221</width>
       <height>192</height>
@@ -150,7 +159,7 @@ background-color: rgb(0, 0, 0);</string>
      <set>QAbstractItemView::DoubleClicked</set>
     </property>
     <property name="dragEnabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::NoDragDrop</enum>
@@ -168,7 +177,7 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="addFrameButton">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>850</x>
       <y>780</y>
       <width>51</width>
       <height>25</height>
@@ -179,9 +188,12 @@ background-color: rgb(0, 0, 0);</string>
     </property>
    </widget>
    <widget class="QPushButton" name="removeFrameButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>930</x>
+      <x>910</x>
       <y>780</y>
       <width>71</width>
       <height>25</height>
@@ -244,7 +256,7 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="duplicateButton">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1010</x>
       <y>780</y>
       <width>81</width>
       <height>25</height>
@@ -257,7 +269,7 @@ background-color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="framesListLabel">
     <property name="geometry">
      <rect>
-      <x>950</x>
+      <x>930</x>
       <y>550</y>
       <width>71</width>
       <height>21</height>
@@ -423,6 +435,108 @@ background-color: rgb(0, 0, 0);</string>
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="itemUpButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>620</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Dave Gandy - flaticon.com">Dave Gandy - flaticon.com</string>
+    </property>
+    <property name="toolTipDuration">
+     <number>10000</number>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/upIcon.png</normaloff>:/images/upIcon.png</iconset>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="itemDownButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>710</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string notr="true">Dave Gandy - flaticon.com</string>
+    </property>
+    <property name="toolTipDuration">
+     <number>10000</number>
+    </property>
+    <property name="statusTip">
+     <string/>
+    </property>
+    <property name="whatsThis">
+     <string extracomment="Icon made by Dave Gandy of flaticon.com"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/downIcon.png</normaloff>:/images/downIcon.png</iconset>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>1095</x>
+      <y>660</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Move Item</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -443,6 +557,11 @@ background-color: rgb(0, 0, 0);</string>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionsave">
+   <property name="text">
+    <string>save</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

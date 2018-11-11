@@ -31,7 +31,7 @@ void SpriteModel::removeFrame(int removedIndex, int newIndex)
 {
     delete frames.at(removedIndex);
     frames.erase(frames.begin() + removedIndex);
-    setCurrentFrameIndex(newIndex);
+    setCurrentFrame(newIndex);
 }
 
 void SpriteModel::duplicateFrame(int index)
@@ -47,11 +47,10 @@ void SpriteModel::duplicateFrame(int index)
     emit frameDuplicated(index);
 }
 
-void SpriteModel::setCurrentFrameIndex(int selectedIndex)
+void SpriteModel::setCurrentFrame(int selectedIndex)
 {
-    qDebug() << "Row changed: " << selectedIndex;
-    currentFrameIndex = selectedIndex;
     Frame* currentFrame = frames.at(selectedIndex);
+    qDebug() << "Frame Index: " << selectedIndex;
     emit currentFrameUpdated(*currentFrame);
 }
 
@@ -75,6 +74,12 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
         frames[i]->changeResolution(newPixelSize);
         std::cout << "telling frame " << i << " to update res" << std::endl;
     }
+}
+
+void SpriteModel::swapItem(int currentIndex, int newIndex)
+{
+    std::swap(frames[currentIndex], frames[newIndex]);
+    setCurrentFrame(newIndex);
 }
 
 void SpriteModel::setDrawMirrored(bool checked)

@@ -35,7 +35,6 @@ public slots:
     void updateFrame(Frame& current);
 
 void on_resolutionSlider_sliderMoved(int position);
-void on_drawMirrorCheckBox_toggled(bool checked);
 
 void on_drawMirrorCheckBox_toggled(bool checked);
 

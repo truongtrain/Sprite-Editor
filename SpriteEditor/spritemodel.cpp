@@ -25,6 +25,8 @@ void SpriteModel::addFrame()
     framesMade++;
 
     emit frameAdded(framesMade);
+
+    frames[frames.size()-1]->changeResolution(currentPixelSize);
 }
 
 void SpriteModel::removeFrame(int removedIndex, int newIndex)
@@ -69,6 +71,8 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
         newPixelSize = 50;
     else
         newPixelSize = 25;
+
+    currentPixelSize = newPixelSize;
 
     for (unsigned long i = 0; i < frames.size(); i++)
     {

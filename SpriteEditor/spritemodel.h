@@ -16,6 +16,7 @@ private:
     int currentFrameIndex;
     int frameRate;
     int framesMade;
+    int currentPixelSize = 25;
     //const int GRID_RESOLUTION = 800;
 
     void adjustToAvailableFrame(int index);

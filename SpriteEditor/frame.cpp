@@ -109,29 +109,6 @@ void Frame::paintEvent(QPaintEvent *)
 
     if (isDrawingMirrored)
     {
-        //441
-        int mirroredXCoord = 0;
-        int mirroredYCoord = 0;
-
-        if (currentXCoord <= 410)
-            currentXCoord = 819 - currentXCoord;
-        else if (currentXCoord > 410)
-            currentXCoord = 819 - currentXCoord;
-
-        int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
-
-        QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
-        imagePainter.setBrush(brush);
-
-        imagePainter.fillRect(rectangle,brush);
-    }
-
-    if (isDrawingMirrored)
-    {
-        //441
-        int mirroredXCoord = 0;
-        int mirroredYCoord = 0;
-
         if (currentXCoord <= 410)
             currentXCoord = 819 - currentXCoord;
         else if (currentXCoord > 410)
@@ -182,13 +159,6 @@ void Frame::changeResolution(int newPixelSize)
     update();
 
     cout << "PixelSize changed to " << newPixelSize << std::endl;
-}
-
-void Frame::setDrawMirrored(bool checked)
-{
-    cout << "changing isDrawimgMirrored" << std::endl;
-
-    isDrawingMirrored = checked;
 }
 
 void Frame::setDrawMirrored(bool checked)

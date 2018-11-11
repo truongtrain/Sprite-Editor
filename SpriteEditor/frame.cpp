@@ -109,10 +109,7 @@ void Frame::paintEvent(QPaintEvent *)
 
     if (isDrawingMirrored)
     {
-        if (currentXCoord <= 410)
-            currentXCoord = 819 - currentXCoord;
-        else if (currentXCoord > 410)
-            currentXCoord = 819 - currentXCoord;
+        currentXCoord = 819 - currentXCoord;
 
         int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 

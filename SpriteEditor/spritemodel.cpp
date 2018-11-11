@@ -27,6 +27,7 @@ void SpriteModel::addFrame()
     // Adding a frame switches focus to that new frame
     framesMade++;
     images.append(QPixmap().toImage());
+    emit sendImages(images);
     emit frameAdded(framesMade);
 }
 
@@ -34,7 +35,10 @@ void SpriteModel::removeFrame(int selectedIndex)
 {
     qDebug() << "Removed: " << selectedIndex;
     frames.erase(frames.begin() + selectedIndex);
+    images.removeAt(selectedIndex);
     emit frameRemoved();
+    emit sendImages(images);
+
 }
 
 void SpriteModel::setCurrentFrameIndex(int selectedIndex)

@@ -142,7 +142,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::updatePreviewImage()
 {
-    qDebug() << "updatePreviewImage called";
+    //qDebug() << "updatePreviewImage called";
 
     QImage image;
 
@@ -152,8 +152,8 @@ void SpriteEditorWindow::updatePreviewImage()
     }
     else
     {
-        qDebug() << "currentFrameIndex: " << currentFrameIndex;
-        qDebug() << "size of images list: " << images.size();
+        //qDebug() << "currentFrameIndex: " << currentFrameIndex;
+        //qDebug() << "size of images list: " << images.size();
         image = images[imageIndex];
     }
 
@@ -162,21 +162,22 @@ void SpriteEditorWindow::updatePreviewImage()
     QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
-    incrementImageIndex();
+
 
     if (popup.images.size() > 1)
     {
         QTimer::singleShot(1000, this, SLOT(updatePreviewImage2()));
     }
 
-
+    incrementImageIndex();
 }
 
 void SpriteEditorWindow::updatePreviewImage2()
 {
-    qDebug() << "updatePreviewImage2 called";
+    //qDebug() << "updatePreviewImage2 called";
 
     QImage image;
+
     if (currentFrameIndex == 0)
     {
         image = currentFrame->getImage();
@@ -185,18 +186,20 @@ void SpriteEditorWindow::updatePreviewImage2()
     {
         image = images[imageIndex];
     }
+
     int height = image.height()/5;
     int width = image.width()/5;
     QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
-    incrementImageIndex();
+
     QTimer::singleShot(1000, this, SLOT(updatePreviewImage()));
+    incrementImageIndex();
 }
 
 void SpriteEditorWindow::incrementImageIndex()
 {
-    qDebug()<<"incrementImageIndex called";
+
     if (imageIndex < images.size() - 1) // if this is not the last image in the sequence
     {
         imageIndex++;
@@ -205,6 +208,7 @@ void SpriteEditorWindow::incrementImageIndex()
     {
         imageIndex = 0; //otherwise, go back to the first image in the sequence
     }
+    qDebug()<<"ImageIndex: " << imageIndex;
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)

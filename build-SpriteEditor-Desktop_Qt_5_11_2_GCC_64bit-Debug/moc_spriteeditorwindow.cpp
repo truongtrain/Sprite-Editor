@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SpriteEditorWindow_t {
-    QByteArrayData data[20];
-    char stringdata0[283];
+    QByteArrayData data[21];
+    char stringdata0[299];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -47,11 +47,12 @@ QT_MOC_LITERAL(11, 153, 11), // "updateFrame"
 QT_MOC_LITERAL(12, 165, 6), // "Frame*"
 QT_MOC_LITERAL(13, 172, 7), // "current"
 QT_MOC_LITERAL(14, 180, 18), // "updatePreviewImage"
-QT_MOC_LITERAL(15, 199, 17), // "sendImagesToPopup"
-QT_MOC_LITERAL(16, 217, 13), // "QList<QImage>"
-QT_MOC_LITERAL(17, 231, 6), // "images"
-QT_MOC_LITERAL(18, 238, 20), // "handleFrameSelection"
-QT_MOC_LITERAL(19, 259, 23) // "on_popOutButton_clicked"
+QT_MOC_LITERAL(15, 199, 19), // "updatePreviewImage2"
+QT_MOC_LITERAL(16, 219, 13), // "receiveImages"
+QT_MOC_LITERAL(17, 233, 13), // "QList<QImage>"
+QT_MOC_LITERAL(18, 247, 6), // "images"
+QT_MOC_LITERAL(19, 254, 20), // "handleFrameSelection"
+QT_MOC_LITERAL(20, 275, 23) // "on_popOutButton_clicked"
 
     },
     "SpriteEditorWindow\0updateCurrentFrameIndex\0"
@@ -59,8 +60,9 @@ QT_MOC_LITERAL(19, 259, 23) // "on_popOutButton_clicked"
     "on_chooseColorBox_clicked\0handleRemovedFrame\0"
     "handleAddedFrame\0framesMade\0updateFrame\0"
     "Frame*\0current\0updatePreviewImage\0"
-    "sendImagesToPopup\0QList<QImage>\0images\0"
-    "handleFrameSelection\0on_popOutButton_clicked"
+    "updatePreviewImage2\0receiveImages\0"
+    "QList<QImage>\0images\0handleFrameSelection\0"
+    "on_popOutButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +72,7 @@ static const uint qt_meta_data_SpriteEditorWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,18 +80,19 @@ static const uint qt_meta_data_SpriteEditorWindow[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   64,    2, 0x06 /* Public */,
-       4,    2,   67,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
+       4,    2,   72,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    0,   72,    2, 0x0a /* Public */,
-       8,    0,   73,    2, 0x0a /* Public */,
-       9,    1,   74,    2, 0x0a /* Public */,
-      11,    1,   77,    2, 0x0a /* Public */,
-      14,    0,   80,    2, 0x0a /* Public */,
-      15,    1,   81,    2, 0x0a /* Public */,
-      18,    0,   84,    2, 0x08 /* Private */,
-      19,    0,   85,    2, 0x08 /* Private */,
+       7,    0,   77,    2, 0x0a /* Public */,
+       8,    0,   78,    2, 0x0a /* Public */,
+       9,    1,   79,    2, 0x0a /* Public */,
+      11,    1,   82,    2, 0x0a /* Public */,
+      14,    0,   85,    2, 0x0a /* Public */,
+      15,    0,   86,    2, 0x0a /* Public */,
+      16,    1,   87,    2, 0x0a /* Public */,
+      19,    0,   90,    2, 0x08 /* Private */,
+      20,    0,   91,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -101,7 +104,8 @@ static const uint qt_meta_data_SpriteEditorWindow[] = {
     QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void, 0x80000000 | 12,   13,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 16,   17,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 17,   18,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -121,9 +125,10 @@ void SpriteEditorWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         case 4: _t->handleAddedFrame((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->updateFrame((*reinterpret_cast< Frame*(*)>(_a[1]))); break;
         case 6: _t->updatePreviewImage(); break;
-        case 7: _t->sendImagesToPopup((*reinterpret_cast< QList<QImage>(*)>(_a[1]))); break;
-        case 8: _t->handleFrameSelection(); break;
-        case 9: _t->on_popOutButton_clicked(); break;
+        case 7: _t->updatePreviewImage2(); break;
+        case 8: _t->receiveImages((*reinterpret_cast< QList<QImage>(*)>(_a[1]))); break;
+        case 9: _t->handleFrameSelection(); break;
+        case 10: _t->on_popOutButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -136,7 +141,7 @@ void SpriteEditorWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< Frame* >(); break;
             }
             break;
-        case 7:
+        case 8:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -188,13 +193,13 @@ int SpriteEditorWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }

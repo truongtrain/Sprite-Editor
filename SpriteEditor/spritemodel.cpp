@@ -55,4 +55,5 @@ void SpriteModel::updateImages(int index, QImage& image)
 {
     qDebug() << "image " << index << " updated";
     images[index] = image;
+    emit sendImages(images);
 }

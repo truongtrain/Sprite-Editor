@@ -25,6 +25,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     this, &SpriteEditorWindow::handleFrameSelection);
    QObject::connect(ui->popOutButton, &QPushButton::pressed,
                     model, &SpriteModel::getImages);
+   //QObject::connect(this, &SpriteEditorWindow::mouseReleaseEvent,
+                    //model, &SpriteModel::getImages);
    QObject::connect(this, &SpriteEditorWindow::updateAnimation,
                     model, &SpriteModel::updateImages);
 
@@ -36,7 +38,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    QObject::connect(model, &SpriteModel::currentFrameUpdated,
                     this, &SpriteEditorWindow::updateFrame);
    QObject::connect(model, &SpriteModel::sendImages,
-                    this, &SpriteEditorWindow::sendImagesToPopup);
+                    this, &SpriteEditorWindow::receiveImages);
+
 
 
    // We do this here instead of the model constructor because it executes
@@ -44,6 +47,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
 
    model->addFrame();
    currentFrameIndex = 0;
+   imageIndex = 0;
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
@@ -130,7 +134,7 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
     mousePressed = true;
     currentFrame->drawPixel(event->x(),event->y(),penColor);
-    updatePreviewImage();
+    //updatePreviewImage();
     QImage& image = currentFrame->getImage();
     emit updateAnimation(currentFrameIndex, image);
 
@@ -138,13 +142,69 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::updatePreviewImage()
 {
-    //qDebug()<<currentFrame->currentIndex;
-    QImage image = currentFrame->getImage();
+    qDebug() << "updatePreviewImage called";
+
+    QImage image;
+
+    if (currentFrameIndex == 0)
+    {
+        image = currentFrame->getImage();
+    }
+    else
+    {
+        qDebug() << "currentFrameIndex: " << currentFrameIndex;
+        qDebug() << "size of images list: " << images.size();
+        image = images[imageIndex];
+    }
+
     int height = image.height()/5;
     int width = image.width()/5;
     QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
+    incrementImageIndex();
+
+    if (popup.images.size() > 1)
+    {
+        QTimer::singleShot(1000, this, SLOT(updatePreviewImage2()));
+    }
+
+
+}
+
+void SpriteEditorWindow::updatePreviewImage2()
+{
+    qDebug() << "updatePreviewImage2 called";
+
+    QImage image;
+    if (currentFrameIndex == 0)
+    {
+        image = currentFrame->getImage();
+    }
+    else
+    {
+        image = images[imageIndex];
+    }
+    int height = image.height()/5;
+    int width = image.width()/5;
+    QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
+    ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
+    ui->previewLabel->show();
+    incrementImageIndex();
+    QTimer::singleShot(1000, this, SLOT(updatePreviewImage()));
+}
+
+void SpriteEditorWindow::incrementImageIndex()
+{
+    qDebug()<<"incrementImageIndex called";
+    if (imageIndex < images.size() - 1) // if this is not the last image in the sequence
+    {
+        imageIndex++;
+    }
+    else
+    {
+        imageIndex = 0; //otherwise, go back to the first image in the sequence
+    }
 }
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
@@ -163,9 +223,13 @@ void SpriteEditorWindow::on_popOutButton_clicked()
 
 }
 
-void SpriteEditorWindow::sendImagesToPopup(QList<QImage> images)
+void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
 {
-    qDebug()<<"images sent to popup";
-    popup.setImages(images);
+    qDebug()<<"images received and sent to popup";
+    images = imageList;
+    popup.setImages(imageList);
 }
+
+
+
 

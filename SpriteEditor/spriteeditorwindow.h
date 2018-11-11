@@ -21,6 +21,7 @@ class SpriteEditorWindow : public QMainWindow
 public:
     explicit SpriteEditorWindow(QWidget *parent = nullptr, SpriteModel *model = new SpriteModel());
     ~SpriteEditorWindow() override;
+    QList<QImage> images;
 
 signals:
     void updateCurrentFrameIndex(int index);
@@ -32,8 +33,8 @@ public slots:
     void handleAddedFrame(int framesMade);
     void updateFrame(Frame* current);
     void updatePreviewImage();
-    void sendImagesToPopup(QList<QImage> images);
-
+    void updatePreviewImage2();
+    void receiveImages(QList<QImage> images);
 
 private:
     Ui::SpriteEditorWindow *ui;
@@ -42,9 +43,11 @@ private:
     int lastXPosition;
     int lastYPostion;
     int currentFrameIndex;
+    int imageIndex;
     bool mousePressed;
     Popup popup;
     void updateRemoveButton();
+    void incrementImageIndex();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;

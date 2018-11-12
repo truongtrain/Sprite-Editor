@@ -32,8 +32,8 @@ signals:
 public slots:
     void on_chooseColorBox_clicked();
     void handleAddedFrame(int framesMade);
-    void handleDuplicatedFrame(int originalIndex);
-    void updateFrame(Frame& current);
+    void handleDuplicatedFrame();
+    void updateFrame(Frame* current);
 
     void on_resolutionSlider_sliderMoved(int position);
     void on_drawMirrorCheckBox_toggled(bool checked);

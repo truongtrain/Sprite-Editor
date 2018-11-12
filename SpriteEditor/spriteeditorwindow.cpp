@@ -87,7 +87,7 @@ void SpriteEditorWindow::handleRemovedFrame()
     updateButtonsToDisable();
 }
 
-void SpriteEditorWindow::handleDuplicatedFrame(int originalIndex)
+void SpriteEditorWindow::handleDuplicatedFrame()
 {
      QString originalName = ui->framesList->currentItem()->text();
      QString copyName = QString(originalName + " Copy");
@@ -112,14 +112,11 @@ void SpriteEditorWindow::updateButtonsToDisable()
     ui->itemDownButton->setDisabled(isLastFrame || isLastRow);
 }
 
-void SpriteEditorWindow::updateFrame(Frame& newCurrent)
+void SpriteEditorWindow::updateFrame(Frame* newCurrent)
 {
     ui->frameLayout->removeWidget(currentFrame);
-    ui->frameLayout->addWidget(&newCurrent, 0 , 0);
-    currentFrame = &newCurrent;
-
-    currentFrame->update();
-    qDebug() << currentFrame;
+    currentFrame = newCurrent;
+    ui->frameLayout->addWidget(newCurrent, 0 , 0);
 }
 
 void SpriteEditorWindow::swapItem(bool isMoveDown)

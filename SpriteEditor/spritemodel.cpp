@@ -9,7 +9,7 @@ SpriteModel::SpriteModel()
 
 SpriteModel::~SpriteModel()
 {
-   for(unsigned int i = 0; i < frames.size(); i++)
+   for(int i = 0; i < frames.size(); i++)
    {
        delete frames[i];
    }
@@ -27,30 +27,30 @@ void SpriteModel::addFrame()
     emit frameAdded(framesMade);
 }
 
-void SpriteModel::removeFrame(unsigned int removedIndex, unsigned int newIndex)
+void SpriteModel::removeFrame(int removedIndex, int newIndex)
 {
-    delete frames.at(removedIndex);
-    frames.erase(frames.begin() + removedIndex);
+    delete frames[removedIndex];
+    frames.removeAt(removedIndex);
     setCurrentFrame(newIndex);
 }
 
 void SpriteModel::duplicateFrame(int index)
 {
-    Frame* original = frames.at(index);
+    Frame* original = frames[index];
     Frame* copy = new Frame(*original);
 
     int newIndex = index + 1;
-    frames.insert(frames.begin() + newIndex, copy);
+    frames.insert(newIndex, copy);
 
     framesMade++;
 
-    emit frameDuplicated(index);
+    emit frameDuplicated();
 }
 
 void SpriteModel::setCurrentFrame(int selectedIndex)
 {
     qDebug() << "Frame Index: " << selectedIndex;
-    emit currentFrameUpdated(*frames.at(selectedIndex));
+    emit currentFrameUpdated(frames[selectedIndex]);
 }
 
 void SpriteModel::changeResolutionOfAllFrames(int value)
@@ -68,22 +68,22 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
     else
         newPixelSize = 25;
 
-    for (unsigned long i = 0; i < frames.size(); i++)
+    for (int i = 0; i < frames.size(); i++)
     {
         frames[i]->changeResolution(newPixelSize);
         std::cout << "telling frame " << i << " to update res" << std::endl;
     }
 }
 
-void SpriteModel::swapItem(unsigned int currentIndex, unsigned int newIndex)
+void SpriteModel::swapItem(int currentIndex, int newIndex)
 {
     std::swap(frames[currentIndex], frames[newIndex]);
+
     setCurrentFrame(newIndex);
-    qDebug() << frames;
 }
 
 void SpriteModel::setDrawMirrored(bool checked)
 {
-    for (unsigned long i = 0; i < frames.size(); i++)
+    for (int i = 0; i < frames.size(); i++)
         frames[i]->setDrawMirrored(checked);
 }

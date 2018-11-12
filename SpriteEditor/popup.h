@@ -18,10 +18,10 @@ public:
     explicit Popup(QWidget *parent = nullptr);
     ~Popup();
     void setImages(QList<QImage> imageList);
+    void start();
 
 public slots:
     void updateImage();
-    void updateImage2();
     void setFps(int newFps);
 
 private:
@@ -29,6 +29,7 @@ private:
     int fps;
     int imageIndex;
     void incrementImageIndex();
+    QTimer *fpsTimer;
 
 
 protected:

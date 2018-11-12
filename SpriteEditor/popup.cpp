@@ -9,11 +9,13 @@ Popup::Popup(QWidget *parent) :
 {
     ui->setupUi(this);
     imageIndex = 0;
+    popupOpen = false;
 }
 
 
 void Popup::setImages(QList<QImage> imageList)
 {
+
     images = imageList;
 }
 
@@ -24,19 +26,26 @@ void Popup::setFps(int newFps)
 
 void Popup::updateImage()
 {
-    qDebug()<<"fps: " << fps;
-    ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
-    ui->imageLabel->show();
-    QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
-    incrementImageIndex();
+    qDebug() << "popup updateImage() called";
+    if (popupOpen == true)
+    {
+        ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
+        ui->imageLabel->show();
+        QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
+        incrementImageIndex();
+    }
 }
 
 void Popup::updateImage2()
 {
-    ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
-    ui->imageLabel->show();
-    QTimer::singleShot(1000/fps, this, SLOT(updateImage()));
-    incrementImageIndex();
+    qDebug() << "popup updateImage2() called";
+    if (popupOpen == true)
+    {
+        ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
+        ui->imageLabel->show();
+        QTimer::singleShot(1000/fps, this, SLOT(updateImage()));
+        incrementImageIndex();
+    }
 }
 
 void Popup::incrementImageIndex()
@@ -49,6 +58,20 @@ void Popup::incrementImageIndex()
     {
         imageIndex = 0; //otherwise, go back to the first image in the sequence
     }
+}
+
+void Popup::closeEvent(QCloseEvent *event)
+{
+    popupOpen = false;
+    qDebug()<<"closeEvent invoked";
+    images.clear();
+    qDebug()<<"closeEvent end";
+    /*
+    qDebug()<<"images size: " << images.size();
+    images.clear();
+    qDebug()<<"images size: " << images.size();
+    */
+
 }
 
 Popup::~Popup()

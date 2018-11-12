@@ -133,12 +133,23 @@ void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 {
+    qDebug() << "begin mouse pressed";
     mousePressed = true;
     currentFrame->drawPixel(event->x(),event->y(),penColor);
     //updatePreviewImage();
     QImage& image = currentFrame->getImage();
     emit updateAnimation(currentFrameIndex, image);
 
+}
+
+void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    qDebug()<<"begin mouse release";
+    mousePressed = false;
+    updatePreviewImage();
+    QImage& image = currentFrame->getImage();
+    qDebug()<<"mouse release event popup images size" << popup.images.size();
+    emit updateAnimation(currentFrameIndex, image);
 }
 
 void SpriteEditorWindow::setFps(int newFps)
@@ -148,7 +159,7 @@ void SpriteEditorWindow::setFps(int newFps)
 
 void SpriteEditorWindow::updatePreviewImage()
 {
-    qDebug() << "fps: " << fps;
+     qDebug()<<"updatePreviewImage1 begin";
 
     QImage image;
 
@@ -174,12 +185,12 @@ void SpriteEditorWindow::updatePreviewImage()
     }
 
     incrementImageIndex();
+    qDebug()<<"updatePreviewImage1 end";
 }
 
 void SpriteEditorWindow::updatePreviewImage2()
 {
-    qDebug() << "fps: " << fps;
-
+    qDebug()<<"updatePreviewImage2 start";
     QImage image;
 
     if (currentFrameIndex == 0)
@@ -199,6 +210,7 @@ void SpriteEditorWindow::updatePreviewImage2()
 
     QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage()));
     incrementImageIndex();
+    qDebug()<<"updatePreviewImage2 end";
 }
 
 void SpriteEditorWindow::incrementImageIndex()
@@ -212,21 +224,15 @@ void SpriteEditorWindow::incrementImageIndex()
     {
         imageIndex = 0; //otherwise, go back to the first image in the sequence
     }
-    qDebug()<<"ImageIndex: " << imageIndex;
 }
 
-void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
-{
-    mousePressed = false;
-    updatePreviewImage();
-    QImage& image = currentFrame->getImage();
-    emit updateAnimation(currentFrameIndex, image);
-}
+
 
 
 void SpriteEditorWindow::on_popOutButton_clicked()
 {
     popup.setFps(fps);
+    popup.popupOpen = true;
     popup.show();
     popup.updateImage();
 
@@ -257,6 +263,5 @@ void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
     {
         fps = 8;
     }
-    qDebug() << "fps changed to: " << fps;
     emit frameRateSliderMoved(fps);
 }

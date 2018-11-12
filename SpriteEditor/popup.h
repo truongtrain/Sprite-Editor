@@ -14,6 +14,7 @@ class Popup : public QWidget
 
 public:
     QList<QImage> images;
+    bool popupOpen;
     explicit Popup(QWidget *parent = nullptr);
     ~Popup();
     void setImages(QList<QImage> imageList);
@@ -28,6 +29,10 @@ private:
     int fps;
     int imageIndex;
     void incrementImageIndex();
+
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
 };
 

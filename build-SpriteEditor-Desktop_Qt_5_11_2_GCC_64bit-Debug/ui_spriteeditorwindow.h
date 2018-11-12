@@ -10,12 +10,14 @@
 #define UI_SPRITEEDITORWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
@@ -29,6 +31,8 @@ QT_BEGIN_NAMESPACE
 class Ui_SpriteEditorWindow
 {
 public:
+    QAction *actionSave;
+    QAction *actionOpen;
     QWidget *centralWidget;
     QPushButton *chooseColorBox;
     QLabel *colorLabel;
@@ -51,6 +55,7 @@ public:
     QLabel *frameRateLabel;
     QPushButton *popOutButton;
     QMenuBar *menuBar;
+    QMenu *menuFile;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -61,6 +66,10 @@ public:
         SpriteEditorWindow->resize(1164, 875);
         SpriteEditorWindow->setMinimumSize(QSize(300, 300));
         SpriteEditorWindow->setMouseTracking(true);
+        actionSave = new QAction(SpriteEditorWindow);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        actionOpen = new QAction(SpriteEditorWindow);
+        actionOpen->setObjectName(QStringLiteral("actionOpen"));
         centralWidget = new QWidget(SpriteEditorWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         chooseColorBox = new QPushButton(centralWidget);
@@ -167,6 +176,9 @@ public:
         menuBar = new QMenuBar(SpriteEditorWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1164, 22));
+        menuBar->setDefaultUp(false);
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
         SpriteEditorWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(SpriteEditorWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -174,6 +186,10 @@ public:
         statusBar = new QStatusBar(SpriteEditorWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         SpriteEditorWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionSave);
+        menuFile->addAction(actionOpen);
 
         retranslateUi(SpriteEditorWindow);
 
@@ -183,6 +199,8 @@ public:
     void retranslateUi(QMainWindow *SpriteEditorWindow)
     {
         SpriteEditorWindow->setWindowTitle(QApplication::translate("SpriteEditorWindow", "SpriteEditorWindow", nullptr));
+        actionSave->setText(QApplication::translate("SpriteEditorWindow", "Save", nullptr));
+        actionOpen->setText(QApplication::translate("SpriteEditorWindow", "Open", nullptr));
         chooseColorBox->setText(QApplication::translate("SpriteEditorWindow", "Choose Color", nullptr));
         colorLabel->setText(QString());
         resolutionLabel->setText(QApplication::translate("SpriteEditorWindow", "Resolution", nullptr));
@@ -196,6 +214,7 @@ public:
         drawMirrorCheckBox->setText(QApplication::translate("SpriteEditorWindow", "Draw Mirrored", nullptr));
         frameRateLabel->setText(QApplication::translate("SpriteEditorWindow", "Frame Rate (fps)", nullptr));
         popOutButton->setText(QApplication::translate("SpriteEditorWindow", "Full Size Preview", nullptr));
+        menuFile->setTitle(QApplication::translate("SpriteEditorWindow", "File", nullptr));
     } // retranslateUi
 
 };

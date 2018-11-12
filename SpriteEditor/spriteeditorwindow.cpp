@@ -208,3 +208,10 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
         }
     }
 }
+
+void SpriteEditorWindow::on_actionSave_triggered()
+{
+    QFileDialog dialog(this);
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Sprite Sheet Project"), "", tr("Sprite Sheet Project (*.spp);"));
+    myFrame->saveGrid(fileName);
+}

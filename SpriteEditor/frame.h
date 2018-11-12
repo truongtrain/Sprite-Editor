@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QRgba64>
 #include <QWidget>
+#include <QFile>
+#include <QDataStream>
 
 class Frame : public QWidget
 {
@@ -37,6 +39,9 @@ public:
     void setCurrentPixelSize(int newSize);
     int getCurrentPixelSize();
     void drawPixel(int x, int y, QColor color);
+
+    void saveGrid(QString fileName);
+
     /**
      * @brief This function returns the current pixel (starting and ending pixel for both x and y of QImage)  that was clicked.
      *  For example, if current size of pixel is 8 and the coordinate (700,900) is clicked,

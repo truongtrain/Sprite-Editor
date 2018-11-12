@@ -9,6 +9,7 @@
 #include "spritemodel.h"
 #include <QSignalMapper>
 #include <QKeyEvent>
+#include <QFileDialog>
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -34,6 +35,8 @@ private slots:
      * based on how many frames there are
      */
 void updateFrameList(int frameIndex);
+
+void on_actionSave_triggered();
 
 private:
     Ui::SpriteEditorWindow *ui;

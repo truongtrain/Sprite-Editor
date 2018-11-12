@@ -138,8 +138,8 @@ void Frame::paintEvent(QPaintEvent *)
 void Frame::drawPixel(int x, int y, QColor color) {
 
 
-    currentXCoord = x;
-    currentYCoord = y;
+    currentXCoord = x - 10;
+    currentYCoord = y - 25;
     currentColor = color;
     update();
 }
@@ -161,4 +161,61 @@ void Frame::movePixel(int x, int y, QColor color, int whichArrow)
     }
 
     update();
+}
+
+void Frame::saveGrid(QString fileName)
+{
+//    for ( int row = 0; row < image.width() + currentPixelSize; ++row )
+//        for ( int col = 0; col < image.height() + currentPixelSize; ++col )
+//        {
+//            QColor clrCurrent( image.pixel( row, col ) );
+
+//            qDebug() << "Pixel at [" << row << "," << col << "] contains color ("
+//                      << clrCurrent.red() << ", "
+//                      << clrCurrent.green() << ", "
+//                      << clrCurrent.blue() << ", "
+//                      << clrCurrent.alpha() << ").";
+//        }
+
+    int hi = 0;
+    QFile f( fileName );
+    if ( f.open(QIODevice::WriteOnly) )
+    {
+        QTextStream outStream( &f );
+
+
+    // store data in f
+
+       /* Write the line to the file */
+       outStream << GRID_RESOLUTION/currentPixelSize << " " << GRID_RESOLUTION/currentPixelSize << '\n';
+       outStream << "1" << '\n';
+
+        for ( int row = 12; row < GRID_RESOLUTION; row = row + currentPixelSize)
+            for ( int col = 50; col < GRID_RESOLUTION; col = col + currentPixelSize)
+            {
+                QColor clrCurrent( image.pixel( row, col));
+
+
+//                qDebug() << "Pixel at [" << row << "," << col << "] contains color ("
+//                          << clrCurrent.red() << ", "
+//                          << clrCurrent.green() << ", "
+//                          << clrCurrent.blue() << ", "
+//                          << clrCurrent.alpha() << ").";
+
+                outStream << clrCurrent.red() << " " << clrCurrent.green() << " " <<
+                             clrCurrent.blue() << " " << clrCurrent.alpha() << " ";
+
+                qDebug() << "Cell: " << hi++;
+                qDebug() << "Col: " << col;
+
+                if (col >= GRID_RESOLUTION - currentPixelSize)
+                {
+                    qDebug() << "new line!";
+                    outStream << "\n";
+                    outStream << "\n";
+                }
+            }
+    }
+
+    f.close();
 }

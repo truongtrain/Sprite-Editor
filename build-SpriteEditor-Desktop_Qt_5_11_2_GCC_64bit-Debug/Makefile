@@ -213,7 +213,6 @@ DIST          = ../../Qt/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf \
-		../SpriteEditor/.qmake.stash \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -398,7 +397,6 @@ Makefile: ../SpriteEditor/SpriteEditor.pro ../../Qt/5.11.2/gcc_64/mkspecs/linux-
 		../../Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -569,7 +567,6 @@ Makefile: ../SpriteEditor/SpriteEditor.pro ../../Qt/5.11.2/gcc_64/mkspecs/linux-
 ../../Qt/5.11.2/gcc_64/mkspecs/features/qt_config.prf:
 ../../Qt/5.11.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../Qt/5.11.2/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../Qt/5.11.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../Qt/5.11.2/gcc_64/mkspecs/features/toolchain.prf:
 ../../Qt/5.11.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -1838,17 +1835,6 @@ popup.o: ../SpriteEditor/popup.cpp ../SpriteEditor/popup.h \
 		../../Qt/5.11.2/gcc_64/include/QtCore/qtimer.h \
 		../../Qt/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		ui_popup.h \
-		../../Qt/5.11.2/gcc_64/include/QtCore/QVariant \
-		../../Qt/5.11.2/gcc_64/include/QtWidgets/QApplication \
-		../../Qt/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
-		../../Qt/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
-		../../Qt/5.11.2/gcc_64/include/QtCore/qeventloop.h \
-		../../Qt/5.11.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../Qt/5.11.2/gcc_64/include/QtGui/qguiapplication.h \
-		../../Qt/5.11.2/gcc_64/include/QtGui/qinputmethod.h \
-		../../Qt/5.11.2/gcc_64/include/QtWidgets/QLabel \
-		../../Qt/5.11.2/gcc_64/include/QtWidgets/qlabel.h \
-		../../Qt/5.11.2/gcc_64/include/QtWidgets/qframe.h \
 		../SpriteEditor/frame.h \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../Qt/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -1859,7 +1845,8 @@ popup.o: ../SpriteEditor/popup.cpp ../SpriteEditor/popup.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/qtextoption.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/qpen.h \
 		../../Qt/5.11.2/gcc_64/include/QtGui/QColor \
-		../../Qt/5.11.2/gcc_64/include/QtGui/QRgba64
+		../../Qt/5.11.2/gcc_64/include/QtGui/QRgba64 \
+		../../Qt/5.11.2/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o popup.o ../SpriteEditor/popup.cpp
 
 moc_spriteeditorwindow.o: moc_spriteeditorwindow.cpp 

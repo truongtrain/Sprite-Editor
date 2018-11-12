@@ -17,6 +17,7 @@ private:
     int frameRate;
     int framesMade;
     int currentPixelSize = 25;
+    bool isDrawMirroredChecked = false;
     //const int GRID_RESOLUTION = 800;
 
     void adjustToAvailableFrame(int index);

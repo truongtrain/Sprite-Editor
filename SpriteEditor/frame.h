@@ -24,7 +24,7 @@ private:
     //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
 
 public:
-    Frame(QWidget *parent = nullptr);
+    Frame(QWidget *parent = nullptr, bool isDrawingMirroredChecked = false);
     Frame(const Frame &other);
     ~Frame() override;
     Frame &operator= (Frame other);

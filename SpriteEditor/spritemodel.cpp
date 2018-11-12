@@ -19,7 +19,7 @@ SpriteModel::~SpriteModel()
 void SpriteModel::addFrame()
 {
    // Frame newFrame;
-    frames.push_back(new Frame);
+    frames.push_back(new Frame(nullptr,isDrawMirroredChecked));
 
     // Adding a frame switches focus to that new frame
     framesMade++;
@@ -87,6 +87,7 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
 
 void SpriteModel::setDrawMirrored(bool checked)
 {
+    isDrawMirroredChecked = checked;
     for (unsigned long i = 0; i < frames.size(); i++)
         frames[i]->setDrawMirrored(checked);
 }

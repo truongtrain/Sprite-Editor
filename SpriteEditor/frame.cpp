@@ -6,11 +6,11 @@
 #include <iostream>
 
 using namespace std;
-Frame::Frame(QWidget *parent)
+Frame::Frame(QWidget *parent, bool isDrawingMirroredChecked)
     : QWidget(parent)
 {
+    isDrawingMirrored = isDrawingMirroredChecked;
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
-    isDrawingMirrored = false;
 
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;

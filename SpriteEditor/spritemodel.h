@@ -37,14 +37,14 @@ public slots:
     void addFrame();
     void changeResolutionOfAllFrames(int value);
     void setDrawMirrored(bool checked);
-    void swapItem(int currentIndex, int newIndex);
+    void swapItem(unsigned int currentIndex, unsigned int newIndex);
 
 
     /**
      * Removes the frame at the selected index. Guranteed that
      * 2 or more frames exist when called.
      */
-    void removeFrame(int removedIndex, int newIndex);
+    void removeFrame(unsigned int removedIndex, unsigned int newIndex);
 
     /**
      * Adds a frames based on a given index, then tells the view

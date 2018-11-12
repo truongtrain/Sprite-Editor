@@ -78,7 +78,7 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
 void SpriteModel::swapItem(unsigned int currentIndex, unsigned int newIndex)
 {
     std::swap(frames[currentIndex], frames[newIndex]);
-    setCurrentFrame(newIndex);
+    setCurrentFrame((newIndex);
     qDebug() << frames;
 }
 

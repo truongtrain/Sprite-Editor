@@ -83,8 +83,8 @@ public:
         resolutionSlider->setMaximum(3);
         resolutionSlider->setSingleStep(0);
         resolutionSlider->setPageStep(1);
-        resolutionSlider->setValue(0);
-        resolutionSlider->setSliderPosition(0);
+        resolutionSlider->setValue(3);
+        resolutionSlider->setSliderPosition(3);
         resolutionSlider->setOrientation(Qt::Horizontal);
         resolutionSlider->setTickPosition(QSlider::TicksBelow);
         resolutionSlider->setTickInterval(0);
@@ -135,13 +135,13 @@ public:
         framesListLabel->setFont(font);
         drawMirrorCheckBox = new QCheckBox(centralWidget);
         drawMirrorCheckBox->setObjectName(QStringLiteral("drawMirrorCheckBox"));
-        drawMirrorCheckBox->setGeometry(QRect(1000, 360, 101, 23));
+        drawMirrorCheckBox->setGeometry(QRect(1000, 360, 141, 23));
         frameRateSlider = new QSlider(centralWidget);
         frameRateSlider->setObjectName(QStringLiteral("frameRateSlider"));
         frameRateSlider->setGeometry(QRect(880, 310, 221, 21));
         sizePolicy.setHeightForWidth(frameRateSlider->sizePolicy().hasHeightForWidth());
         frameRateSlider->setSizePolicy(sizePolicy);
-        frameRateSlider->setMaximum(3);
+        frameRateSlider->setMaximum(10);
         frameRateSlider->setSingleStep(0);
         frameRateSlider->setPageStep(1);
         frameRateSlider->setValue(0);

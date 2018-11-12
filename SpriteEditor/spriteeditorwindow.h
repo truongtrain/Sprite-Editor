@@ -39,7 +39,6 @@ public slots:
     void on_resolutionSlider_sliderMoved(int position);
     void on_drawMirrorCheckBox_toggled(bool checked);
     void updatePreviewImage();
-    void updatePreviewImage2();
     void receiveImages(QList<QImage> images);
     void setFps(int newFps);
 
@@ -56,6 +55,7 @@ private:
     int fps;
     void updateRemoveButton();
     void incrementImageIndex();
+    QTimer *previewTimer;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;

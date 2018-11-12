@@ -15,6 +15,9 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     ui->setupUi(this);
     ui->removeFrameButton->setDisabled(true);
 
+    previewTimer = new QTimer(this);
+   QObject::connect(previewTimer, SIGNAL(timeout()),this,SLOT(updatePreviewImage()));
+
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
                     model, &SpriteModel::addFrame);
    // Lambda to send an integer to our slot
@@ -56,6 +59,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    currentFrameIndex = 0;
    imageIndex = 0;
    fps = 1;
+
+   previewTimer->start(1000/fps);
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
@@ -173,12 +178,14 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
+
     qDebug()<<"begin mouse release";
     mousePressed = false;
     updatePreviewImage();
     QImage& image = currentFrame->getImage();
     qDebug()<<"mouse release event popup images size" << popup.images.size();
     emit updateAnimation(currentFrameIndex, image);
+
 }
 
 void SpriteEditorWindow::setFps(int newFps)
@@ -207,39 +214,8 @@ void SpriteEditorWindow::updatePreviewImage()
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
 
-
-    if (popup.images.size() > 1)
-    {
-        QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage2()));
-    }
-
     incrementImageIndex();
     qDebug()<<"updatePreviewImage1 end";
-}
-
-void SpriteEditorWindow::updatePreviewImage2()
-{
-    qDebug()<<"updatePreviewImage2 start";
-    QImage image;
-
-    if (currentFrameIndex == 0)
-    {
-        image = currentFrame->getImage();
-    }
-    else
-    {
-        image = images[imageIndex];
-    }
-
-    int height = image.height()/5;
-    int width = image.width()/5;
-    QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
-    ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
-    ui->previewLabel->show();
-
-    QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage()));
-    incrementImageIndex();
-    qDebug()<<"updatePreviewImage2 end";
 }
 
 void SpriteEditorWindow::incrementImageIndex()
@@ -297,9 +273,42 @@ void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
     {
         fps = 4;
     }
-    else
+    else if (position == 3)
+    {
+        fps = 6;
+    }
+    else if (position == 4)
     {
         fps = 8;
     }
+    else if (position == 5)
+    {
+        fps = 10;
+    }
+    else if (position == 6)
+    {
+        fps = 12;
+    }
+    else if (position == 7)
+    {
+        fps = 14;
+    }
+    else if (position == 8)
+    {
+        fps = 16;
+    }
+    else if (position == 9)
+    {
+        fps = 18;
+    }
+    else
+    {
+        fps = 20;
+    }
+
+    //change the timer to the new fps
+    previewTimer->stop();
+    previewTimer->start(1000/fps);
+
     emit frameRateSliderMoved(fps);
 }

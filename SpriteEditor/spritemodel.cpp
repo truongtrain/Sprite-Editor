@@ -23,7 +23,8 @@ void SpriteModel::addFrame()
 
     // Adding a frame switches focus to that new frame
     framesMade++;
-
+    images.append(QPixmap().toImage());
+    emit sendImages(images);
     emit frameAdded(framesMade);
 
     frames[frames.size()-1]->changeResolution(currentPixelSize);
@@ -34,6 +35,8 @@ void SpriteModel::removeFrame(int removedIndex, int newIndex)
     delete frames.at(removedIndex);
     frames.erase(frames.begin() + removedIndex);
     setCurrentFrameIndex(newIndex);
+    images.removeAt(removedIndex);
+    emit sendImages(images);
 }
 
 void SpriteModel::duplicateFrame(int index)
@@ -43,10 +46,11 @@ void SpriteModel::duplicateFrame(int index)
 
     int newIndex = index + 1;
     frames.insert(frames.begin() + newIndex, copy);
-
+    images.insert(newIndex, copy->getImage());
     framesMade++;
 
     emit frameDuplicated(index);
+    emit sendImages(images);
 }
 
 void SpriteModel::setCurrentFrameIndex(int selectedIndex)
@@ -85,4 +89,18 @@ void SpriteModel::setDrawMirrored(bool checked)
 {
     for (unsigned long i = 0; i < frames.size(); i++)
         frames[i]->setDrawMirrored(checked);
+}
+
+void SpriteModel::getImages()
+{
+    qDebug() << "images sent";
+    updateImages(currentFrameIndex, images[currentFrameIndex]);
+    emit sendImages(images);
+}
+
+void SpriteModel::updateImages(int index, QImage& image)
+{
+    qDebug() << "image " << index << " updated";
+    images[index] = image;
+    emit sendImages(images);
 }

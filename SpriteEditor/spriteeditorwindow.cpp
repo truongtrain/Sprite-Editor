@@ -32,7 +32,10 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     model, &SpriteModel::changeResolutionOfAllFrames);
    QObject::connect(this, &SpriteEditorWindow::drawMirroredBoxChangedSignal,
                     model, &SpriteModel::setDrawMirrored);
-
+   QObject::connect(ui->popOutButton, &QPushButton::pressed,
+                    model, &SpriteModel::getImages);
+   QObject::connect(this, &SpriteEditorWindow::updateAnimation,
+                    model, &SpriteModel::updateImages);
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameAdded,
@@ -41,11 +44,18 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     this, &SpriteEditorWindow::handleDuplicatedFrame);
    QObject::connect(model, &SpriteModel::currentFrameUpdated,
                     this, &SpriteEditorWindow::updateFrame);
+   QObject::connect(model, &SpriteModel::sendImages,
+                    this, &SpriteEditorWindow::receiveImages);
+
+
 
    // We do this here instead of the model constructor because it executes
    // before the signals are connected.
 
    model->addFrame();
+   currentFrameIndex = 0;
+   imageIndex = 0;
+   fps = 1;
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
@@ -67,6 +77,8 @@ void SpriteEditorWindow::handleAddedFrame(int framesMade)
     int lastRow = ui->framesList->count() - 1;
     ui->framesList->setCurrentRow(lastRow);
 
+    currentFrameIndex = lastRow;
+    qDebug()<<"frame index" << currentFrameIndex;
     emit updateCurrentFrameIndex(lastRow);
     updateRemoveButton();
 }
@@ -114,7 +126,9 @@ void SpriteEditorWindow::updateFrame(Frame& newCurrent)
 
 void SpriteEditorWindow::handleItemClicked()
 {
+    updatePreviewImage();
     emit updateCurrentFrameIndex(ui->framesList->currentRow());
+
 }
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()
@@ -151,12 +165,94 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
         qDebug() << "Color: " << penColor;
         currentFrame->drawPixel(event->x(),event->y(),penColor);
     }
+    QImage& image = currentFrame->getImage();
+    emit updateAnimation(currentFrameIndex, image);
+
 }
 
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
+    qDebug()<<"begin mouse release";
     mousePressed = false;
+    updatePreviewImage();
+    QImage& image = currentFrame->getImage();
+    qDebug()<<"mouse release event popup images size" << popup.images.size();
+    emit updateAnimation(currentFrameIndex, image);
+}
+
+void SpriteEditorWindow::setFps(int newFps)
+{
+    fps = newFps;
+}
+
+void SpriteEditorWindow::updatePreviewImage()
+{
+     qDebug()<<"updatePreviewImage1 begin";
+
+    QImage image;
+
+    if (currentFrameIndex == 0)
+    {
+        image = currentFrame->getImage();
+    }
+    else
+    {
+        image = images[imageIndex];
+    }
+
+    int height = image.height()/5;
+    int width = image.width()/5;
+    QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
+    ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
+    ui->previewLabel->show();
+
+
+    if (popup.images.size() > 1)
+    {
+        QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage2()));
+    }
+
+    incrementImageIndex();
+    qDebug()<<"updatePreviewImage1 end";
+}
+
+void SpriteEditorWindow::updatePreviewImage2()
+{
+    qDebug()<<"updatePreviewImage2 start";
+    QImage image;
+
+    if (currentFrameIndex == 0)
+    {
+        image = currentFrame->getImage();
+    }
+    else
+    {
+        image = images[imageIndex];
+    }
+
+    int height = image.height()/5;
+    int width = image.width()/5;
+    QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
+    ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
+    ui->previewLabel->show();
+
+    QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage()));
+    incrementImageIndex();
+    qDebug()<<"updatePreviewImage2 end";
+}
+
+void SpriteEditorWindow::incrementImageIndex()
+{
+
+    if (imageIndex < images.size() - 1) // if this is not the last image in the sequence
+    {
+        imageIndex++;
+    }
+    else
+    {
+        imageIndex = 0; //otherwise, go back to the first image in the sequence
+    }
 }
 
 void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
@@ -168,4 +264,42 @@ void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
 void SpriteEditorWindow::on_drawMirrorCheckBox_toggled(bool checked)
 {
     emit drawMirroredBoxChangedSignal(checked);
+}
+
+
+void SpriteEditorWindow::on_popOutButton_clicked()
+{
+    popup.setFps(fps);
+    popup.popupOpen = true;
+    popup.show();
+    popup.updateImage();
+
+}
+
+void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
+{
+    qDebug()<<"images received and sent to popup";
+    images = imageList;
+    popup.setImages(imageList);
+}
+
+void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
+{
+    if (position == 0)
+    {
+        fps = 1;
+    }
+    else if (position == 1)
+    {
+        fps = 2;
+    }
+    else if (position == 2)
+    {
+        fps = 4;
+    }
+    else
+    {
+        fps = 8;
+    }
+    emit frameRateSliderMoved(fps);
 }

@@ -26,6 +26,7 @@ public:
 signals:
     void updateCurrentFrameIndex(int index);
     void updateAnimation(int index, QImage& image);
+    void frameRateSliderMoved(int newFps);
 
 public slots:
     void on_chooseColorBox_clicked();
@@ -35,6 +36,7 @@ public slots:
     void updatePreviewImage();
     void updatePreviewImage2();
     void receiveImages(QList<QImage> images);
+    void setFps(int newFps);
 
 private:
     Ui::SpriteEditorWindow *ui;
@@ -46,6 +48,7 @@ private:
     int imageIndex;
     bool mousePressed;
     Popup popup;
+    int fps;
     void updateRemoveButton();
     void incrementImageIndex();
 
@@ -57,6 +60,7 @@ protected:
 private slots:
     void handleFrameSelection();
     void on_popOutButton_clicked();
+    void on_frameRateSlider_sliderMoved(int position);
 };
 
 #endif // SPRITEEDITORWINDOW_H

@@ -21,10 +21,11 @@ public:
 public slots:
     void updateImage();
     void updateImage2();
+    void setFps(int newFps);
 
 private:
     Ui::Popup *ui;
-
+    int fps;
     int imageIndex;
     void incrementImageIndex();
 

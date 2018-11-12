@@ -48,6 +48,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    model->addFrame();
    currentFrameIndex = 0;
    imageIndex = 0;
+   fps = 1;
 }
 
 SpriteEditorWindow::~SpriteEditorWindow()
@@ -140,9 +141,14 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
 }
 
+void SpriteEditorWindow::setFps(int newFps)
+{
+    fps = newFps;
+}
+
 void SpriteEditorWindow::updatePreviewImage()
 {
-    //qDebug() << "updatePreviewImage called";
+    qDebug() << "fps: " << fps;
 
     QImage image;
 
@@ -152,8 +158,6 @@ void SpriteEditorWindow::updatePreviewImage()
     }
     else
     {
-        //qDebug() << "currentFrameIndex: " << currentFrameIndex;
-        //qDebug() << "size of images list: " << images.size();
         image = images[imageIndex];
     }
 
@@ -166,7 +170,7 @@ void SpriteEditorWindow::updatePreviewImage()
 
     if (popup.images.size() > 1)
     {
-        QTimer::singleShot(1000, this, SLOT(updatePreviewImage2()));
+        QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage2()));
     }
 
     incrementImageIndex();
@@ -174,7 +178,7 @@ void SpriteEditorWindow::updatePreviewImage()
 
 void SpriteEditorWindow::updatePreviewImage2()
 {
-    //qDebug() << "updatePreviewImage2 called";
+    qDebug() << "fps: " << fps;
 
     QImage image;
 
@@ -193,7 +197,7 @@ void SpriteEditorWindow::updatePreviewImage2()
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
 
-    QTimer::singleShot(1000, this, SLOT(updatePreviewImage()));
+    QTimer::singleShot(1000/fps, this, SLOT(updatePreviewImage()));
     incrementImageIndex();
 }
 
@@ -222,6 +226,7 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::on_popOutButton_clicked()
 {
+    popup.setFps(fps);
     popup.show();
     popup.updateImage();
 
@@ -234,6 +239,24 @@ void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
     popup.setImages(imageList);
 }
 
-
-
-
+void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
+{
+    if (position == 0)
+    {
+        fps = 1;
+    }
+    else if (position == 1)
+    {
+        fps = 2;
+    }
+    else if (position == 2)
+    {
+        fps = 4;
+    }
+    else
+    {
+        fps = 8;
+    }
+    qDebug() << "fps changed to: " << fps;
+    emit frameRateSliderMoved(fps);
+}

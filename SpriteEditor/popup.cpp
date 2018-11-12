@@ -1,6 +1,7 @@
 #include "popup.h"
 #include "ui_popup.h"
 #include "frame.h"
+#include "QDebug"
 
 Popup::Popup(QWidget *parent) :
     QWidget(parent),
@@ -8,19 +9,25 @@ Popup::Popup(QWidget *parent) :
 {
     ui->setupUi(this);
     imageIndex = 0;
-
 }
+
 
 void Popup::setImages(QList<QImage> imageList)
 {
     images = imageList;
 }
 
+void Popup::setFps(int newFps)
+{
+    fps = newFps;
+}
+
 void Popup::updateImage()
 {
+    qDebug()<<"fps: " << fps;
     ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
     ui->imageLabel->show();
-    QTimer::singleShot(1000, this, SLOT(updateImage2()));
+    QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
     incrementImageIndex();
 }
 
@@ -28,7 +35,7 @@ void Popup::updateImage2()
 {
     ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
     ui->imageLabel->show();
-    QTimer::singleShot(1000, this, SLOT(updateImage()));
+    QTimer::singleShot(1000/fps, this, SLOT(updateImage()));
     incrementImageIndex();
 }
 

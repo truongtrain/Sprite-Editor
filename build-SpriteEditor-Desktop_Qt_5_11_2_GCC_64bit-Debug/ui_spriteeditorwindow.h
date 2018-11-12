@@ -83,7 +83,8 @@ public:
         resolutionSlider->setMaximum(3);
         resolutionSlider->setSingleStep(0);
         resolutionSlider->setPageStep(1);
-        resolutionSlider->setValue(3);
+        resolutionSlider->setValue(0);
+        resolutionSlider->setSliderPosition(0);
         resolutionSlider->setOrientation(Qt::Horizontal);
         resolutionSlider->setTickPosition(QSlider::TicksBelow);
         resolutionSlider->setTickInterval(0);
@@ -143,7 +144,8 @@ public:
         frameRateSlider->setMaximum(3);
         frameRateSlider->setSingleStep(0);
         frameRateSlider->setPageStep(1);
-        frameRateSlider->setValue(3);
+        frameRateSlider->setValue(0);
+        frameRateSlider->setSliderPosition(0);
         frameRateSlider->setOrientation(Qt::Horizontal);
         frameRateSlider->setTickPosition(QSlider::TicksBelow);
         frameRateSlider->setTickInterval(0);

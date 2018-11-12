@@ -84,7 +84,10 @@ background-color: rgb(0, 0, 0);</string>
      <number>1</number>
     </property>
     <property name="value">
-     <number>3</number>
+     <number>0</number>
+    </property>
+    <property name="sliderPosition">
+     <number>0</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -287,7 +290,10 @@ background-color: rgb(0, 0, 0);</string>
      <number>1</number>
     </property>
     <property name="value">
-     <number>3</number>
+     <number>0</number>
+    </property>
+    <property name="sliderPosition">
+     <number>0</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>

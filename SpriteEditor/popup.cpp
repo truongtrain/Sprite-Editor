@@ -43,7 +43,7 @@ void Popup::updateImage()
     {
         ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
         ui->imageLabel->show();
-        QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
+        //QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
         incrementImageIndex();
     }
 }

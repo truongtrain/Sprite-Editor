@@ -32,33 +32,42 @@ void SpriteModel::addFrame()
 
 void SpriteModel::removeFrame(int removedIndex, int newIndex)
 {
-    delete frames.at(removedIndex);
-    frames.erase(frames.begin() + removedIndex);
-    setCurrentFrameIndex(newIndex);
+    //delete frames.at(removedIndex);
+    //frames.erase(frames.begin() + removedIndex);
+    //setCurrentFrameIndex(newIndex);
     images.removeAt(removedIndex);
     emit sendImages(images);
+    delete frames[removedIndex];
+    frames.removeAt(removedIndex);
+    setCurrentFrame(newIndex);
 }
 
 void SpriteModel::duplicateFrame(int index)
 {
-    Frame* original = frames.at(index);
+    //Frame* original = frames.at(index);
+
+    //int newIndex = index + 1;
+    //frames.insert(frames.begin() + newIndex, copy);
+
+    //emit frameDuplicated(index);
+    Frame* original = frames[index];
+    //Frame* copy = new Frame(*original);
     Frame* copy = new Frame(*original,isDrawMirroredChecked);
 
     int newIndex = index + 1;
-    frames.insert(frames.begin() + newIndex, copy);
     images.insert(newIndex, copy->getImage());
+    frames.insert(newIndex, copy);
+
     framesMade++;
 
-    emit frameDuplicated(index);
     emit sendImages(images);
+    emit frameDuplicated();
 }
 
-void SpriteModel::setCurrentFrameIndex(int selectedIndex)
+void SpriteModel::setCurrentFrame(int selectedIndex)
 {
-    qDebug() << "Row changed: " << selectedIndex;
-    currentFrameIndex = selectedIndex;
-    Frame* currentFrame = frames.at(selectedIndex);
-    emit currentFrameUpdated(*currentFrame);
+    qDebug() << "Frame Index: " << selectedIndex;
+    emit currentFrameUpdated(frames[selectedIndex]);
 }
 
 void SpriteModel::changeResolutionOfAllFrames(int value)
@@ -70,24 +79,34 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
 
     currentPixelSize = newPixelSize;
 
-    for (unsigned long i = 0; i < frames.size(); i++)
+    for (int i = 0; i < frames.size(); i++)
     {
         frames[i]->changeResolution(newPixelSize);
         std::cout << "telling frame " << i << " to update res" << std::endl;
     }
 }
 
+void SpriteModel::swapItem(int currentIndex, int newIndex)
+{
+    std::swap(frames[currentIndex], frames[newIndex]);
+
+    setCurrentFrame(newIndex);
+}
+
 void SpriteModel::setDrawMirrored(bool checked)
 {
     isDrawMirroredChecked = checked;
-    for (unsigned long i = 0; i < frames.size(); i++)
+    //for (unsigned long i = 0; i < frames.size(); i++)
+
+    for (int i = 0; i < frames.size(); i++)
         frames[i]->setDrawMirrored(checked);
 }
 
 void SpriteModel::getImages()
 {
     qDebug() << "images sent";
-    updateImages(currentFrameIndex, images[currentFrameIndex]);
+    //updateImages(currentFrameIndex, images[currentFrameIndex]);
+    qDebug() << "line 109";
     emit sendImages(images);
 }
 

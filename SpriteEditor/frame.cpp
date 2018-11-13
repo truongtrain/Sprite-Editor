@@ -65,22 +65,14 @@ int Frame::getCurrentPixelSize()
     return this->currentPixelSize;
 }
 
-int* Frame::getPixelAtCoordinates(int x, int y)
+Frame::PixelCoordinates Frame::getPixelAtCoordinates(int x, int y)
 {
     int xStarting = (x/currentPixelSize)*currentPixelSize;
     int xEnding = xStarting + currentPixelSize -1;
     int yStarting = (y/currentPixelSize)*currentPixelSize;
     int yEnding = yStarting + currentPixelSize -1;
 
-    static int result [4];
-    result[0] = xStarting;
-//    qDebug() << xStarting;
-//    qDebug() << xEnding;
-//    qDebug() << yStarting;
-//    qDebug() << yEnding;
-    result[1] = xEnding;
-    result[2] = yStarting;
-    result[3] = yEnding;
+    PixelCoordinates result(xStarting, xEnding, yStarting, yEnding);
     return result;
 }
 
@@ -95,14 +87,14 @@ void Frame::saveColor(int x, int y, QColor color)
 void Frame::paintEvent(QPaintEvent *)
 {
     // Account for offset of our draw area within the window
-    int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+    PixelCoordinates points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
     QPainter painter(this);
     QPainter imagePainter(&image);
     QBrush brush(currentColor);
 
     imagePainter.setBrush(brush);
-    QRect rectangle(points[0], points[2], currentPixelSize, currentPixelSize);
+    QRect rectangle(points.xStarting, points.yStarting, currentPixelSize, currentPixelSize);
     imagePainter.fillRect(rectangle,brush);
 
     QPen pen(Qt::white);
@@ -110,11 +102,22 @@ void Frame::paintEvent(QPaintEvent *)
 
     if (isDrawingMirrored)
     {
+        //819 is the middle of the frame
         currentXCoord = 819 - currentXCoord;
 
-        int* points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+        //441 is the center coord
+        //int mirroredXCoord = 0;
+        //int mirroredYCoord = 0;
 
-        QRect rectangle(points[0], points[2], this->currentPixelSize,this->currentPixelSize);
+        //if (currentXCoord <= 410)
+        //    currentXCoord = 819 - currentXCoord;
+        //else if (currentXCoord > 410)
+         //   currentXCoord = 819 - currentXCoord;
+
+        // 10 is the x offset and 26 is the y offset
+        PixelCoordinates points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+
+        QRect rectangle(points.xStarting, points.yStarting, this->currentPixelSize,this->currentPixelSize);
         imagePainter.setBrush(brush);
 
         imagePainter.fillRect(rectangle,brush);
@@ -164,4 +167,12 @@ void Frame::setDrawMirrored(bool checked)
     std::cout << "changing isDrawimgMirrored" << std::endl;
 
     isDrawingMirrored = checked;
+}
+
+Frame::PixelCoordinates::PixelCoordinates(int xStart, int xEnd, int yStart, int yEnd)
+{
+    xStarting = xStart;
+    xEnding = xEnd;
+    yStarting = yStart;
+    yEnding = yEnd;
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include "frame.h"
 
 
@@ -13,8 +14,9 @@ class SpriteModel : public QObject
 
 private:
     QList<QImage> images;
-    std::vector<Frame*> frames;
+    //std::vector<Frame*> frames;
     int currentFrameIndex;
+    QList<Frame*> frames;
     int frameRate;
     int framesMade;
     int currentPixelSize = 25;
@@ -29,9 +31,11 @@ public:
 signals:
     // Lets view know a frame was added and gives it the count of frames
     void frameAdded(int count);
-    void frameDuplicated(int index);
-    void currentFrameUpdated(Frame& current);
+    //void frameDuplicated(int index);
+    //void currentFrameUpdated(Frame& current);
     void sendImages(QList<QImage> images);
+    void frameDuplicated();
+    void currentFrameUpdated(Frame* current);
 
 public slots:
     /**
@@ -41,6 +45,7 @@ public slots:
     void addFrame();
     void changeResolutionOfAllFrames(int value);
     void setDrawMirrored(bool checked);
+    void swapItem(int currentIndex, int newIndex);
 
 
     /**
@@ -59,7 +64,7 @@ public slots:
      * Updates the current index to whatever the list defaulted to after
      * an item was removed.
      */
-    void setCurrentFrameIndex(int selectedIndex);
+    void setCurrentFrame(int selectedIndex);
 
     void getImages();
 

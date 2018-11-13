@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SpriteEditorWindow_t {
-    QByteArrayData data[35];
-    char stringdata0[548];
+    QByteArrayData data[37];
+    char stringdata0[562];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,25 +48,27 @@ QT_MOC_LITERAL(12, 172, 7), // "QImage&"
 QT_MOC_LITERAL(13, 180, 5), // "image"
 QT_MOC_LITERAL(14, 186, 20), // "frameRateSliderMoved"
 QT_MOC_LITERAL(15, 207, 6), // "newFps"
-QT_MOC_LITERAL(16, 214, 25), // "on_chooseColorBox_clicked"
-QT_MOC_LITERAL(17, 240, 16), // "handleAddedFrame"
-QT_MOC_LITERAL(18, 257, 10), // "framesMade"
-QT_MOC_LITERAL(19, 268, 21), // "handleDuplicatedFrame"
-QT_MOC_LITERAL(20, 290, 13), // "originalIndex"
-QT_MOC_LITERAL(21, 304, 11), // "updateFrame"
-QT_MOC_LITERAL(22, 316, 6), // "Frame&"
-QT_MOC_LITERAL(23, 323, 7), // "current"
-QT_MOC_LITERAL(24, 331, 31), // "on_resolutionSlider_sliderMoved"
-QT_MOC_LITERAL(25, 363, 8), // "position"
-QT_MOC_LITERAL(26, 372, 29), // "on_drawMirrorCheckBox_toggled"
-QT_MOC_LITERAL(27, 402, 18), // "updatePreviewImage"
-QT_MOC_LITERAL(28, 421, 13), // "receiveImages"
-QT_MOC_LITERAL(29, 435, 13), // "QList<QImage>"
-QT_MOC_LITERAL(30, 449, 6), // "images"
-QT_MOC_LITERAL(31, 456, 18), // "handleRemovedFrame"
-QT_MOC_LITERAL(32, 475, 17), // "handleItemClicked"
-QT_MOC_LITERAL(33, 493, 23), // "on_popOutButton_clicked"
-QT_MOC_LITERAL(34, 517, 30) // "on_frameRateSlider_sliderMoved"
+QT_MOC_LITERAL(16, 214, 11), // "itemSwapped"
+QT_MOC_LITERAL(17, 226, 6), // "isDown"
+QT_MOC_LITERAL(18, 233, 25), // "on_chooseColorBox_clicked"
+QT_MOC_LITERAL(19, 259, 16), // "handleAddedFrame"
+QT_MOC_LITERAL(20, 276, 10), // "framesMade"
+QT_MOC_LITERAL(21, 287, 18), // "updatePreviewImage"
+QT_MOC_LITERAL(22, 306, 13), // "receiveImages"
+QT_MOC_LITERAL(23, 320, 13), // "QList<QImage>"
+QT_MOC_LITERAL(24, 334, 6), // "images"
+QT_MOC_LITERAL(25, 341, 21), // "handleDuplicatedFrame"
+QT_MOC_LITERAL(26, 363, 11), // "updateFrame"
+QT_MOC_LITERAL(27, 375, 6), // "Frame*"
+QT_MOC_LITERAL(28, 382, 7), // "current"
+QT_MOC_LITERAL(29, 390, 31), // "on_resolutionSlider_sliderMoved"
+QT_MOC_LITERAL(30, 422, 8), // "position"
+QT_MOC_LITERAL(31, 431, 29), // "on_drawMirrorCheckBox_toggled"
+QT_MOC_LITERAL(32, 461, 18), // "handleRemovedFrame"
+QT_MOC_LITERAL(33, 480, 17), // "handleItemClicked"
+QT_MOC_LITERAL(34, 498, 23), // "on_popOutButton_clicked"
+QT_MOC_LITERAL(35, 522, 30), // "on_frameRateSlider_sliderMoved"
+QT_MOC_LITERAL(36, 553, 8) // "swapItem"
 
     },
     "SpriteEditorWindow\0updateCurrentFrameIndex\0"
@@ -74,16 +76,17 @@ QT_MOC_LITERAL(34, 517, 30) // "on_frameRateSlider_sliderMoved"
     "newIndex\0resolutionSliderMovedSignal\0"
     "value\0drawMirroredBoxChangedSignal\0"
     "checked\0updateAnimation\0QImage&\0image\0"
-    "frameRateSliderMoved\0newFps\0"
-    "on_chooseColorBox_clicked\0handleAddedFrame\0"
-    "framesMade\0handleDuplicatedFrame\0"
-    "originalIndex\0updateFrame\0Frame&\0"
-    "current\0on_resolutionSlider_sliderMoved\0"
-    "position\0on_drawMirrorCheckBox_toggled\0"
+    "frameRateSliderMoved\0newFps\0itemSwapped\0"
+    "isDown\0on_chooseColorBox_clicked\0"
+    "handleAddedFrame\0framesMade\0"
     "updatePreviewImage\0receiveImages\0"
-    "QList<QImage>\0images\0handleRemovedFrame\0"
-    "handleItemClicked\0on_popOutButton_clicked\0"
-    "on_frameRateSlider_sliderMoved"
+    "QList<QImage>\0images\0handleDuplicatedFrame\0"
+    "updateFrame\0Frame*\0current\0"
+    "on_resolutionSlider_sliderMoved\0"
+    "position\0on_drawMirrorCheckBox_toggled\0"
+    "handleRemovedFrame\0handleItemClicked\0"
+    "on_popOutButton_clicked\0"
+    "on_frameRateSlider_sliderMoved\0swapItem"
 };
 #undef QT_MOC_LITERAL
 
@@ -93,34 +96,36 @@ static const uint qt_meta_data_SpriteEditorWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  104,    2, 0x06 /* Public */,
-       4,    2,  107,    2, 0x06 /* Public */,
-       7,    1,  112,    2, 0x06 /* Public */,
-       9,    1,  115,    2, 0x06 /* Public */,
-      11,    2,  118,    2, 0x06 /* Public */,
-      14,    1,  123,    2, 0x06 /* Public */,
+       1,    1,  114,    2, 0x06 /* Public */,
+       4,    2,  117,    2, 0x06 /* Public */,
+       7,    1,  122,    2, 0x06 /* Public */,
+       9,    1,  125,    2, 0x06 /* Public */,
+      11,    2,  128,    2, 0x06 /* Public */,
+      14,    1,  133,    2, 0x06 /* Public */,
+      16,    2,  136,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      16,    0,  126,    2, 0x0a /* Public */,
-      17,    1,  127,    2, 0x0a /* Public */,
-      19,    1,  130,    2, 0x0a /* Public */,
-      21,    1,  133,    2, 0x0a /* Public */,
-      24,    1,  136,    2, 0x0a /* Public */,
-      26,    1,  139,    2, 0x0a /* Public */,
-      27,    0,  142,    2, 0x0a /* Public */,
-      28,    1,  143,    2, 0x0a /* Public */,
-      31,    0,  146,    2, 0x08 /* Private */,
-      32,    0,  147,    2, 0x08 /* Private */,
-      33,    0,  148,    2, 0x08 /* Private */,
-      34,    1,  149,    2, 0x08 /* Private */,
+      18,    0,  141,    2, 0x0a /* Public */,
+      19,    1,  142,    2, 0x0a /* Public */,
+      21,    0,  145,    2, 0x0a /* Public */,
+      22,    1,  146,    2, 0x0a /* Public */,
+      25,    0,  149,    2, 0x0a /* Public */,
+      26,    1,  150,    2, 0x0a /* Public */,
+      29,    1,  153,    2, 0x0a /* Public */,
+      31,    1,  156,    2, 0x0a /* Public */,
+      32,    0,  159,    2, 0x08 /* Private */,
+      33,    0,  160,    2, 0x08 /* Private */,
+      34,    0,  161,    2, 0x08 /* Private */,
+      35,    1,  162,    2, 0x08 /* Private */,
+      36,    1,  165,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -129,20 +134,22 @@ static const uint qt_meta_data_SpriteEditorWindow[] = {
     QMetaType::Void, QMetaType::Bool,   10,
     QMetaType::Void, QMetaType::Int, 0x80000000 | 12,    3,   13,
     QMetaType::Void, QMetaType::Int,   15,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool,    3,   17,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   18,
     QMetaType::Void, QMetaType::Int,   20,
-    QMetaType::Void, 0x80000000 | 22,   23,
-    QMetaType::Void, QMetaType::Int,   25,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 23,   24,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 27,   28,
+    QMetaType::Void, QMetaType::Int,   30,
     QMetaType::Void, QMetaType::Bool,   10,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 29,   30,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   25,
+    QMetaType::Void, QMetaType::Int,   30,
+    QMetaType::Void, QMetaType::Bool,   17,
 
        0        // eod
 };
@@ -159,28 +166,37 @@ void SpriteEditorWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         case 3: _t->drawMirroredBoxChangedSignal((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 4: _t->updateAnimation((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QImage(*)>(_a[2]))); break;
         case 5: _t->frameRateSliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->on_chooseColorBox_clicked(); break;
-        case 7: _t->handleAddedFrame((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->handleDuplicatedFrame((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->updateFrame((*reinterpret_cast< Frame(*)>(_a[1]))); break;
-        case 10: _t->on_resolutionSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->on_drawMirrorCheckBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 12: _t->updatePreviewImage(); break;
-        case 13: _t->receiveImages((*reinterpret_cast< QList<QImage>(*)>(_a[1]))); break;
-        case 14: _t->handleRemovedFrame(); break;
-        case 15: _t->handleItemClicked(); break;
-        case 16: _t->on_popOutButton_clicked(); break;
-        case 17: _t->on_frameRateSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->itemSwapped((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 7: _t->on_chooseColorBox_clicked(); break;
+        case 8: _t->handleAddedFrame((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->updatePreviewImage(); break;
+        case 10: _t->receiveImages((*reinterpret_cast< QList<QImage>(*)>(_a[1]))); break;
+        case 11: _t->handleDuplicatedFrame(); break;
+        case 12: _t->updateFrame((*reinterpret_cast< Frame*(*)>(_a[1]))); break;
+        case 13: _t->on_resolutionSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->on_drawMirrorCheckBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 15: _t->handleRemovedFrame(); break;
+        case 16: _t->handleItemClicked(); break;
+        case 17: _t->on_popOutButton_clicked(); break;
+        case 18: _t->on_frameRateSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 19: _t->swapItem((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 13:
+        case 10:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QList<QImage> >(); break;
+            }
+            break;
+        case 12:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< Frame* >(); break;
             }
             break;
         }
@@ -228,6 +244,13 @@ void SpriteEditorWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
                 return;
             }
         }
+        {
+            using _t = void (SpriteEditorWindow::*)(int , bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SpriteEditorWindow::itemSwapped)) {
+                *result = 6;
+                return;
+            }
+        }
     }
 }
 
@@ -256,13 +279,13 @@ int SpriteEditorWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 20;
     }
     return _id;
 }
@@ -307,6 +330,13 @@ void SpriteEditorWindow::frameRateSliderMoved(int _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 5, _a);
+}
+
+// SIGNAL 6
+void SpriteEditorWindow::itemSwapped(int _t1, bool _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 6, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

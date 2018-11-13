@@ -35,7 +35,8 @@ HEADERS += \
         spriteeditorwindow.h \
     frame.h \
     spritemodel.h \
-    popup.h
+    popup.h \
+    gif.h
 
 FORMS += \
         spriteeditorwindow.ui \

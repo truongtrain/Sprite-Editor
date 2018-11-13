@@ -1,10 +1,12 @@
 #include "spritemodel.h"
 #include <QDebug>
 #include <iostream>
+#include "gif.h"
 
 SpriteModel::SpriteModel()
 {
     framesMade = 0;
+
 }
 
 SpriteModel::~SpriteModel()
@@ -90,6 +92,17 @@ void SpriteModel::setDrawMirrored(bool checked)
     isDrawMirroredChecked = checked;
     for (unsigned long i = 0; i < frames.size(); i++)
         frames[i]->setDrawMirrored(checked);
+}
+
+void SpriteModel::exportGif()
+{
+
+    qDebug() << "Model export is called";
+
+    GifWriter* gif;
+    GifBegin( gif,"test",25,25,1);
+   // GifWriteFrame(gif,frames[0]->getImage().constScanLin,25,25,1);
+   // GifEnd(gif);
 }
 
 void SpriteModel::getImages()

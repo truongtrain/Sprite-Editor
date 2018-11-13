@@ -6,6 +6,7 @@
 #include "frame.h"
 
 
+
 class SpriteModel : public QObject
 {
     Q_OBJECT
@@ -40,6 +41,7 @@ public slots:
     void addFrame();
     void changeResolutionOfAllFrames(int value);
     void setDrawMirrored(bool checked);
+    void exportGif();
 
 
     /**

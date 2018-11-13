@@ -31,6 +31,7 @@ signals:
     void updateAnimation(int index, QImage& image);
     void frameRateSliderMoved(int newFps);
 
+
 public slots:
     void on_chooseColorBox_clicked();
     void handleAddedFrame(int framesMade);
@@ -67,6 +68,7 @@ private slots:
     void handleItemClicked();
     void on_popOutButton_clicked();
     void on_frameRateSlider_sliderMoved(int position);
+    void on_actionExport_triggered();
 };
 
 #endif // SPRITEEDITORWINDOW_H

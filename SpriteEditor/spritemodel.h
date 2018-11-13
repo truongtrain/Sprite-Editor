@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <vector>
+#include <cmath>
 #include "frame.h"
 
 

@@ -10,40 +10,40 @@ Popup::Popup(QWidget *parent) :
     ui->setupUi(this);
     imageIndex = 0;
     popupOpen = false;
+    fpsTimer = new QTimer(this);
+
+    QObject::connect(fpsTimer, &QTimer::timeout,
+                    this, &Popup::updateImage);
 }
 
+void Popup::start()
+{
+    fpsTimer->start(1000/fps);
+}
 
 void Popup::setImages(QList<QImage> imageList)
 {
-
     images = imageList;
 }
 
 void Popup::setFps(int newFps)
 {
     fps = newFps;
+
+    if(fpsTimer->isActive())
+    {
+        fpsTimer->stop();
+        fpsTimer->start(1000/fps);
+    }
 }
 
 void Popup::updateImage()
 {
-    qDebug() << "popup updateImage() called";
     if (popupOpen == true)
     {
         ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
         ui->imageLabel->show();
         QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
-        incrementImageIndex();
-    }
-}
-
-void Popup::updateImage2()
-{
-    qDebug() << "popup updateImage2() called";
-    if (popupOpen == true)
-    {
-        ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
-        ui->imageLabel->show();
-        QTimer::singleShot(1000/fps, this, SLOT(updateImage()));
         incrementImageIndex();
     }
 }
@@ -63,6 +63,7 @@ void Popup::incrementImageIndex()
 void Popup::closeEvent(QCloseEvent *event)
 {
     popupOpen = false;
+    fpsTimer->stop();
     qDebug()<<"closeEvent invoked";
     images.clear();
     qDebug()<<"closeEvent end";

@@ -190,10 +190,6 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 
 }
 
-void SpriteEditorWindow::setFps(int newFps)
-{
-    fps = newFps;
-}
 
 void SpriteEditorWindow::updatePreviewImage()
 {
@@ -250,7 +246,7 @@ void SpriteEditorWindow::on_popOutButton_clicked()
     popup.setFps(fps);
     popup.popupOpen = true;
     popup.show();
-    popup.updateImage();
+    popup.start();
 
 }
 
@@ -263,54 +259,14 @@ void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
 
 void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
 {
-    if (position == 0)
-    {
-        fps = 1;
-    }
-    else if (position == 1)
-    {
-        fps = 2;
-    }
-    else if (position == 2)
-    {
-        fps = 4;
-    }
-    else if (position == 3)
-    {
-        fps = 6;
-    }
-    else if (position == 4)
-    {
-        fps = 8;
-    }
-    else if (position == 5)
-    {
-        fps = 10;
-    }
-    else if (position == 6)
-    {
-        fps = 12;
-    }
-    else if (position == 7)
-    {
-        fps = 14;
-    }
-    else if (position == 8)
-    {
-        fps = 16;
-    }
-    else if (position == 9)
-    {
-        fps = 18;
-    }
-    else
-    {
-        fps = 20;
-    }
+    int fps = position * 2;
 
     //change the timer to the new fps
     previewTimer->stop();
     previewTimer->start(1000/fps);
+
+    // Update the popup to have the same fps
+    popup.setFps(fps);
 
     emit frameRateSliderMoved(fps);
 }

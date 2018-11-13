@@ -41,7 +41,6 @@ public slots:
     void on_drawMirrorCheckBox_toggled(bool checked);
     void updatePreviewImage();
     void receiveImages(QList<QImage> images);
-    void setFps(int newFps);
 
 private:
     Ui::SpriteEditorWindow *ui;

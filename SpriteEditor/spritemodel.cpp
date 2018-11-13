@@ -69,16 +69,8 @@ void SpriteModel::changeResolutionOfAllFrames(int value)
 {
     std::cout << "frames.size() = " << frames.size() << std::endl;
 
-    int newPixelSize;
-
-    if (value == 0)
-        newPixelSize = 200;
-    else if (value == 1)
-        newPixelSize = 100;
-    else if (value == 2)
-        newPixelSize = 50;
-    else
-        newPixelSize = 25;
+    int scaleFactor = std::pow(2, value);
+    int newPixelSize = 200/scaleFactor;
 
     currentPixelSize = newPixelSize;
 

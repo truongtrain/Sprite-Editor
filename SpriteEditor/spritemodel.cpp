@@ -2,6 +2,8 @@
 #include <QDebug>
 #include <iostream>
 #include "gif.h"
+#include <QFileDialog>
+#include <QMessageBox>
 
 SpriteModel::SpriteModel()
 {
@@ -96,13 +98,31 @@ void SpriteModel::setDrawMirrored(bool checked)
 
 void SpriteModel::exportGif()
 {
+        QString fileName = QFileDialog::getSaveFileName(NULL, "Spawn to", "", "GIF image (*.gif)");
 
-    qDebug() << "Model export is called";
 
-    GifWriter* gif;
-    GifBegin( gif,"test",25,25,1);
-   // GifWriteFrame(gif,frames[0]->getImage().constScanLin,25,25,1);
-   // GifEnd(gif);
+        if(!fileName.isEmpty())
+        {
+            uint32_t frameSpeed = 100 / 2; // Half of second per frame
+
+            QImage startImg = frames[0]->getImage();
+
+            GifWriter writer;
+
+            GifBegin(&writer, fileName.toUtf8().constData(), (uint32_t)startImg.width(), (uint32_t)startImg.height(), frameSpeed);
+
+
+            for (Frame currentFrame : frames) {
+
+                QByteArray alpha8((char *)currentFrame.getImage().bits(), currentFrame.getImage().byteCount());
+
+                GifWriteFrame(&writer, (uint8_t *)alpha8.data(), currentFrame.getImage().width(), currentFrame.getImage().height(), frameSpeed);
+            }
+
+            GifEnd(&writer);
+
+            QMessageBox::information(NULL, "Done!", QString("GIF Image has been wrote!"));
+        }
 }
 
 void SpriteModel::getImages()

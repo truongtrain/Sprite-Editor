@@ -108,14 +108,19 @@ void SpriteEditorWindow::updateButtonsToDisable()
     bool isLastRow = (ui->framesList->currentRow() == ui->framesList->count() - 1);
 
     ui->removeFrameButton->setDisabled(isLastFrame);
-    ui->itemUpButton->setDisabled(isLastFrame || isFirstRow);
-    ui->itemDownButton->setDisabled(isLastFrame || isLastRow);
+    ui->itemUpButton->setDisabled(isFirstRow);
+    ui->itemDownButton->setDisabled(isLastRow);
 }
 
 void SpriteEditorWindow::updateFrame(Frame* newCurrent)
 {
-    ui->frameLayout->removeWidget(currentFrame);
+    if(currentFrame)
+    {
+        currentFrame->hide();
+        ui->frameLayout->removeWidget(currentFrame);
+    }
     currentFrame = newCurrent;
+    newCurrent->show();
     ui->frameLayout->addWidget(newCurrent, 0 , 0);
 }
 
@@ -146,6 +151,7 @@ void SpriteEditorWindow::swapItem(bool isMoveDown)
 void SpriteEditorWindow::handleItemClicked()
 {
     emit updateCurrentFrameIndex(ui->framesList->currentRow());
+    updateButtonsToDisable();
 }
 
 void SpriteEditorWindow::on_chooseColorBox_clicked()

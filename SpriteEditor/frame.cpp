@@ -10,7 +10,7 @@ Frame::Frame(QWidget *parent, bool isDrawingMirroredChecked)
     : QWidget(parent)
 {
     isDrawingMirrored = isDrawingMirroredChecked;
-    image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
+    image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_ARGB32);
 
     image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;

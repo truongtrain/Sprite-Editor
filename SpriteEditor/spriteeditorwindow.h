@@ -25,6 +25,8 @@ public:
 
 signals:
     void updateCurrentFrameIndex(int index);
+    void saveFrame(QString fileName);
+    void loadFrame(QString fileName);
 
 
 
@@ -37,6 +39,8 @@ private slots:
 void updateFrameList(int frameIndex);
 
 void on_actionSave_triggered();
+
+void on_actionOpen_triggered();
 
 private:
     Ui::SpriteEditorWindow *ui;

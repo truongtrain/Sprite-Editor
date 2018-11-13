@@ -40,7 +40,6 @@ public:
     int getCurrentPixelSize();
     void drawPixel(int x, int y, QColor color);
 
-    void saveGrid(QString fileName);
 
     /**
      * @brief This function returns the current pixel (starting and ending pixel for both x and y of QImage)  that was clicked.

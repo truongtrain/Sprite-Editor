@@ -184,7 +184,7 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 
     if(event->key() == Qt::Key_Down)
     {
-        if(myFrame->getCurrentSelectedY() > 829 - myFrame->getCurrentPixelSize()/2)
+        if(myFrame->getCurrentSelectedY() > 800 - myFrame->getCurrentPixelSize()/2)
         {
             return;
         }

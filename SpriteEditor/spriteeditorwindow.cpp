@@ -338,10 +338,10 @@ void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
 
 void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
 {
-    int fps = position * 2;
+    fps = position * 2;
 
     //change the timer to the new fps
-    previewTimer->stop();
+    //previewTimer->stop();
     previewTimer->start(1000/fps);
 
     // Update the popup to have the same fps
@@ -454,6 +454,7 @@ void SpriteEditorWindow::on_actionOpen_triggered()
     //QFileDialog dialog(this);
     currentFrame->hide();
     //previewTimer->stop();
+    ui->framesList->clear();
     QString fileName = QFileDialog::getOpenFileName(this,
             tr("Open Sprite Sheet Project"), "",
             tr("Sprite Sheet Project (*.ssp)"));

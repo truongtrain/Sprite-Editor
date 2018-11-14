@@ -135,10 +135,11 @@ void SpriteModel::save(QString fileName)
           {
               QImage image = frames[frame]->getImage();
 
+              for ( int x = 10; x < image.width(); x = x + currentPixelSize )
+              {
         for ( int y = 10; y < image.height(); y = y + currentPixelSize )
         {
-                for ( int x = 10; x < image.width(); x = x + currentPixelSize )
-                {
+
                     QColor clrCurrent( image.pixel( x, y ));
 
                     int red = clrCurrent.red();
@@ -173,6 +174,8 @@ void SpriteModel::load(QString fileName)
     // Stop the timer
 
     frames.clear();
+    images.clear();
+    framesMade = 0;
 
     qDebug() << "In load.";
 
@@ -189,12 +192,15 @@ void SpriteModel::load(QString fileName)
     for (int frame = 0; frame < numberOfFrames; frame++)
     {
         current = new Frame();
+        current->setCurrentPixelSize(currentPixelSize);
+        //addFrame();
+        //Frame* current = frames[frame];
 
-        for (int row = 15; row < GRID_RESOLUTION; row = row + currentPixelSize)
+        for (int column = 17; column < GRID_RESOLUTION; column = column + currentPixelSize)
         {
             int index = 0;
             QStringList colorLine = in.readLine().split(" ");
-            for (int column = 30; column < GRID_RESOLUTION; column = column + currentPixelSize)
+            for (int row = 48; row < GRID_RESOLUTION; row = row + currentPixelSize)
             {
                 QColor color;
 
@@ -206,17 +212,29 @@ void SpriteModel::load(QString fileName)
 
                 index += 4;
 
-                current->drawPixel(column, row, color);
+                //current->drawPixel(column, row, color);
+                current->currentColor = color;
+                current->currentXCoord = column;
+                current->currentYCoord = row;
+                current->testUpdate();
+                qDebug() << "calling draw for color " << color << " at " << column << "," << row;
 
-                qDebug() << current->getImage().pixelColor(row, column);
+                //qDebug() << current->getImage().pixelColor(row, column);
             }
         }
 
         frames.push_back(current);
+        images.push_back(current->getImage());
+
         qDebug() << "pushed back.";
+        framesMade++;
+        emit frameAdded(framesMade);
+
 
     }
     qDebug() << frames.size();
-     setCurrentFrame(frames.size() - 1);
+     //setCurrentFrame(frames.size() - 1);
     }
+
+    emit sendImages(images);
 }

@@ -23,9 +23,7 @@ private:
     bool isDrawingMirrored;
     const int GRID_RESOLUTION = 800;
     QColor colorGrid[32][32];
-    int currentXCoord;
-    int currentYCoord;
-    QColor currentColor;
+
 
     void saveColor(int x, int y, QColor color);
 
@@ -37,6 +35,9 @@ public:
     ~Frame() override;
     Frame &operator= (Frame other);
 
+    int currentXCoord;
+    int currentYCoord;
+    QColor currentColor;
 
     // Theses 4 variablies are for moving pixels
     bool isPixelSelected;
@@ -48,6 +49,7 @@ public:
 
     QImage& getImage();
     void setCurrentPixelSize(int newSize);
+    void testUpdate();
     int getCurrentPixelSize();
     void drawPixel(int x, int y, QColor color);
     /**

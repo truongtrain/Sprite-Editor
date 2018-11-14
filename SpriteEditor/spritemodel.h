@@ -48,6 +48,7 @@ public slots:
     void changeResolutionOfAllFrames(int value);
     void setDrawMirrored(bool checked);
     void swapItem(int currentIndex, int newIndex);
+    void exportGif();
 
 
     /**

@@ -1,6 +1,9 @@
 #include "spritemodel.h"
+#include "gif.h"
 #include <QDebug>
 #include <iostream>
+#include <QFileDialog>
+#include <QMessageBox>
 
 SpriteModel::SpriteModel()
 {
@@ -219,4 +222,37 @@ void SpriteModel::load(QString fileName)
     qDebug() << frames.size();
      setCurrentFrame(frames.size() - 1);
     }
+}
+
+void SpriteModel::exportGif()
+{
+        QString fileName = QFileDialog::getSaveFileName(NULL, "Spawn to", "", "GIF image (*.gif)");
+
+
+        if(!fileName.isEmpty())
+        {
+            uint32_t frameSpeed = 100 / 2; // Half of second per frame
+
+            QImage &startImg = frames[0]->getImage();
+
+            GifWriter writer;
+
+            GifBegin(&writer, fileName.toUtf8().constData(), (uint32_t)startImg.width(), (uint32_t)startImg.height(), frameSpeed);
+
+
+            for (Frame *currentFrame : frames)
+            {
+                QImage currentImage = currentFrame->getImage().rgbSwapped();
+
+
+                QByteArray alpha8((char *)currentImage.bits(), currentImage.byteCount());
+
+
+                GifWriteFrame(&writer, (uint8_t *)alpha8.data(), currentImage.width(), currentImage.height(), frameSpeed);
+            }
+
+            GifEnd(&writer);
+
+            QMessageBox::information(NULL, "Done!", QString("GIF Image has been wrote!"));
+        }
 }

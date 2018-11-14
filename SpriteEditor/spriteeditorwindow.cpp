@@ -62,6 +62,9 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     this, &SpriteEditorWindow::receiveImages);
 
 
+   // send signal from view to model
+     QObject::connect(ui->actionExport,&QAction::triggered, model, &SpriteModel::exportGif);
+
 
    // We do this here instead of the model constructor because the constructor
    // executes before the signals are connected.

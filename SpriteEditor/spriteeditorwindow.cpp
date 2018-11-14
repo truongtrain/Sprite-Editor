@@ -106,6 +106,7 @@ void SpriteEditorWindow::handleRemovedFrame()
     ui->framesList->takeItem(removedIndex);
     int newIndex = ui->framesList->currentRow();
     currentFrame->hide();
+    previewTimer->stop();
     emit frameRemoved(removedIndex, newIndex);
 
     updateButtonsToDisable();
@@ -136,6 +137,10 @@ void SpriteEditorWindow::updateButtonsToDisable()
 
 void SpriteEditorWindow::updateFrame(Frame* newCurrent)
 {
+    if(!previewTimer->isActive())
+    {
+        previewTimer->start();
+    }
     ui->frameLayout->removeWidget(currentFrame);
     currentFrame = newCurrent;
     newCurrent->show();
@@ -255,7 +260,6 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::updatePreviewImage()
 {
-
     QImage image;
 
     if (currentFrameIndex == 0)
@@ -272,8 +276,6 @@ void SpriteEditorWindow::updatePreviewImage()
     QImage previewImage = image.scaled(width, height, Qt::KeepAspectRatio);
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
-
-
 
     incrementImageIndex();
 }
@@ -432,6 +434,7 @@ void SpriteEditorWindow::on_actionOpen_triggered()
     //QFileDialog dialog(this);
     currentFrame->hide();
     //previewTimer->stop();
+    ui->framesList->clear();
     QString fileName = QFileDialog::getOpenFileName(this,
             tr("Open Sprite Sheet Project"), "",
             tr("Sprite Sheet Project (*.ssp)"));

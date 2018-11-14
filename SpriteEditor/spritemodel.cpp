@@ -2,6 +2,8 @@
 #include "gif.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTextStream>
+#include <iostream>
 
 SpriteModel::SpriteModel()
 {
@@ -24,7 +26,7 @@ void SpriteModel::addFrame()
 
     // Adding a frame switches focus to that new frame
     framesMade++;
-    images.append(QPixmap().toImage());
+    images.append(frames[frames.size()-1]->getImage());
     emit sendImages(images);
     emit frameAdded(framesMade);
 
@@ -102,106 +104,118 @@ void SpriteModel::updateImages(int index, QImage& image)
 void SpriteModel::save(QString fileName)
 {
     QFile f( fileName );
-    int currentPixelSize = frames[0]->getCurrentPixelSize();
-    if ( f.open(QIODevice::WriteOnly) )
-    {
-        QTextStream outStream( &f );
+       int currentPixelSize = frames[0]->getCurrentPixelSize();
+       if ( f.open(QIODevice::WriteOnly) )
+       {
+           QTextStream outStream( &f );
 
-    // store data in f
+       // store data in f
 
-//       /* Write the line to the file */
-          outStream << GRID_RESOLUTION/currentPixelSize << " " << GRID_RESOLUTION/currentPixelSize << '\n';
-          outStream << frames.size() << '\n';
+   //       /* Write the line to the file */
+             outStream << GRID_RESOLUTION/currentPixelSize << " " << GRID_RESOLUTION/currentPixelSize << '\n';
+             outStream << frames.size() << '\n';
 
-          for (int frame = 0; frame < frames.size(); frame++)
-          {
-              QImage image = frames[frame]->getImage();
+             for (int frame = 0; frame < frames.size(); frame++)
+             {
+                 QImage image = frames[frame]->getImage();
 
-        for ( int y = 10; y < image.height(); y = y + currentPixelSize )
-        {
-                for ( int x = 10; x < image.width(); x = x + currentPixelSize )
-                {
-                    QColor clrCurrent( image.pixel( x, y ));
+                 for ( int x = 10; x < image.width(); x = x + currentPixelSize )
+                 {
+           for ( int y = 10; y < image.height(); y = y + currentPixelSize )
+           {
 
-                    int red = clrCurrent.red();
-                    int green = clrCurrent.green();
-                    int blue = clrCurrent.blue();
-                    int alpha = clrCurrent.alpha();
+                       QColor clrCurrent( image.pixel( x, y ));
 
-                    if (red == 160 && green == 160 && blue == 160 && alpha == 255)
-                    {
-                        red = 0;
-                        green = 0;
-                        blue = 0;
-                        alpha = 0;
-                    }
+                       int red = clrCurrent.red();
+                       int green = clrCurrent.green();
+                       int blue = clrCurrent.blue();
+                       int alpha = clrCurrent.alpha();
 
-                    outStream << red << " " << green << " " <<
-                    blue << " " << alpha << " ";
-                }
+                       if (red == 160 && green == 160 && blue == 160 && alpha == 255)
+                       {
+                           red = 0;
+                           green = 0;
+                           blue = 0;
+                           alpha = 0;
+                       }
 
-            outStream << "\n";
-        }
+                       outStream << red << " " << green << " " <<
+                       blue << " " << alpha << " ";
+                   }
+
+               outStream << "\n";
+           }
+          }
        }
-    }
 
-    f.close();
+       f.close();
+
 }
 
 void SpriteModel::load(QString fileName)
 {
     QFile f(fileName);
 
-    // Stop the timer
+        // Stop the timer
 
-    frames.clear();
+        frames.clear();
+        images.clear();
+        framesMade = 0;
 
-    qDebug() << "In load.";
-
-    if ( f.open(QIODevice::ReadOnly) )
-    {
-        qDebug() << "In if statement.";
-    QTextStream in(&f);
-
-    QString line = in.readLine();
-    QStringList fields = line.split(" ");
-    int currentPixelSize = GRID_RESOLUTION/fields[0].toInt();
-    int numberOfFrames = in.readLine().toInt();
-
-    for (int frame = 0; frame < numberOfFrames; frame++)
-    {
-        current = new Frame();
-
-        for (int row = 15; row < GRID_RESOLUTION; row = row + currentPixelSize)
+        if ( f.open(QIODevice::ReadOnly) )
         {
-            int index = 0;
-            QStringList colorLine = in.readLine().split(" ");
-            for (int column = 30; column < GRID_RESOLUTION; column = column + currentPixelSize)
+        QTextStream in(&f);
+
+        QString line = in.readLine();
+        QStringList fields = line.split(" ");
+        int currentPixelSize = GRID_RESOLUTION/fields[0].toInt();
+        int numberOfFrames = in.readLine().toInt();
+
+        for (int frame = 0; frame < numberOfFrames; frame++)
+        {
+            current = new Frame();
+            current->setCurrentPixelSize(currentPixelSize);
+            //addFrame();
+            //Frame* current = frames[frame];
+
+            for (int column = 17; column < GRID_RESOLUTION; column = column + currentPixelSize)
             {
-                QColor color;
+                int index = 0;
+                QStringList colorLine = in.readLine().split(" ");
+                for (int row = 48; row < GRID_RESOLUTION; row = row + currentPixelSize)
+                {
+                    QColor color;
 
 
-                color.setRed(colorLine[index].toInt());
-                color.setGreen(colorLine[index+1].toInt());
-                color.setBlue(colorLine[index+2].toInt());
-                color.setAlpha(colorLine[index+3].toInt());
+                    color.setRed(colorLine[index].toInt());
+                    color.setGreen(colorLine[index+1].toInt());
+                    color.setBlue(colorLine[index+2].toInt());
+                    color.setAlpha(colorLine[index+3].toInt());
 
-                index += 4;
+                    index += 4;
 
-                current->drawPixel(column, row, color);
+                    //current->drawPixel(column, row, color);
+                    current->currentColor = color;
+                    current->currentXCoord = column;
+                    current->currentYCoord = row;
+                    current->updateForLoad();
 
-                qDebug() << current->getImage().pixelColor(row, column);
+                }
             }
+
+            frames.push_back(current);
+            images.push_back(current->getImage());
+
+
+            framesMade++;
+            emit frameAdded(framesMade);
+
+
         }
 
-        frames.push_back(current);
-        qDebug() << "pushed back.";
+        }
 
-    }
-    qDebug() << frames.size();
-     setCurrentFrame(frames.size() - 1);
-
-    }
+        emit sendImages(images);
 
 }
 
@@ -215,7 +229,7 @@ void SpriteModel::exportGif()
 
         if(!fileName.isEmpty())
         {
-            uint32_t frameSpeed = 100 / 2; // Half of second per frame
+            uint32_t frameSpeed = 100 / 10; // Half of second per frame
 
             QImage &startImg = frames[0]->getImage();
 

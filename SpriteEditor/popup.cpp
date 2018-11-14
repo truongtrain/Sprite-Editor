@@ -28,7 +28,6 @@ void Popup::setImages(QList<QImage> imageList)
 void Popup::setFps(int newFps)
 {
     fps = newFps;
-    qDebug() << "popup fps: " << fps;
 
     if(fpsTimer->isActive())
     {

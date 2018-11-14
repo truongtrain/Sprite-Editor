@@ -27,9 +27,6 @@ private:
     bool isDrawingMirrored;
     const int GRID_RESOLUTION = 800;
     QColor colorGrid[32][32];
-    int currentXCoord;
-    int currentYCoord;
-    QColor currentColor;
 
     void saveColor(int x, int y, QColor color);
 
@@ -38,12 +35,16 @@ public:
     Frame(const Frame &other, bool isDrawingMirroredChecked = false);
     ~Frame() override;
     Frame &operator= (Frame other);
+    void updateForLoad();
 
 
     // Theses 4 variablies are for moving pixels
     bool isPixelSelected;
     int currentSelectedX;
     int currentSelectedY;
+    int currentXCoord;
+    int currentYCoord;
+    QColor currentColor;
     int whichArrow; //direction of keypress
     QColor selectedColor;
 

@@ -149,42 +149,6 @@ void Frame::paintEvent(QPaintEvent *)
     imagePainter.fillRect(rectangle,brush);
     imagePainter.drawRect(rectangle);
 
-    if(isPixelSelected)
-    {
-        qDebug() <<whichArrow;
-        if(whichArrow == 0)
-        {
-            QRect rectanglePrevious(points.xStarting, points.yStarting+currentPixelSize, this->currentPixelSize,this->currentPixelSize);
-            QBrush grayBrush(Qt::gray);
-            imagePainter.setBrush(grayBrush);
-            imagePainter.fillRect(rectanglePrevious,grayBrush);
-            //imagePainter.drawRect(rectanglePrevious);
-        }
-        if(whichArrow == 1)
-        {
-            QRect rectanglePrevious(points.xStarting, points.yStarting-currentPixelSize, this->currentPixelSize,this->currentPixelSize);
-            QBrush grayBrush(Qt::gray);
-            imagePainter.setBrush(grayBrush);
-            imagePainter.fillRect(rectanglePrevious,grayBrush);
-            //imagePainter.drawRect(rectanglePrevious);
-        }
-        if(whichArrow == 2)
-        {
-            QRect rectanglePrevious(points.xStarting+currentPixelSize, points.yStarting, this->currentPixelSize,this->currentPixelSize);
-            QBrush grayBrush(Qt::gray);
-            imagePainter.setBrush(grayBrush);
-            imagePainter.fillRect(rectanglePrevious,grayBrush);
-            //imagePainter.drawRect(rectanglePrevious);
-        }
-        if(whichArrow == 3)
-        {
-            QRect rectanglePrevious(points.xStarting-currentPixelSize, points.yStarting, this->currentPixelSize,this->currentPixelSize);
-            QBrush grayBrush(Qt::gray);
-            imagePainter.setBrush(grayBrush);
-            imagePainter.fillRect(rectanglePrevious,grayBrush);
-            //imagePainter.drawRect(rectanglePrevious);
-        }
-    }
 
     painter.drawImage(QPoint(),image);
 
@@ -266,4 +230,85 @@ void Frame::shiftPixel(int x, int y, QColor color)
      update();
 
 
+}
+
+void Frame::updateForLoad()
+{
+    // Account for offset of our draw area within the window
+    PixelCoordinates points = getPixelAtCoordinates(currentXCoord,currentYCoord);
+
+
+    QPainter painter(this);
+    QPainter imagePainter(&image);
+    QBrush brush(currentColor);
+
+    imagePainter.setBrush(brush);
+    QRect rectangle(points.xStarting, points.yStarting, currentPixelSize, currentPixelSize);
+    imagePainter.fillRect(rectangle,brush);
+
+    QPen pen(Qt::white);
+    painter.setPen(pen);
+
+    if (isDrawingMirrored)
+    {
+        //819 is the middle of the frame
+        currentXCoord = 819 - currentXCoord;
+
+        //441 is the center coord
+        //int mirroredXCoord = 0;
+        //int mirroredYCoord = 0;
+
+        //if (currentXCoord <= 410)
+        //    currentXCoord = 819 - currentXCoord;
+        //else if (currentXCoord > 410)
+         //   currentXCoord = 819 - currentXCoord;
+
+        // 10 is the x offset and 26 is the y offset
+        PixelCoordinates points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+
+        rectangle = QRect(points.xStarting, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+        imagePainter.setBrush(brush);
+
+        imagePainter.fillRect(rectangle,brush);
+    }
+
+    rectangle= QRect(points.xStarting, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+    imagePainter.setBrush(brush);
+    imagePainter.fillRect(rectangle,brush);
+    imagePainter.drawRect(rectangle);
+    if(isPixelSelected)
+    {
+        QRect rectanglePrevious;
+        if(whichArrow == 0)
+        {
+            rectanglePrevious = QRect(points.xStarting, points.yStarting+currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+        }
+        if(whichArrow == 1)
+        {
+            rectanglePrevious = QRect(points.xStarting, points.yStarting-currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+
+        }
+        if(whichArrow == 2)
+        {
+            rectanglePrevious = QRect(points.xStarting+currentPixelSize, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+        }
+        if(whichArrow == 3)
+        {
+            rectanglePrevious = QRect(points.xStarting-currentPixelSize, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+        }
+        QBrush grayBrush(Qt::gray);
+        imagePainter.setBrush(grayBrush);
+        imagePainter.fillRect(rectanglePrevious,grayBrush);
+    }
+    painter.drawImage(QPoint(),image);
+
+    //display grid lines
+    for(int row = 0; row<=(image.height()/this->getCurrentPixelSize()); row++)
+    {
+        painter.drawLine(0, row*this->getCurrentPixelSize(), 800, row*this->getCurrentPixelSize());
+    }
+    for(int column = 0; column<=(image.width()/this->getCurrentPixelSize()); column++)
+    {
+        painter.drawLine(column*this->getCurrentPixelSize(), 0, column*this->getCurrentPixelSize(), image.height());
+    }
 }

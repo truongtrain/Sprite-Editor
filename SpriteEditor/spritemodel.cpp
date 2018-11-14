@@ -104,11 +104,15 @@ void SpriteModel::exportGif()
             GifBegin(&writer, fileName.toUtf8().constData(), (uint32_t)startImg.width(), (uint32_t)startImg.height(), frameSpeed);
 
 
-            for (Frame *currentFrame : frames) {
+            for (Frame *currentFrame : frames)
+            {
+                QImage currentImage = currentFrame->getImage().rgbSwapped();
 
-                QByteArray alpha8((char *)currentFrame->getImage().bits(), currentFrame->getImage().byteCount());
 
-                GifWriteFrame(&writer, (uint8_t *)alpha8.data(), currentFrame->getImage().width(), currentFrame->getImage().height(), frameSpeed);
+                QByteArray alpha8((char *)currentImage.bits(), currentImage.byteCount());
+
+
+                GifWriteFrame(&writer, (uint8_t *)alpha8.data(), currentImage.width(), currentImage.height(), frameSpeed);
             }
 
             GifEnd(&writer);

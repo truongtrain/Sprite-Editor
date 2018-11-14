@@ -45,6 +45,11 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     [=]() {swapItem(true);});
    QObject::connect(this, &SpriteEditorWindow::itemSwapped,
                     model, &SpriteModel::swapItem);
+   QObject::connect(this, &SpriteEditorWindow::saveFrame,
+                      model, &SpriteModel::save);
+   QObject::connect(this, &SpriteEditorWindow::loadFrame,
+                      model, &SpriteModel::load);
+
 
    // Listen for signals from model
    QObject::connect(model, &SpriteModel::frameAdded,
@@ -433,4 +438,24 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
     }
 
     updatePreviewImage();
+}
+
+void SpriteEditorWindow::on_actionSave_triggered()
+{
+    //QFileDialog dialog(this);
+     QString fileName = QFileDialog::getSaveFileName(this,tr("Save Sprite Sheet Project"), "", tr("Sprite Sheet Project (*.ssp)"));
+     if (!fileName.endsWith(".ssp"))
+         fileName += ".ssp";
+    emit saveFrame(fileName);
+}
+
+void SpriteEditorWindow::on_actionOpen_triggered()
+{
+    //QFileDialog dialog(this);
+    currentFrame->hide();
+    //previewTimer->stop();
+    QString fileName = QFileDialog::getOpenFileName(this,
+            tr("Open Sprite Sheet Project"), "",
+            tr("Sprite Sheet Project (*.ssp)"));
+    emit loadFrame(fileName);
 }

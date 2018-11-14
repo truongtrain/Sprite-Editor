@@ -218,7 +218,7 @@ void Frame::paintEvent(QPaintEvent *)
 
 void Frame::drawPixel(int x, int y, QColor color) {
     currentXCoord = x;
-    currentYCoord = y;
+    currentYCoord = y - 25;
     currentColor = color;
     update();
 }

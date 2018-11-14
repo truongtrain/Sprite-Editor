@@ -11,6 +11,7 @@
 #include "popup.h"
 #include <QSignalMapper>
 #include <QKeyEvent>
+#include <QFileDialog>
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -33,6 +34,9 @@ signals:
 
     void updateAnimation(int index, QImage& image);
     void frameRateSliderMoved(int newFps);
+
+    void saveFrame(QString fileName);
+    void loadFrame(QString fileName);
 
     void itemSwapped(int index, bool isDown);
 
@@ -86,6 +90,8 @@ private slots:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 
+    void on_actionSave_triggered();
+    void on_actionOpen_triggered();
 };
 
 #endif // SPRITEEDITORWINDOW_H

@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <QFile>
 #include "frame.h"
 
 
@@ -21,7 +22,8 @@ private:
     int framesMade;
     int currentPixelSize = 25;
     bool isDrawMirroredChecked = false;
-    //const int GRID_RESOLUTION = 800;
+    const int GRID_RESOLUTION = 800;
+    Frame* current;
 
     void adjustToAvailableFrame(int index);
 
@@ -70,6 +72,9 @@ public slots:
 
     void updateImages(int index, QImage& image);
 
+    void save(QString fileName);
+
+    void load(QString fileName);
 
 };
 

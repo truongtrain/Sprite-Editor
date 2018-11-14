@@ -215,8 +215,14 @@ background-color: rgb(0, 0, 0);</string>
       <height>23</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="text">
      <string>Pen</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="eraserButton">
@@ -228,11 +234,17 @@ background-color: rgb(0, 0, 0);</string>
       <height>23</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="text">
      <string>Eraser</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="selectionButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>1030</x>
@@ -240,6 +252,9 @@ background-color: rgb(0, 0, 0);</string>
       <width>81</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="text">
      <string>Selection</string>

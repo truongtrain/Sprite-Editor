@@ -28,6 +28,7 @@ private:
     QColor currentColor;
 
     void saveColor(int x, int y, QColor color);
+
     //const QRgba64 BACKGROUND_COLOR = qRgba64(160 , 160, 160, 10);
 
 public:
@@ -35,6 +36,16 @@ public:
     Frame(const Frame &other, bool isDrawingMirroredChecked = false);
     ~Frame() override;
     Frame &operator= (Frame other);
+
+
+    // Theses 4 variablies are for moving pixels
+    bool isPixelSelected;
+    int currentSelectedX;
+    int currentSelectedY;
+    int whichArrow;
+    QColor selectedColor;
+
+
     QImage& getImage();
     void setCurrentPixelSize(int newSize);
     int getCurrentPixelSize();
@@ -48,6 +59,24 @@ public:
 public slots:
     void changeResolution(int newPixelSize);
     void setDrawMirrored(bool checked);
+
+    // These are for moving pixels
+
+
+    void setIsPixelSelected(bool input);
+    void setCurrentSelectedX(int input);
+    void setCurrentSelectedY(int input);
+    void setSelectedColor(QColor input);
+
+
+    bool getIsPixelSelected();
+    int getCurrentSelectedX();
+    int getCurrentSelectedY();
+    QColor getSelectedColor();
+
+    void shiftPixel(int x, int y, QColor color);
+
+
 
 protected:
     void paintEvent (QPaintEvent *event) override;

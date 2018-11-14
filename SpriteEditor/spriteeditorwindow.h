@@ -9,6 +9,8 @@
 #include "frame.h"
 #include "spritemodel.h"
 #include "popup.h"
+#include <QSignalMapper>
+#include <QKeyEvent>
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -81,6 +83,9 @@ private slots:
     void on_popOutButton_clicked();
     void on_frameRateSlider_sliderMoved(int position);
     void swapItem(bool isDown);
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+
 };
 
 #endif // SPRITEEDITORWINDOW_H

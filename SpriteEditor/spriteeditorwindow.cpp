@@ -1,4 +1,4 @@
-#include "spriteeditorwindow.h"
+ #include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
 
 #include <QGridLayout>
@@ -16,6 +16,7 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
 
     previewTimer = new QTimer(this);
    QObject::connect(previewTimer, SIGNAL(timeout()),this,SLOT(updatePreviewImage()));
+
 
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
                     model, &SpriteModel::addFrame);
@@ -64,6 +65,8 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
    currentFrameIndex = 0;
    imageIndex = 0;
    fps = 1;
+   ui->selectionButton->setAttribute(Qt::WA_KeyCompression);
+
 
    previewTimer->start(1000/fps);
 }
@@ -113,7 +116,6 @@ void SpriteEditorWindow::handleDuplicatedFrame()
      int copyIndex = ui->framesList->currentRow() + 1;
      ui->framesList->insertItem(copyIndex, copyName);
      ui->framesList->setCurrentRow(copyIndex);
-
      emit updateCurrentFrameIndex(copyIndex);
 
      updateButtonsToDisable();
@@ -132,10 +134,7 @@ void SpriteEditorWindow::updateButtonsToDisable()
 
 void SpriteEditorWindow::updateFrame(Frame* newCurrent)
 {
-    if(currentFrame)
-    {
-        ui->frameLayout->removeWidget(currentFrame);
-    }
+    ui->frameLayout->removeWidget(currentFrame);
     currentFrame = newCurrent;
     newCurrent->show();
     ui->frameLayout->addWidget(newCurrent, 0 , 0);
@@ -167,6 +166,7 @@ void SpriteEditorWindow::swapItem(bool isMoveDown)
 
 void SpriteEditorWindow::handleItemClicked()
 {
+    currentFrame->hide();
     updatePreviewImage();
     emit updateCurrentFrameIndex(ui->framesList->currentRow());
 
@@ -190,9 +190,13 @@ void SpriteEditorWindow::on_chooseColorBox_clicked()
 
 void SpriteEditorWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (mousePressed)
+    if (ui->penButton->isChecked() && mousePressed)
     {
         currentFrame->drawPixel(event->x(),event->y(),penColor);
+    }
+
+    if(ui->eraserButton->isChecked()){
+        currentFrame->drawPixel(event->x(),event->y(),qRgba(160 , 160, 160, 10));
     }
 }
 
@@ -211,6 +215,40 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     QImage& image = currentFrame->getImage();
     emit updateAnimation(currentFrameIndex, image);
 
+    if(ui->penButton->isChecked())
+    {
+        mousePressed = true;
+          qDebug() << "x: " << event->x();
+         qDebug() << "y: " << event->y();
+//          qDebug() << "Color: " << penColor;
+
+        //  lastXPosition = event->x();
+        //  lastYPostion = event->y();
+
+        currentFrame->drawPixel(event->x(),event->y(),penColor);
+        currentFrame->setIsPixelSelected(false);
+        return;
+    }
+
+    if(ui->eraserButton->isChecked())
+    {
+        currentFrame->drawPixel(event->x(),event->y(),qRgba(160 , 160, 160, 10));
+        currentFrame->setIsPixelSelected(false);
+        return;
+    }
+
+    if(ui->selectionButton->isChecked())
+    {
+        if(event->x() >= 12 && event->x() <= 812 && event->y() >=29 && event->y() <=829)
+        {
+            currentFrame->setIsPixelSelected(true);
+            qDebug() << "event x was" << event->x() ;
+            currentFrame->setCurrentSelectedX(event->x());
+            currentFrame->setCurrentSelectedY(event->y());
+            qDebug() << "selected color was" << QColor(currentFrame->getImage().pixel(event->x(), event->y())) ;
+            currentFrame->setSelectedColor(currentFrame->getImage().pixelColor(event->x()-12, event->y()-29));
+        }
+    }
 }
 
 
@@ -305,4 +343,94 @@ void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
     popup.setFps(fps);
 
     emit frameRateSliderMoved(fps);
+
+    if(ui->penButton->isChecked())
+    {
+        mousePressed = false;
+    }
+
+    if(ui->eraserButton->isChecked())
+    {
+        mousePressed = false;
+    }
+
+
+}
+
+void SpriteEditorWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Up)
+    {
+        qDebug() << "key up is press";
+    }
+}
+
+void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Up) // which arrow == 0
+    {
+        if(currentFrame->getCurrentSelectedY() < 35 + currentFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
+        if(currentFrame->getIsPixelSelected())
+        {
+            //create  the setter for this variable
+            currentFrame->whichArrow = 0;
+            currentFrame->shiftPixel(currentFrame->getCurrentSelectedX(),currentFrame->getCurrentSelectedY(), currentFrame->getSelectedColor());
+            currentFrame->update();
+            currentFrame->setCurrentSelectedY(currentFrame->getCurrentSelectedY()-currentFrame->getCurrentPixelSize());
+
+        }
+    }
+
+    if(event->key() == Qt::Key_Down)
+    {
+        if(currentFrame->getCurrentSelectedY() > 815 - currentFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
+        if(currentFrame->getIsPixelSelected())
+        {
+            currentFrame->whichArrow = 1;
+            currentFrame->shiftPixel(currentFrame->getCurrentSelectedX(),currentFrame->getCurrentSelectedY(), currentFrame->getSelectedColor());
+            currentFrame->update();
+            currentFrame->setCurrentSelectedY(currentFrame->getCurrentSelectedY()+currentFrame->getCurrentPixelSize());
+
+        }
+    }
+
+    if(event->key() == Qt::Key_Left)
+    {
+        if(currentFrame->getCurrentSelectedX() < 25+ currentFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
+        if(currentFrame->getIsPixelSelected())
+        {
+            currentFrame->whichArrow = 2;
+            currentFrame->shiftPixel(currentFrame->getCurrentSelectedX(),currentFrame->getCurrentSelectedY(), currentFrame->getSelectedColor());
+            currentFrame->update();
+            currentFrame->setCurrentSelectedX(currentFrame->getCurrentSelectedX()-currentFrame->getCurrentPixelSize());
+
+        }
+    }
+
+    if(event->key() == Qt::Key_Right)
+    {
+        if(currentFrame->getCurrentSelectedX() > 800 - currentFrame->getCurrentPixelSize()/2)
+        {
+            return;
+        }
+        if(currentFrame->getIsPixelSelected())
+        {
+            currentFrame->whichArrow = 3;
+            currentFrame->shiftPixel(currentFrame->getCurrentSelectedX(),currentFrame->getCurrentSelectedY(), currentFrame->getSelectedColor());
+            currentFrame->update();
+            currentFrame->setCurrentSelectedX(currentFrame->getCurrentSelectedX()+currentFrame->getCurrentPixelSize());
+
+        }
+    }
+
+    updatePreviewImage();
 }

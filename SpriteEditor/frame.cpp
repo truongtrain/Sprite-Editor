@@ -12,17 +12,11 @@ Frame::Frame(QWidget *parent, bool isDrawingMirroredChecked)
     isDrawingMirrored = isDrawingMirroredChecked;
     image= QImage(GRID_RESOLUTION,GRID_RESOLUTION,QImage::Format_RGB32);
 
-    image.fill(qRgba(160 , 160, 160, 10));
+   image.fill(qRgba(160 , 160, 160, 10));
     currentPixelSize= 25;
     currentColor = Qt::gray;
+    isPixelSelected = false;
 
-//    for (int row = 0; row < 32; row++)
-//    {
-//        for (int column = 0; column < 32; column++)
-//        {
-//            colorGrid[row][column] = Qt::transparent;
-//        }
-//    }
 }
 
 Frame::Frame(const Frame& other, bool isDrawingMirroredChecked)
@@ -33,6 +27,7 @@ Frame::Frame(const Frame& other, bool isDrawingMirroredChecked)
     currentYCoord = other.currentYCoord;
     currentColor = other.currentColor;
     isDrawingMirrored = isDrawingMirroredChecked;
+
 }
 
 Frame& Frame::operator= (Frame other)
@@ -76,9 +71,51 @@ Frame::PixelCoordinates Frame::getPixelAtCoordinates(int x, int y)
     return result;
 }
 
+void Frame::setIsPixelSelected(bool input)
+{
+    qDebug() <<input;
+    this->isPixelSelected = input;
+}
+
+void Frame::setCurrentSelectedX(int input)
+{
+    qDebug() << "setCurrentSelectedX input was" << input ;
+    this->currentSelectedX = input;
+}
+
+void Frame::setCurrentSelectedY(int input)
+{
+    this->currentSelectedY = input;
+}
+
+void Frame::setSelectedColor(QColor input)
+{
+    this->selectedColor = input;
+}
+
+bool Frame::getIsPixelSelected()
+{
+    return this->isPixelSelected;
+}
+
+int Frame::getCurrentSelectedX()
+{
+    return this->currentSelectedX;
+}
+
+int Frame::getCurrentSelectedY()
+{
+    return this->currentSelectedY;
+}
+
+QColor Frame::getSelectedColor()
+{
+    return this->selectedColor;
+}
+
 void Frame::saveColor(int x, int y, QColor color)
 {
-    int xOffset = 10;
+    int xOffset = 12;
     int yOffset = 26;
     int xIndex = (x - xOffset)/currentPixelSize;
     int yIndex = (y - yOffset)/currentPixelSize;
@@ -88,6 +125,7 @@ void Frame::paintEvent(QPaintEvent *)
 {
     // Account for offset of our draw area within the window
     PixelCoordinates points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
+
 
     QPainter painter(this);
     QPainter imagePainter(&image);
@@ -117,12 +155,52 @@ void Frame::paintEvent(QPaintEvent *)
         // 10 is the x offset and 26 is the y offset
         PixelCoordinates points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
-        QRect rectangle(points.xStarting, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+        rectangle = QRect(points.xStarting, points.yStarting, this->currentPixelSize,this->currentPixelSize);
         imagePainter.setBrush(brush);
 
         imagePainter.fillRect(rectangle,brush);
     }
 
+    rectangle= QRect(points.xStarting, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+    imagePainter.setBrush(brush);
+    imagePainter.fillRect(rectangle,brush);
+    imagePainter.drawRect(rectangle);
+    if(isPixelSelected)
+    {
+        qDebug() <<whichArrow;
+        if(whichArrow == 0)
+        {
+            QRect rectanglePrevious(points.xStarting, points.yStarting+currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            //imagePainter.drawRect(rectanglePrevious);
+        }
+        if(whichArrow == 1)
+        {
+            QRect rectanglePrevious(points.xStarting, points.yStarting-currentPixelSize, this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            //imagePainter.drawRect(rectanglePrevious);
+        }
+        if(whichArrow == 2)
+        {
+            QRect rectanglePrevious(points.xStarting+currentPixelSize, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            //imagePainter.drawRect(rectanglePrevious);
+        }
+        if(whichArrow == 3)
+        {
+            QRect rectanglePrevious(points.xStarting-currentPixelSize, points.yStarting, this->currentPixelSize,this->currentPixelSize);
+            QBrush grayBrush(Qt::gray);
+            imagePainter.setBrush(grayBrush);
+            imagePainter.fillRect(rectanglePrevious,grayBrush);
+            //imagePainter.drawRect(rectanglePrevious);
+        }
+    }
     painter.drawImage(QPoint(),image);
 
     //display grid lines
@@ -142,7 +220,6 @@ void Frame::drawPixel(int x, int y, QColor color) {
     currentXCoord = x;
     currentYCoord = y;
     currentColor = color;
-    //saveColor(x, y, color);
     update();
 }
 
@@ -175,4 +252,45 @@ Frame::PixelCoordinates::PixelCoordinates(int xStart, int xEnd, int yStart, int 
     xEnding = xEnd;
     yStarting = yStart;
     yEnding = yEnd;
+}
+void Frame::shiftPixel(int x, int y, QColor color)
+{
+    if(whichArrow == 0)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x;
+        currentYCoord = y - currentPixelSize;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+    if(whichArrow == 1)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x;
+        currentYCoord = y + currentPixelSize;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+    if(whichArrow == 2)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x - currentPixelSize;
+        currentYCoord = y ;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+    if(whichArrow == 3)
+    {
+        qDebug() << "Im here 3";
+        currentXCoord = x+ currentPixelSize;
+        currentYCoord = y ;
+        qDebug() << "The color was" << color;
+        currentColor = color;
+        update();
+    }
+
+
 }

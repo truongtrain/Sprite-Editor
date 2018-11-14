@@ -167,7 +167,7 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Up) // which arrow == 0
     {
-        if(myFrame->getCurrentSelectedY() < 29 + myFrame->getCurrentPixelSize()/2)
+        if(myFrame->getCurrentSelectedY() < 35 + myFrame->getCurrentPixelSize()/2)
         {
             return;
         }
@@ -200,7 +200,7 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 
     if(event->key() == Qt::Key_Left)
     {
-        if(myFrame->getCurrentSelectedX() < 12+ myFrame->getCurrentPixelSize()/2)
+        if(myFrame->getCurrentSelectedX() < 25+ myFrame->getCurrentPixelSize()/2)
         {
             return;
         }
@@ -216,7 +216,7 @@ void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)
 
     if(event->key() == Qt::Key_Right)
     {
-        if(myFrame->getCurrentSelectedX() > 820 - myFrame->getCurrentPixelSize()/2)
+        if(myFrame->getCurrentSelectedX() > 800 - myFrame->getCurrentPixelSize()/2)
         {
             return;
         }

@@ -221,7 +221,9 @@ void SpriteModel::load(QString fileName)
     }
     qDebug() << frames.size();
      setCurrentFrame(frames.size() - 1);
+
     }
+
 }
 
 void SpriteModel::exportGif()

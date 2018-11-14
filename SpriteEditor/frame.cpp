@@ -123,6 +123,7 @@ void Frame::saveColor(int x, int y, QColor color)
 }
 void Frame::paintEvent(QPaintEvent *)
 {
+    qDebug() << "painter is being call from load";
     // Account for offset of our draw area within the window
     PixelCoordinates points = getPixelAtCoordinates(currentXCoord-10,currentYCoord-26);
 
@@ -165,6 +166,7 @@ void Frame::paintEvent(QPaintEvent *)
     imagePainter.setBrush(brush);
     imagePainter.fillRect(rectangle,brush);
     imagePainter.drawRect(rectangle);
+
     if(isPixelSelected)
     {
         qDebug() <<whichArrow;
@@ -201,6 +203,7 @@ void Frame::paintEvent(QPaintEvent *)
             //imagePainter.drawRect(rectanglePrevious);
         }
     }
+
     painter.drawImage(QPoint(),image);
 
     //display grid lines

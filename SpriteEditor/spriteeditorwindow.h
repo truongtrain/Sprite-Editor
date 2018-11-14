@@ -50,6 +50,7 @@ public slots:
 
     void updatePreviewImage();
     void receiveImages(QList<QImage> images);
+    void setFps(int newFps);
 
     void handleDuplicatedFrame();
     void updateFrame(Frame* current);

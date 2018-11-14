@@ -275,7 +275,6 @@ void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::updatePreviewImage()
 {
-     qDebug()<<"updatePreviewImage1 begin";
 
     QImage image;
 
@@ -294,8 +293,9 @@ void SpriteEditorWindow::updatePreviewImage()
     ui->previewLabel->setPixmap(QPixmap::fromImage(previewImage));
     ui->previewLabel->show();
 
+
+
     incrementImageIndex();
-    qDebug()<<"updatePreviewImage1 end";
 }
 
 void SpriteEditorWindow::incrementImageIndex()
@@ -341,7 +341,7 @@ void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
 
 void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
 {
-    int fps = position * 2;
+    fps = position * 2;
 
     //change the timer to the new fps
     previewTimer->stop();
@@ -350,7 +350,7 @@ void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
     // Update the popup to have the same fps
     popup.setFps(fps);
 
-    emit frameRateSliderMoved(fps);
+    //emit frameRateSliderMoved(fps);
 
     if(ui->penButton->isChecked())
     {
@@ -461,4 +461,9 @@ void SpriteEditorWindow::on_actionOpen_triggered()
             tr("Open Sprite Sheet Project"), "",
             tr("Sprite Sheet Project (*.ssp)"));
     emit loadFrame(fileName);
+}
+
+void SpriteEditorWindow::setFps(int newFps)
+{
+    fps = newFps;
 }

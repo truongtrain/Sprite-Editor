@@ -29,6 +29,7 @@ void Popup::setImages(QList<QImage> imageList)
 void Popup::setFps(int newFps)
 {
     fps = newFps;
+    qDebug() << "popup fps: " << fps;
 
     if(fpsTimer->isActive())
     {
@@ -43,7 +44,18 @@ void Popup::updateImage()
     {
         ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
         ui->imageLabel->show();
-        //QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
+        QTimer::singleShot(1000/fps, this, SLOT(updateImage2()));
+        incrementImageIndex();
+    }
+}
+
+void Popup::updateImage2()
+{
+    if (popupOpen == true)
+    {
+        ui->imageLabel->setPixmap(QPixmap::fromImage(images[imageIndex]));
+        ui->imageLabel->show();
+        QTimer::singleShot(1000/fps, this, SLOT(updateImage()));
         incrementImageIndex();
     }
 }

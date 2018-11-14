@@ -1,8 +1,6 @@
- #include "spriteeditorwindow.h"
+#include "spriteeditorwindow.h"
 #include "ui_spriteeditorwindow.h"
-
 #include <QGridLayout>
-#include <iostream>
 
 SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     QMainWindow(parent),
@@ -15,12 +13,11 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
     ui->setupUi(this);
 
     previewTimer = new QTimer(this);
+
+    //Listen for signals from view
    QObject::connect(previewTimer, SIGNAL(timeout()),this,SLOT(updatePreviewImage()));
-
-
    QObject::connect(ui->addFrameButton, &QPushButton::pressed,
                     model, &SpriteModel::addFrame);
-   // Lambda to send an integer to our slot
    QObject::connect(ui->removeFrameButton, &QPushButton::pressed,
                     this, &SpriteEditorWindow::handleRemovedFrame);
    QObject::connect(this, &SpriteEditorWindow::frameRemoved,
@@ -49,6 +46,9 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                       model, &SpriteModel::save);
    QObject::connect(this, &SpriteEditorWindow::loadFrame,
                       model, &SpriteModel::load);
+   QObject::connect(ui->actionExport,&QAction::triggered,
+		    model, &SpriteModel::exportGif);
+
 
 
    // Listen for signals from model
@@ -60,10 +60,6 @@ SpriteEditorWindow::SpriteEditorWindow(QWidget *parent, SpriteModel *model) :
                     this, &SpriteEditorWindow::updateFrame);
    QObject::connect(model, &SpriteModel::sendImages,
                     this, &SpriteEditorWindow::receiveImages);
-
-
-   // send signal from view to model
-     QObject::connect(ui->actionExport,&QAction::triggered, model, &SpriteModel::exportGif);
 
 
    // We do this here instead of the model constructor because the constructor
@@ -99,7 +95,6 @@ void SpriteEditorWindow::handleAddedFrame(int framesMade)
     ui->framesList->setCurrentRow(lastRow);
 
     currentFrameIndex = lastRow;
-    qDebug()<<"frame index" << currentFrameIndex;
     emit updateCurrentFrameIndex(lastRow);
     updateButtonsToDisable();
 }
@@ -120,12 +115,11 @@ void SpriteEditorWindow::handleDuplicatedFrame()
 {
      QString originalName = ui->framesList->currentItem()->text();
      QString copyName = QString(originalName + " Copy");
-
      int copyIndex = ui->framesList->currentRow() + 1;
+     
      ui->framesList->insertItem(copyIndex, copyName);
      ui->framesList->setCurrentRow(copyIndex);
      emit updateCurrentFrameIndex(copyIndex);
-
      updateButtonsToDisable();
 }
 
@@ -215,9 +209,6 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     if(isMouseInFrame)
     {
         mousePressed = true;
-        qDebug() << "x: " << event->x();
-        qDebug() << "y: " << event->y();
-        qDebug() << "Color: " << penColor;
         currentFrame->drawPixel(event->x(),event->y(),penColor);
     }
     QImage& image = currentFrame->getImage();
@@ -226,12 +217,6 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
     if(ui->penButton->isChecked())
     {
         mousePressed = true;
-          qDebug() << "x: " << event->x();
-         qDebug() << "y: " << event->y();
-//          qDebug() << "Color: " << penColor;
-
-        //  lastXPosition = event->x();
-        //  lastYPostion = event->y();
 
         currentFrame->drawPixel(event->x(),event->y(),penColor);
         currentFrame->setIsPixelSelected(false);
@@ -250,10 +235,8 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
         if(event->x() >= 12 && event->x() <= 812 && event->y() >=29 && event->y() <=829)
         {
             currentFrame->setIsPixelSelected(true);
-            qDebug() << "event x was" << event->x() ;
             currentFrame->setCurrentSelectedX(event->x());
             currentFrame->setCurrentSelectedY(event->y());
-            qDebug() << "selected color was" << QColor(currentFrame->getImage().pixel(event->x(), event->y())) ;
             currentFrame->setSelectedColor(currentFrame->getImage().pixelColor(event->x()-12, event->y()-29));
         }
     }
@@ -262,12 +245,9 @@ void SpriteEditorWindow::mousePressEvent(QMouseEvent *event)
 
 void SpriteEditorWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-
-    qDebug()<<"begin mouse release";
     mousePressed = false;
     updatePreviewImage();
     QImage& image = currentFrame->getImage();
-    qDebug()<<"mouse release event popup images size" << popup.images.size();
     emit updateAnimation(currentFrameIndex, image);
 
 }
@@ -313,7 +293,6 @@ void SpriteEditorWindow::incrementImageIndex()
 
 void SpriteEditorWindow::on_resolutionSlider_sliderMoved(int position)
 {
-    std::cout << "resolution slider moved to " << position << std::endl;
     emit resolutionSliderMovedSignal(position);
 }
 
@@ -334,7 +313,6 @@ void SpriteEditorWindow::on_popOutButton_clicked()
 
 void SpriteEditorWindow::receiveImages(QList<QImage> imageList)
 {
-    qDebug()<<"images received and sent to popup";
     images = imageList;
     popup.setImages(imageList);
 }
@@ -367,10 +345,7 @@ void SpriteEditorWindow::on_frameRateSlider_sliderMoved(int position)
 
 void SpriteEditorWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Up)
-    {
-        qDebug() << "key up is press";
-    }
+   
 }
 
 void SpriteEditorWindow::keyReleaseEvent(QKeyEvent *event)

@@ -15,7 +15,6 @@ class SpriteModel : public QObject
 
 private:
     QList<QImage> images;
-    //std::vector<Frame*> frames;
     int currentFrameIndex;
     QList<Frame*> frames;
     int frameRate;
@@ -30,11 +29,10 @@ private:
 public:
     SpriteModel();
     ~SpriteModel();
+    
 signals:
     // Lets view know a frame was added and gives it the count of frames
-    void frameAdded(int count);
-    //void frameDuplicated(int index);
-    //void currentFrameUpdated(Frame& current);
+    void frameAdded(int count);  
     void sendImages(QList<QImage> images);
     void frameDuplicated();
     void currentFrameUpdated(Frame* current);

@@ -4,14 +4,13 @@
 #include <QMainWindow>
 #include <QColorDialog>
 #include <QMouseEvent>
-#include <QDebug>
 #include <QListWidget>
-#include "frame.h"
-#include "spritemodel.h"
-#include "popup.h"
 #include <QSignalMapper>
 #include <QKeyEvent>
 #include <QFileDialog>
+#include "frame.h"
+#include "spritemodel.h"
+#include "popup.h"
 
 namespace Ui {
 class SpriteEditorWindow;
@@ -31,30 +30,21 @@ signals:
     void frameRemoved(int removedIndex, int newIndex);
     void resolutionSliderMovedSignal(int value);
     void drawMirroredBoxChangedSignal(bool checked);
-
     void updateAnimation(int index, QImage& image);
     void frameRateSliderMoved(int newFps);
-
     void saveFrame(QString fileName);
     void loadFrame(QString fileName);
-
     void itemSwapped(int index, bool isDown);
 
 
 public slots:
     void on_chooseColorBox_clicked();
     void handleAddedFrame(int framesMade);
-
-    //void handleDuplicatedFrame(int originalIndex);
-    //void updateFrame(Frame& current);
-
     void updatePreviewImage();
     void receiveImages(QList<QImage> images);
     void setFps(int newFps);
-
     void handleDuplicatedFrame();
     void updateFrame(Frame* current);
-
     void on_resolutionSlider_sliderMoved(int position);
     void on_drawMirrorCheckBox_toggled(bool checked);
 
@@ -67,13 +57,12 @@ private:
     int currentFrameIndex;
     int imageIndex;
     bool mousePressed;
-
     Popup popup;
     int fps;
-    void updateRemoveButton();
-    void incrementImageIndex();
     QTimer *previewTimer;
 
+    void updateRemoveButton();
+    void incrementImageIndex();
     void updateButtonsToDisable();
 
 
@@ -90,7 +79,6 @@ private slots:
     void swapItem(bool isDown);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-
     void on_actionSave_triggered();
     void on_actionOpen_triggered();
 };
